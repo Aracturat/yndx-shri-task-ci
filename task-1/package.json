@@ -1,0 +1,33 @@
+{
+  "name": "shri-2020-task-1",
+  "version": "1.0.0",
+  "description": "В этом репозитории находятся материалы тестового задания «Реализуйте дизайн-систему» для [16-й Школы разработки интерфейсов](https://yandex.ru/promo/academy/shri) (зима 2020, Москва).",
+  "scripts": {
+    "dev": "webpack -w --mode=development",
+    "build": "webpack --mode=production",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aracturat/shri-2020-task-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aracturat/shri-2020-task-1/issues"
+  },
+  "homepage": "https://github.com/Aracturat/shri-2020-task-1#readme",
+  "devDependencies": {
+    "css-loader": "^3.4.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-url": "^8.0.0",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
