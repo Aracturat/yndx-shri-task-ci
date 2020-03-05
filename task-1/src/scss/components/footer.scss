@@ -1,0 +1,33 @@
+.footer {
+  background: #F0F2F3;
+  color: #7F8285;
+
+  &__content {
+    margin: 0 auto;
+    max-width: 824px;
+
+    padding: 8px 20px;
+
+    @media (min-width: 800px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 12px 0px;
+    }
+  }
+
+  &__left {
+    display: flex;
+  }
+
+  &__right {
+    display: flex;
+  }
+
+  &__item {
+    & + & {
+      margin-left: 12px;
+    }
+  }
+}

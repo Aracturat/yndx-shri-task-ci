@@ -1,0 +1,11 @@
+.icon {
+  display: inline-block;
+  background: center center no-repeat;
+
+  &--gear {
+    background-image: url("src/assets/icons/gear.svg");
+
+    width: 12px;
+    height: 12px;
+  }
+}

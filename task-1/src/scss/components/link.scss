@@ -1,0 +1,16 @@
+.link {
+  font-family: YS Text, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.06px;
+
+  color: #7F8285;
+  text-decoration: none;
+
+  &:hover, &:active, &:focus {
+    color: #E00000;
+  }
+}
