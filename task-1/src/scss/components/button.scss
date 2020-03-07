@@ -1,11 +1,52 @@
 .button {
-  height: 28px;
-  background: #E6E6E6;
+  height: 36px;
+  background: var(--color-bg-button, var(--color-bg-control));
+
+  border: 2px solid var(--color-border-button, var(--color-bg-control));
   border-radius: 4px;
+  outline: none;
 
-  padding: 0 10px;
+  padding: 0 18px;
 
-  border: 0;
+  font-family: YS Text;
+  font-size: 13px;
+  line-height: 32px;
+  color: var(--color-text);
 
   cursor: pointer;
+
+  &:hover {
+    --color-border-button: var(--color-bg-control-hovered);
+    --color-bg-button: var(--color-bg-control-hovered);
+  }
+
+  &:focus {
+    --color-border-button: var(--color-border-control-focused);
+  }
+
+  &--action {
+    --color-border-button: var(--color-bg-action);
+    --color-bg-button: var(--color-bg-action);
+
+    &:hover {
+      --color-border-button: var(--color-bg-action-hovered);
+      --color-bg-button: var(--color-bg-action-hovered);
+    }
+
+    &:focus {
+      --color-border-button: var(--color-border-action-focused);
+    }
+  }
+
+  &:disabled,
+  &[disabled] {
+    --color-border-button: var(--color-bg-disabled);
+    --color-bg-button: var(--color-bg-disabled);
+  }
+
+  &--small {
+    height: 28px;
+    line-height: 24px;
+    padding: 0 6px;
+  }
 }
