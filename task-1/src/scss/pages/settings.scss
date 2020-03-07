@@ -1,0 +1,41 @@
+.settings-form {
+  max-width: 474px;
+  min-width: 230px;
+  width: 100%;
+
+  &__header {
+    font-family: YS Text;
+    font-weight: bold;
+
+    font-size: 15px;
+    line-height: 20px;
+    margin-bottom: 8px;
+  }
+
+  &__description {
+    font-family: YS Text;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.06px;
+    color: #7F8285;
+    margin-bottom: 12px;
+  }
+
+  &__minutes-input {
+    width: 52px;
+  }
+
+  &__buttons {
+    margin-top: 12px;
+    margin-bottom: 20px;
+
+    display: grid;
+    grid-row-gap: 12px;
+    grid-column-gap: var(--space-v);
+    grid-template-columns: 1fr;
+
+    @media (min-width: 320px) {
+      grid-template-columns: min-content min-content;
+    }
+  }
+}
