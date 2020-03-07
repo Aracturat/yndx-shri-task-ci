@@ -110,6 +110,30 @@
 				</span>
 			</button>
 		</p>
+
+		<h2>Form fields</h2>
+		<div>
+			<div class="form-field">
+				<label class="form-field__label" for="id1">Github repository</label>
+				<input type="text" class="form-field__input" placeholder="user-name/repo-name" id="id1"/>
+			</div>
+			<div class="form-field form-field--required">
+				<label class="form-field__label" for="id2">Github repository</label>
+				<input type="text" class="form-field__input" placeholder="user-name/repo-name" id="id2"/>
+			</div>
+			<div class="form-field">
+				<label class="form-field__label" for="id3">Build command</label>
+				<input class="form-field__input" type="text" value="npm ci && npm run build" id="id3"/>
+				<span class="form-field__clear-button"></span>
+			</div>
+			<div class="form-field form-field--inline">
+				<label class="form-field__label" for="id4">Synchronize every</label>
+				<input class="form-field__input" type="text" id="id4"/>
+				<span class="form-field__clear-button"></span>
+				<span class="form-field__after-element">minutes</span>
+			</div>
+
+		</p>
 	</div>
 </main>
 <footer class="footer">

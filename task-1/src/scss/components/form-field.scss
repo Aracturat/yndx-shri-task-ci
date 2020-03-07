@@ -1,0 +1,94 @@
+.form-field {
+  font-family: YS Text;
+  font-size: 13px;
+
+  display: grid;
+  align-items: center;
+  grid-row-gap: 6px;
+
+  padding: 10px 0;
+
+  &__label {
+    line-height: 18px;
+    letter-spacing: 0.06px;
+  }
+
+  &__input {
+    height: 36px;
+    padding: 9px 11px;
+    outline: none;
+
+    border: 2px solid var(--color-border-field);
+    border-radius: 4px;
+    background: var(--color-bg-field);
+
+    &::placeholder {
+      color: #000000;
+      opacity: 0.2;
+    }
+
+    &:focus, &:hover, &:active {
+      border-color: var(--color-border-field-focused);
+    }
+  }
+
+  &__clear-button {
+    background: var(--color-bg-field)
+                url('src/assets/icons/clear.svg') no-repeat right center;
+
+    background-size: contain;
+
+    width: 16px;
+    height: 16px;
+
+    margin-right: 10px;
+
+    cursor: pointer;
+
+    justify-self: end;
+
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      width: 8px;
+      height: 100%;
+      background: linear-gradient(to right, transparent, var(--color-bg-field) 70%);
+      cursor: initial;
+    }
+  }
+
+  &__input,
+  &__clear-button {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  &--required {
+    .form-field__label:after {
+      content: '*';
+      color: var(--color-red);
+      margin-left: 2px;
+    }
+  }
+
+  &--inline {
+    padding: 12px 0;
+    grid-column-gap: var(--space-v);
+    grid-template-columns: repeat(4, max-content);
+
+    .form-field__label,
+    .form-field__input,
+    .form-field__clear-button,
+    .form-field__after-element {
+      grid-row: 1;
+    }
+
+    .form-field__input,
+    .form-field__clear-button {
+      grid-column: 2;
+    }
+  }
+}
