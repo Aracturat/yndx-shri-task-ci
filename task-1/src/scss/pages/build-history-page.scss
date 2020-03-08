@@ -1,0 +1,27 @@
+.build-history-page {
+
+  &__settings-button {
+    margin-left: 8px;
+  }
+
+  &__run-build-button-text {
+    display: none;
+
+    @media (min-width: 824px) {
+      display: block;
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-gap: var(--space-v);
+  }
+
+  &__show-more-button {
+    width: 100%;
+
+    @media (min-width: 824px) {
+      width: auto;
+    }
+  }
+}
