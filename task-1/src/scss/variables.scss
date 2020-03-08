@@ -1,4 +1,10 @@
 :root {
+  --color-white: #FFFFFF;
+  --color-red: #FF3333;
+  --color-green: #00B341;
+  --color-orange: #FF9A00;
+  --color-black: #000000;
+
   --color-bg-action: #FFCC00;
   --color-bg-action-hovered: #F2C200;
   --color-border-action-focused: #B38F00;
@@ -9,13 +15,43 @@
 
   --color-bg-disabled: #F2F2F2;
 
-  --color-bg-field: #FFFFFF;
+  --color-bg-field: var(--color-white);
   --color-border-field: #D9D9D9;
   --color-border-field-focused: #B3B3B3;
 
-  --color-text: #000000;
+  --color-text: var(--color-black);
 
-  --color-red: #FF3333;
+  --color-header-text: var(--color-black);
+  --color-header-inactive-text: #7F8285;
+
+  --color-link: #7F8285;
+  --color-link-hovered: #E00000;
+
+  --color-icon-with-text-primary-text: var(--color-text);
+  --color-icon-with-text-secondary-text: #595959;
+
+  --color-success: var(--color-green);
+  --color-error: var(--color-red);
+  --color-pending: var(--color-orange);
 
   --space-v: 8px;
+
+  --text-font-family: YS Text, sans-serif;
+
+  --text-size-s: 13px;
+  --text-letter-spacing-s: 0.06px;
+
+  --text-size-m: 15px;
+  --text-letter-spacing-m: normal;
+
+  --text-size-l: 18px;
+  --text-letter-spacing-l: normal;
+
+  --text-size-xl: 24px;
+  --text-letter-spacing-xl: 0.25px;
+
+
+  --icon-size-s: 12px;
+  --icon-size-m: 16px;
+  --icon-size-l: 24px;
 }

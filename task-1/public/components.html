@@ -11,7 +11,7 @@
 <header class="header">
 	<div class="header__content">
 		<div class="header__left">
-			<h1 class="header-text">School CI server</h1>
+			<h1 class="header-text header-text--inactive">School CI server</h1>
 		</div>
 		<div class="header__right">
 			<button class="button button--small">
@@ -33,7 +33,7 @@
 <main class="main">
 	<div class="main__content">
 
-		<h2>Buttons</h2>
+		<h2 class="header-text header-text--small">Buttons</h2>
 		<p>
 			<button class="button">Cancel</button>
 			<button class="button" disabled>Cancel</button>
@@ -42,7 +42,7 @@
 			<button class="button button--action" disabled>Save</button>
 		</p>
 
-		<h2>Small buttons</h2>
+		<h2 class="header-text header-text--small">Small buttons</h2>
 		<p>
 			<button class="button button--small">Cancel</button>
 			<button class="button button--small" disabled>Cancel</button>
@@ -51,7 +51,7 @@
 			<button class="button button--action button--small" disabled>Save</button>
 		</p>
 
-		<h2>Icons</h2>
+		<h2 class="header-text header-text--small">Icons</h2>
 		<p>
 			<span class="icon icon--size-s icon--branch"></span>
 			<span class="icon icon--size-s icon--calendar"></span>
@@ -96,7 +96,7 @@
 			<span class="icon icon--size-l icon--timer"></span>
 		</p>
 
-		<h2>Button with icons and text</h2>
+		<h2 class="header-text header-text--small">Button with icons and text</h2>
 		<p>
 			<button class="button button--small">
 				<span class="text-with-icon">
@@ -111,29 +111,86 @@
 			</button>
 		</p>
 
-		<h2>Form fields</h2>
+		<h2 class="header-text header-text--small">Form fields</h2>
 		<div>
 			<div class="form-field">
 				<label class="form-field__label" for="id1">Github repository</label>
-				<input type="text" class="form-field__input" placeholder="user-name/repo-name" id="id1"/>
+				<input class="form-field__input" id="id1" placeholder="user-name/repo-name" type="text" />
 			</div>
 			<div class="form-field form-field--required">
 				<label class="form-field__label" for="id2">Github repository</label>
-				<input type="text" class="form-field__input" placeholder="user-name/repo-name" id="id2"/>
+				<input class="form-field__input" id="id2" placeholder="user-name/repo-name" type="text" />
 			</div>
 			<div class="form-field">
 				<label class="form-field__label" for="id3">Build command</label>
-				<input class="form-field__input" type="text" value="npm ci && npm run build" id="id3"/>
+				<input class="form-field__input" id="id3" type="text" value="npm ci && npm run build" />
 				<span class="form-field__clear-button"></span>
 			</div>
 			<div class="form-field form-field--inline">
 				<label class="form-field__label" for="id4">Synchronize every</label>
-				<input class="form-field__input" type="text" id="id4"/>
+				<input class="form-field__input" id="id4" type="text" />
 				<span class="form-field__clear-button"></span>
 				<span class="form-field__after-element">minutes</span>
 			</div>
 
-		</p>
+		</div>
+		<div class="build-info-card">
+			<div class="build-info-card__status-icon icon icon--success"></div>
+			<div class="build-info-card__commit-first-line">
+				<div class="build-info-card__commit-number build-info-card__commit-number--success">#1368</div>
+				<div class="build-info-card__commit-name">add documentation for postgres scaler add documentation for postgres add documentation for postgres scaler scaler</div>
+			</div>
+			<div class="build-info-card__commit-second-line">
+				<div class="text-with-icon">
+					<div class="text-with-icon__icon icon icon--branch icon--size-s "></div>
+					<div class="text-with-icon__primary-text">master</div>
+					<div class="text-with-icon__secondary-text">9c9f0b9</div>
+				</div>
+				<div class="text-with-icon build-info-card__author">
+					<div class="text-with-icon__icon icon icon--person icon--size-s"></div>
+					<div class="text-with-icon__primary-text">Philip Kirkorov</div>
+				</div>
+			</div>
+			<div class="build-info-card__build-info">
+				<div class="text-with-icon build-info-card__build-date">
+					<div class="text-with-icon__icon icon icon--calendar icon--size-s"></div>
+					<div class="text-with-icon__secondary-text">21 янв, 03:06</div>
+				</div>
+				<div class="text-with-icon">
+					<div class="text-with-icon__icon icon icon--timer icon--size-s"></div>
+					<div class="text-with-icon__secondary-text">1 ч 20 мин</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="build-info-card build-info-card--with-hover">
+			<div class="build-info-card__status-icon icon icon--success"></div>
+			<div class="build-info-card__commit-first-line">
+				<div class="build-info-card__commit-number build-info-card__commit-number--success">#1368</div>
+				<div class="build-info-card__commit-name">add documentation for postgres scaler add documentation for postgres add documentation for postgres scaler scaler</div>
+			</div>
+			<div class="build-info-card__commit-second-line">
+				<div class="text-with-icon">
+					<div class="text-with-icon__icon icon icon--branch icon--size-s "></div>
+					<div class="text-with-icon__primary-text">master</div>
+					<div class="text-with-icon__secondary-text">9c9f0b9</div>
+				</div>
+				<div class="text-with-icon build-info-card__author">
+					<div class="text-with-icon__icon icon icon--person icon--size-s"></div>
+					<div class="text-with-icon__primary-text">Philip Kirkorov</div>
+				</div>
+			</div>
+			<div class="build-info-card__build-info">
+				<div class="text-with-icon build-info-card__build-date">
+					<div class="text-with-icon__icon icon icon--calendar icon--size-s"></div>
+					<div class="text-with-icon__secondary-text">21 янв, 03:06</div>
+				</div>
+				<div class="text-with-icon">
+					<div class="text-with-icon__icon icon icon--timer icon--size-s"></div>
+					<div class="text-with-icon__secondary-text">1 ч 20 мин</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </main>
 <footer class="footer">
@@ -143,7 +200,7 @@
 			<a class="footer__item link" href="#">Leaning</a>
 		</div>
 		<div class="footer__right">
-			<span class="footer__item text">© 2020 Nikolay Dozmorov</span>
+			<span class="footer__item text text--size-s">© 2020 Nikolay Dozmorov</span>
 		</div>
 	</div>
 </footer>

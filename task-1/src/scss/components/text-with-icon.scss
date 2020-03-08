@@ -2,19 +2,22 @@
   display: flex;
   align-items: center;
 
+  font-family: var(--text-font-family);
+  font-size: var(--text-size-s);
+  letter-spacing: var(--text-letter-spacing-s);
+
   &__icon {
   }
 
   &__primary-text {
-    font-family: YS Text;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 13px;
-
     margin-left: 5px;
+
+    color: var(--color-icon-with-text-primary-text);
   }
 
   &__secondary-text {
     margin-left: 5px;
+
+    color: var(--color-icon-with-text-secondary-text);
   }
 }

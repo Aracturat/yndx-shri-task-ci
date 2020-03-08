@@ -1,0 +1,142 @@
+.build-info-card {
+  font-family: var(--text-font-family);
+
+  box-shadow: 0 1px 1px rgba(67, 68, 69, 0.3), 0 0 1px rgba(67, 68, 69, 0.3);
+  border-radius: 6px;
+
+  display: grid;
+  grid-gap: var(--space-v);
+
+  grid-template-columns: var(--icon-size-m) auto;
+  grid-template-rows: auto auto auto;
+
+  grid-template-areas: "status-icon first-line"
+                       "status-icon second-line"
+                       "status-icon build-info";
+
+  padding: 12px 16px;
+
+  @media (min-width: 824px) {
+    grid-template-columns: var(--icon-size-l) auto 98px;
+    grid-template-rows: auto auto;
+
+    grid-template-areas: "status-icon first-line  build-info"
+                         "status-icon second-line build-info";
+
+    padding: 12px 24px;
+  }
+
+  &--with-hover {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(67, 68, 69, 0.3), 0 0 1px rgba(67, 68, 69, 0.3);
+    }
+  }
+
+  &__status-icon {
+    grid-area: status-icon;
+
+    width: var(--icon-size-m);
+    height: var(--icon-size-m);
+
+    @media (min-width: 824px) {
+      width: var(--icon-size-l);
+      height: var(--icon-size-l);
+    }
+  }
+
+  &__commit-first-line {
+    grid-area: first-line;
+
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 824px) {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    overflow: hidden;
+  }
+
+  &__commit-second-line {
+    grid-area: second-line;
+
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 824px) {
+      flex-direction: row;
+    }
+  }
+
+  &__commit-number {
+    font-size: 16px;
+    font-weight: 500;
+
+    @media (min-width: 824px) {
+      font-size: var(--text-size-l);
+    }
+
+    &--success {
+      color: #00B341;
+    }
+
+    &--error {
+      color: #FF3333;
+    }
+
+    &--pending {
+      color: #FF9A00;
+    }
+  }
+
+  &__commit-name {
+    font-size: var(--text-size-m);
+    letter-spacing: var(--text-letter-spacing-m);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    margin-top: var(--space-v);
+
+    @media (min-width: 824px) {
+      margin-top: 0;
+      margin-left: 4px;
+    }
+  }
+
+  &__author {
+    margin-top: var(--space-v);
+
+    @media (min-width: 824px) {
+      margin-top: 0;
+      margin-left: 10px;
+    }
+  }
+
+  &__build-info {
+    grid-area: build-info;
+    display: flex;
+    border-top: 1px solid #F0F2F3;
+    padding-top: var(--space-v);
+
+    @media (min-width: 824px) {
+      flex-direction: column;
+
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+
+  &__build-date {
+    margin-right: 10px;
+
+    @media (min-width: 824px) {
+      margin-right: 0;
+      margin-bottom: 12px;
+    }
+  }
+}

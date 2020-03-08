@@ -4,18 +4,18 @@
   background-size: contain;
 
   &--size-s {
-    width: 12px;
-    height: 12px;
+    width: var(--icon-size-s);
+    height: var(--icon-size-s);
   }
 
   &--size-m {
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size-m);
+    height: var(--icon-size-m);
   }
 
   &--size-l {
-    width: 24px;
-    height: 24px;
+    width: var(--icon-size-l);
+    height: var(--icon-size-l);
   }
 
   @each $key in branch, calendar, clear, error, gear, pending, person, restart, start, success, timer {

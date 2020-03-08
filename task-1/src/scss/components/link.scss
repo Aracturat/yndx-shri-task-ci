@@ -1,16 +1,14 @@
 .link {
-  font-family: YS Text, Arial, sans-serif;
-  font-style: normal;
-  font-weight: normal;
+  font-family: var(--text-font-family);
+  font-size: var(--text-size-s);
+  letter-spacing: var(--text-letter-spacing-s);
 
-  font-size: 13px;
   line-height: 16px;
-  letter-spacing: 0.06px;
 
-  color: #7F8285;
+  color: var(--color-link);
   text-decoration: none;
 
   &:hover, &:active, &:focus {
-    color: #E00000;
+    color: var(--color-link-hovered);
   }
 }
