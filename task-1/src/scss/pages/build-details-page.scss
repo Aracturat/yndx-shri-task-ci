@@ -1,0 +1,30 @@
+.build-details-page {
+  &__settings-button {
+    margin-left: 8px;
+  }
+
+  &__restart-build-button-text {
+    display: none;
+
+    @media (min-width: 824px) {
+      display: block;
+    }
+  }
+
+  &__build-info {
+    margin-bottom: 12px;
+  }
+
+  &__log {
+    background: #F2F2F2;
+    border-radius: 6px;
+
+    padding: 8px 12px;
+    max-width: 100%;
+
+    overflow-x: scroll;
+
+    font-size: 10px;
+    line-height: 20px;
+  }
+}
