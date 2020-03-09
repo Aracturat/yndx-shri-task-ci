@@ -1,7 +1,7 @@
 {
-  "name": "shri-2020-task-1",
+  "name": "yndx-shri-tasks",
   "version": "1.0.0",
-  "description": "В этом репозитории находятся материалы тестового задания «Реализуйте дизайн-систему» для [16-й Школы разработки интерфейсов](https://yandex.ru/promo/academy/shri) (зима 2020, Москва).",
+  "description": "В этом репозитории находятся домашние задания ШРИ-2020.",
   "scripts": {
     "dev": "webpack -w --mode=development",
     "build": "webpack --mode=production",
@@ -9,15 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aracturat/shri-2020-task-1.git"
+    "url": "git+https://github.com/Aracturat/yndx-shri-tasks.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Aracturat/shri-2020-task-1/issues"
+    "url": "https://github.com/Aracturat/yndx-shri-tasks/issues"
   },
-  "homepage": "https://github.com/Aracturat/shri-2020-task-1#readme",
   "devDependencies": {
     "css-loader": "^3.4.0",
     "file-loader": "^5.1.0",
