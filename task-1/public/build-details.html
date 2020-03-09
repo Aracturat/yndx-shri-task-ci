@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
@@ -8,28 +8,23 @@
 	<link href="style.css" rel="stylesheet" />
 </head>
 <body class="page build-details-page">
-<header class="header">
+<header class="page__header header">
 	<div class="header__content">
 		<div class="header__left">
 			<h1 class="header-text">philip1967/my-awesome-repo</h1>
 		</div>
 		<div class="header__right">
 			<button class="button button--small build-details-page__restart-build-button">
-				<span class="text-with-icon">
-					<span class="text-with-icon__icon icon icon--size-s icon--restart"></span>
-					<span class="text-with-icon__primary-text build-details-page__restart-build-button-text">Rebuild</span>
-				</span>
+				<span class="button__icon icon icon--restart"></span>
+				<span class="button__text">Rebuild</span>
 			</button>
 			<button class="button button--small build-details-page__settings-button">
-				<span class="text-with-icon">
-					<span class="text-with-icon__icon icon icon--size-s icon--gear"></span>
-				</span>
+				<span class="button__icon icon icon--gear"></span>
 			</button>
 		</div>
 	</div>
-
 </header>
-<main class="main">
+<main class="page__main main">
 	<div class="main__content">
 		<div class="build-info-card build-info-card--build-info-to-bottom build-details-page__build-info">
 			<div class="build-info-card__status-icon icon icon--success"></div>
@@ -119,7 +114,7 @@ Child
 		</pre>
 	</div>
 </main>
-<footer class="footer">
+<footer class="page__footer footer">
 	<div class="footer__content">
 		<div class="footer__left">
 			<a class="footer__item link" href="#">Support</a>

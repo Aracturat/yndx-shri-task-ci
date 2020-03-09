@@ -1,31 +1,28 @@
 .footer {
-  background: #F0F2F3;
-  color: #7F8285;
+  display: grid;
+  grid-template-columns: minmax(16px, 1fr) minmax(0px, var(--max-content-width)) minmax(16px, 1fr);
+
+  background: var(--color-bg-footer);
+  color: var(--color-footer-text);
 
   &__content {
-    margin: 0 auto;
-    max-width: 824px;
-
-    padding: 12px 16px;
+    grid-column: 2;
+    padding: 12px 0;
 
     display: flex;
     flex-direction: column;
 
-    @media (min-width: 320px) {
+    @media (min-width: $desktop-breakpoint) {
       flex-direction: row;
       justify-content: space-between;
-      padding: 12px 16px;
-    }
-
-    @media (min-width: 824px) {
-      padding: 12px 0;
+      padding: 7px 0;
     }
   }
 
   &__left {
     margin-bottom: 8px;
 
-    @media (min-width: 320px) {
+    @media (min-width: $desktop-breakpoint) {
       margin-bottom: 0;
     }
   }

@@ -1,16 +1,16 @@
 .form-field {
-  font-family: YS Text;
-  font-size: 13px;
+  font-family: var(--text-font-family);
+  font-size: var(--text-size-s);
 
   display: grid;
   align-items: center;
   grid-row-gap: 6px;
 
-  padding: 10px 0;
+  padding: 10px 0 8px;
 
   &__label {
     line-height: 18px;
-    letter-spacing: 0.06px;
+    letter-spacing: var(--text-letter-spacing-s);
   }
 
   &__input {
@@ -23,7 +23,7 @@
     background: var(--color-bg-field);
 
     &::placeholder {
-      color: #000000;
+      color: var(--color-text);
       opacity: 0.2;
     }
 
@@ -38,8 +38,8 @@
 
     background-size: contain;
 
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size-m);
+    height: var(--icon-size-m);
 
     margin-right: 10px;
 
@@ -76,8 +76,12 @@
 
   &--inline {
     padding: 12px 0;
-    grid-column-gap: var(--space-v);
+    grid-column-gap: 8px;
     grid-template-columns: repeat(4, max-content);
+
+    @media (min-width: $desktop-breakpoint) {
+      padding: 8px 0;
+    }
 
     .form-field__label,
     .form-field__input,

@@ -1,17 +1,16 @@
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   height: 36px;
+  padding: 0;
+
   background: var(--color-bg-button, var(--color-bg-control));
 
-  border: 2px solid var(--color-border-button, var(--color-bg-control));
+  border: var(--border-size-button) solid var(--color-border-button, var(--color-bg-control));
   border-radius: 4px;
   outline: none;
-
-  padding: 0 18px;
-
-  font-family: YS Text;
-  font-size: 13px;
-  line-height: 32px;
-  color: var(--color-text);
 
   cursor: pointer;
 
@@ -44,9 +43,42 @@
     --color-bg-button: var(--color-bg-disabled);
   }
 
+  &__icon {
+    margin: 0 10px;
+
+    width: var(--icon-size-s);
+    height: var(--icon-size-s);
+  }
+
+  &__text {
+    margin: 0 calc(20px - var(--border-size-button));
+
+    font-family: var(--text-font-family);
+    font-size: var(--text-size-s);
+    color: var(--color-text);  }
+
+  &__icon + &__text {
+    margin-left: -1px;
+  }
+
   &--small {
     height: 28px;
-    line-height: 24px;
-    padding: 0 6px;
+
+    .button__icon {
+      margin: 0 6px;
+    }
+
+    .button__text {
+      margin: 0 11px;
+    }
+
+    .button__icon + .button__text {
+      display: none;
+      margin-left: -1px;
+
+      @media (min-width: $desktop-breakpoint) {
+        display: block;
+      }
+    }
   }
 }

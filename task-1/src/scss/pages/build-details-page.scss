@@ -3,26 +3,18 @@
     margin-left: 8px;
   }
 
-  &__restart-build-button-text {
-    display: none;
-
-    @media (min-width: 824px) {
-      display: block;
-    }
-  }
-
   &__build-info {
     margin-bottom: 12px;
   }
 
   &__log {
-    background: #F2F2F2;
+    background: var(--color-log);
     border-radius: 6px;
 
     padding: 8px 12px;
     max-width: 100%;
 
-    overflow-x: scroll;
+    overflow-x: auto;
 
     font-size: 10px;
     line-height: 20px;

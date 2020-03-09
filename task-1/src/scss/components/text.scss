@@ -30,13 +30,13 @@
   font-weight: bold;
   margin: 0;
 
-  &--inactive {
-    color: var(--color-header-inactive-text);
-  }
-
-  @media (min-width: 824px) {
+  @media (min-width: $desktop-breakpoint) {
     font-size: var(--text-size-xl);
     letter-spacing: var(--text-letter-spacing-xl);
+  }
+
+  &--inactive {
+    color: var(--color-header-inactive-text);
   }
 
   &--small {

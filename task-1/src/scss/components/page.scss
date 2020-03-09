@@ -1,6 +1,18 @@
 .page {
-  min-height: 100vh;
-  grid-template-columns: 100vw;
   display: grid;
   grid-template-rows: min-content auto min-content;
+
+  min-height: 100vh;
+
+  &__header {
+    grid-row: 1;
+  }
+
+  &__main {
+    grid-row: 2;
+  }
+
+  &__footer {
+    grid-row: 3;
+  }
 }

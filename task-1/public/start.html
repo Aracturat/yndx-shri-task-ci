@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
@@ -8,30 +8,29 @@
 	<link href="style.css" rel="stylesheet" />
 </head>
 <body class="page start-page">
-<header class="header">
+<header class="page__header header">
 	<div class="header__content">
 		<div class="header__left">
 			<h1 class="header-text header-text--inactive">School CI server</h1>
 		</div>
 		<div class="header__right">
 			<button class="button button--small">
-				<span class="text-with-icon">
-					<span class="text-with-icon__icon icon icon--size-s icon--gear"></span>
-					<span class="text-with-icon__primary-text start-page__settings-button-text">Settings</span>
-				</span>
+				<span class="button__icon icon icon--gear"></span>
+				<span class="button__text">Settings</span>
 			</button>
 		</div>
 	</div>
-
 </header>
-<main class="main">
+<main class="page__main main">
 	<div class="main__content start-page__content">
 		<div class="start-page__image"></div>
 		<div class="start-page__description text text--size-s">Configure repository connection and synchronization settings</div>
-		<button class="start-page__button button button--action">Open settings</button>
+		<button class="start-page__button button button--action">
+			<span class="button__text">Open settings</span>
+		</button>
 	</div>
 </main>
-<footer class="footer">
+<footer class="page__footer footer">
 	<div class="footer__content">
 		<div class="footer__left">
 			<a class="footer__item link" href="#">Support</a>

@@ -24,6 +24,11 @@
   --color-header-text: var(--color-black);
   --color-header-inactive-text: #7F8285;
 
+  --color-settings-description-text: #7F8285;
+
+  --color-bg-footer: #F0F2F3;
+  --color-footer-text: #7F8285;
+
   --color-link: #7F8285;
   --color-link-hovered: #E00000;
 
@@ -34,7 +39,10 @@
   --color-error: var(--color-red);
   --color-pending: var(--color-orange);
 
-  --space-v: 8px;
+  --color-build-info-card-shadow: #4344454d;
+  --color-build-info-card-divider: #F0F2F3;
+
+  --color-log: #F2F2F2;
 
   --text-font-family: YS Text, sans-serif;
 
@@ -54,4 +62,10 @@
   --icon-size-s: 12px;
   --icon-size-m: 16px;
   --icon-size-l: 24px;
+
+  --border-size-button: 2px;
+
+  --max-content-width: 824px;
 }
+
+$desktop-breakpoint: 576px;

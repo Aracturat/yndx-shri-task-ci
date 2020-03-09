@@ -3,7 +3,11 @@
   font-size: var(--text-size-s);
   letter-spacing: var(--text-letter-spacing-s);
 
-  line-height: 16px;
+  line-height: 18px;
+
+  @media (min-width: $desktop-breakpoint) {
+    line-height: 16px;
+  }
 
   color: var(--color-link);
   text-decoration: none;

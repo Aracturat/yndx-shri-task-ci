@@ -1,12 +1,4 @@
 .start-page {
-  &__settings-button-text {
-    display: none;
-
-    @media (min-width: 824px) {
-      display: block;
-    }
-  }
-
   &__content {
     display: flex;
     flex-direction: column;
