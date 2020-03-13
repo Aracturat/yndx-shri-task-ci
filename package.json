@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "webpack -w --mode=development",
     "build": "webpack --mode=production",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "start:server": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,8 @@
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
