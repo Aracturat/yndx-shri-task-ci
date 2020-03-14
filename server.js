@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 
 const app = express();
-const configureApi = require('./configure-api');
+const configureApi = require('./server/configure-api');
 
 // В данный момент у нас две папки со статическими файлами, одна генерируется webpack, вторая хранит html.
 app.use(express.static(path.resolve(__dirname, 'dist')));
