@@ -1,15 +1,14 @@
 const https = require('https');
 const axios = require('axios');
 
-
 const instance = axios.create({
-	baseURL: 'https://hw.shri.yandex/api/',
+	baseURL: process.env.DB_URL,
 	headers: {
-		'Authorization': process.env.DB_AUTH_TOKEN,
+		'Authorization': `Bearer ${process.env.DB_AUTH_TOKEN}`,
 	},
 	httpsAgent: new https.Agent({
 		rejectUnauthorized: false
-	})
+	}),
 });
 
 

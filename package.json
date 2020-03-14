@@ -6,7 +6,7 @@
     "dev": "webpack -w --mode=development",
     "build": "webpack --mode=production",
     "start": "webpack-dev-server --open",
-    "start:server": "node server.js"
+    "start:server": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "swagger-ui-express": "^4.1.3"
   }

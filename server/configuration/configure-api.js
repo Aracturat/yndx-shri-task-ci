@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('./db-api');
+const db = require('../db-api');
 
 function configureApi(app) {
     app.use(express.json());
