@@ -143,7 +143,7 @@ function getBuildList({ limit = 25, offset = 0 }) {
  */
 function getBuildDetails({ buildId }) {
 	return instance
-		.get('/build/list', {
+		.get('/build/details', {
 			params: {
 				buildId
 			}

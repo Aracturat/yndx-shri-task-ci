@@ -231,16 +231,6 @@
             "description": "Success"
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
       }
     }
   },
@@ -310,10 +300,15 @@
       },
       "BuildLog": {
         "required": [
+          "id",
           "text"
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "text": {
             "type": "string"
           }
