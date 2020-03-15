@@ -31,6 +31,8 @@ async function setSettings(req, res) {
 			mainBranch: req.body.mainBranch,
 			period: req.body.period
 		});
+
+		await getSettings(req, res);
 	} catch {
 		res.status(500).send({ error: 'Something is going bad'})
 	}

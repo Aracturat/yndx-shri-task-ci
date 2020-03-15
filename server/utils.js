@@ -5,12 +5,28 @@ const rimraf = require("rimraf");
 
 const promisifiedExec = util.promisify(child_process.exec);
 const promisifiedStat = util.promisify(fs.stat);
+const promisifiedMkdir = util.promisify(fs.mkdir);
 
 
 async function runCommandInDirectory(command, dir = process.cwd()) {
 	const result = await promisifiedExec(command, { cwd: dir });
 
 	return result.stdout.trim();
+}
+
+async function isFileExist(file) {
+	try {
+		await promisifiedStat(file);
+
+		return true;
+	}
+	catch (e) {
+		if (e.code === 'ENOENT') {
+			return false;
+		} else {
+			throw e;
+		}
+	}
 }
 
 async function isDirectoryExist(dir) {
@@ -34,8 +50,21 @@ async function removeDirectory(dir) {
 	}
 }
 
+async function createDirectory(dir) {
+	try {
+		await promisifiedMkdir(dir, { recursive: true });
+	} catch (err) {
+		if (err.code === 'EEXIST') { // curDir already exists!
+			return;
+		}
+		throw err;
+	}
+}
+
 module.exports = {
 	runCommandInDirectory,
 	isDirectoryExist,
-	removeDirectory
+	isFileExist,
+	removeDirectory,
+	createDirectory
 };

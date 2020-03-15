@@ -1,8 +1,11 @@
+const path = require('path');
+
 const db = require('../db-api');
 const git = require('../git');
 
 const Build = require('../models/build');
 const BuildLog = require('../models/build-log');
+const FileCache = require('../file-cache');
 
 async function getBuilds(req, res) {
 	try {
@@ -23,9 +26,8 @@ async function getBuilds(req, res) {
 			duration: build.duration
 		})));
 	} catch (err) {
-		res.status(500).send({ error: 'Something is going bad' });
+		res.status(500).send({ error: 'Something is going bad. Maybe build settings is missing.' });
 	}
-
 }
 
 async function requestBuild(req, res) {
@@ -111,13 +113,25 @@ async function getBuildDetails(req, res) {
 	}
 }
 
+const buildLogCache = new FileCache(path.join(__dirname, '../___TEMP___/log-cache'));
+
 async function getBuildLog(req, res) {
 	const buildId = req.params.buildId;
 
 	try {
-		const logText = await db.getBuildLog({
-			buildId: buildId
-		});
+		let logText;
+
+		if (await buildLogCache.has(buildId)) {
+			logText = await buildLogCache.get(buildId);
+		} else {
+			logText = await db.getBuildLog({
+				buildId: buildId
+			});
+
+			if (logText) {
+				await buildLogCache.add(buildId, logText);
+			}
+		}
 
 		res.send(new BuildLog({
 			id: buildId,
