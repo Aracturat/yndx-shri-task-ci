@@ -14,7 +14,7 @@ async function getSettings(req, res) {
 		}))
 	}
 
-	res.send(config);
+	res.send({});
 }
 
 async function setSettings(req, res) {

@@ -1,4 +1,5 @@
 const db = require('../db-api');
+const git = require('../git');
 
 const Build = require('../models/build');
 const BuildLog = require('../models/build-log');
@@ -23,11 +24,18 @@ async function getBuilds(req, res) {
 }
 
 async function requestBuild(req, res) {
+	const commitHash = req.params.commitHash;
+
+	const { data: { repoName, mainBranch } } = await db.getBuildConfiguration();
+
+	const commitInfo = await git.getCommitInfo(repoName, commitHash);
+	const commitBranch = await git.getCommitBranch(repoName, commitHash, mainBranch);
+
 	await db.requestBuild({
-		commitMessage: 'Message',
-		commitHash: req.params.commitHash,
-		authorName: 'Author',
-		branchName: 'master'
+		commitMessage: commitInfo.commitMessage,
+		commitHash: commitInfo.commitHash,
+		authorName: commitInfo.commitAuthor,
+		branchName: commitBranch
 	});
 
 	const newBuild = await db.getBuildList({ limit: 1 }).then(res => res.data[0]);

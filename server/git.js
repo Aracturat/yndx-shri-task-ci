@@ -6,19 +6,27 @@ const {
 	removeDirectory
 } = require('./utils');
 
-const repositoryTempDirectory = path.join(process.cwd(), 'server', '___TEMP___', 'repository');
+const repositoryTempDirectory = path.join(__dirname, '___TEMP___', 'repository');
 
 function getRepositoryUrl(repository) {
 	return `https://github.com/${repository}.git`;
 }
 
 async function cloneRemoteGithubRepository(repository) {
-	removeDirectory(repositoryTempDirectory);
+	await removeDirectory(repositoryTempDirectory);
 
 	const repositoryUrl = getRepositoryUrl(repository);
 	const command = `git clone ${repositoryUrl} ${repositoryTempDirectory}`;
 
-	return runCommandInDirectory(command);
+	try {
+		return await runCommandInDirectory(command);
+	} catch (err) {
+		if (err.stderr.includes('Repository not found.')) {
+			throw 'Repository not found';
+		}
+
+		throw err;
+	}
 }
 
 async function getCurrentRepositoryRemoteOrigin() {
@@ -41,12 +49,54 @@ async function isGithubRepositoryCloned(repository) {
 	return false;
 }
 
-async function getCommitInfo(repository, commitHash) {
+async function fetchAllBranchesForLocalRepository() {
+	const command = `git fetch --all`;
+
+	return runCommandInDirectory(command, repositoryTempDirectory);
+}
+
+async function actualizeLocalRepository(repository) {
 	const isRepositoryCloned = await isGithubRepositoryCloned(repository);
 
 	if (!isRepositoryCloned) {
 		await cloneRemoteGithubRepository(repository);
+	} else {
+		await fetchAllBranchesForLocalRepository();
 	}
+}
+
+async function getCommitBranch(repository, commitHash, mainBranch) {
+	await actualizeLocalRepository(repository);
+
+	const getRemoteBranchCommand = `git branch --contains ${commitHash} -r`;
+
+	try {
+		const result = await runCommandInDirectory(getRemoteBranchCommand, repositoryTempDirectory);
+
+		// Convert origin/branchName to branchName and drop HEAD
+		const branches = result
+			.split('\n')
+			.map(e => e.trim().replace('origin/', ''))
+			.filter(e => !e.startsWith('HEAD -> '));
+
+		if (branches.includes(mainBranch)) {
+			return mainBranch;
+		} else {
+			return branches[0];
+		}
+	}
+	catch (err) {
+		if (err.stderr.includes('malformed object name')) {
+			throw 'Unknown revision';
+		}
+		else {
+			throw err;
+		}
+	}
+}
+
+async function getCommitInfo(repository, commitHash) {
+	await actualizeLocalRepository(repository);
 
 	const getCommitAuthorCommand = `git log -1 --format="%an" ${commitHash}`;
 	const getCommitMessageCommand = `git log -1 --format="%B" ${commitHash}`;
@@ -70,3 +120,8 @@ async function getCommitInfo(repository, commitHash) {
 		}
 	}
 }
+
+module.exports = {
+	getCommitInfo,
+	getCommitBranch
+};

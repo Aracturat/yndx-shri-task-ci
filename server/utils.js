@@ -1,11 +1,11 @@
 const fs = require('fs');
-
 const child_process = require('child_process')
 const util = require('util');
+const rimraf = require("rimraf");
 
 const promisifiedExec = util.promisify(child_process.exec);
 const promisifiedStat = util.promisify(fs.stat);
-const promisifiedRmdir = util.promisify(fs.rmdir);
+
 
 async function runCommandInDirectory(command, dir = process.cwd()) {
 	const result = await promisifiedExec(command, { cwd: dir });
@@ -29,7 +29,9 @@ async function isDirectoryExist(dir) {
 }
 
 async function removeDirectory(dir) {
-	await promisifiedRmdir(dir, { recursive: true }).catch(() => {});
+	if (await isDirectoryExist(dir)) {
+		return new Promise(resolve => rimraf(dir, resolve));
+	}
 }
 
 module.exports = {
