@@ -4,6 +4,7 @@ import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Main } from '../components/Main';
+import { HeaderText } from '../components/HeaderText';
 
 export function BuildHistory() {
 	return (
@@ -11,7 +12,7 @@ export function BuildHistory() {
 			<Header
 				className="page__header"
 				leftContent={
-					<h1 className="header-text">philip1967/my-awesome-repo</h1>
+					<HeaderText>philip1967/my-awesome-repo</HeaderText>
 				}
 				rightContent={
 					<>

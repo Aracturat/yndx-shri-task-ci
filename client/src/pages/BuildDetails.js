@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Main } from '../components/Main';
 import { Log } from '../components/Log';
+import { HeaderText } from '../components/HeaderText';
 
 export function BuildDetails() {
 	const logText = `Starting type checking and linting service...
@@ -70,7 +71,7 @@ Child
 			<Header
 				className="page__header"
 				leftContent={
-					<h1 className="header-text">philip1967/my-awesome-repo</h1>
+					<HeaderText>philip1967/my-awesome-repo</HeaderText>
 				}
 				rightContent={
 					<>

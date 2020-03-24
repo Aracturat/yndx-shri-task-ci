@@ -4,6 +4,8 @@ import { Footer } from '../components/Footer';
 import { Button } from '../components/Button';
 import { FormField } from '../components/FormField';
 import { Main } from '../components/Main';
+import { HeaderText } from '../components/HeaderText';
+import { Text } from '../components/Text';
 
 export function Settings() {
 	return (
@@ -11,13 +13,13 @@ export function Settings() {
 			<Header
 				className="page__header"
 				leftContent={
-					<h1 className="header-text header-text--inactive">School CI server</h1>
+					<HeaderText inactive>School CI server</HeaderText>
 				}
 			/>
 			<Main className="page__main">
 				<div className="settings-page__form">
-					<h2 className="header-text header-text--small settings-page__header">Settings</h2>
-					<div className="text text--size-s settings-page__description">Configure repository connection and synchronization settings.</div>
+					<HeaderText small className="settings-page__header">Settings</HeaderText>
+					<Text className="settings-page__description">Configure repository connection and synchronization settings</Text>
 
 					<FormField required label="Github repository" placeholder="user-name/repo-name" />
 					<FormField value="npm ci && npm run build" label="Build command" />
