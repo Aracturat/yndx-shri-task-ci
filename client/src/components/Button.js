@@ -1,12 +1,13 @@
 import React from 'react';
 import { bemHelper } from '../bem-helper';
+import { Icon } from './Icon';
 
 const cn = bemHelper('button');
 
 export function Button({ children, small = false, action = false, className = '', icon }) {
 	return (
 		<button className={cn(null, { small, action }, className)}>
-			{icon && <span className={cn('icon', null, `icon icon--${icon}`)}></span>}
+			{icon && <Icon name={icon} className={cn('icon', null)}/>}
 			{children && <span className={cn('text')}>{children}</span>}
 		</button>
 	)

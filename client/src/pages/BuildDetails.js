@@ -2,6 +2,8 @@ import React from 'react';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
+import { Icon } from '../components/Icon';
+import { BuildInfoCard } from '../components/BuildInfoCard';
 
 export function BuildDetails() {
 	const logText = `Starting type checking and linting service...
@@ -78,34 +80,7 @@ Child
 			/>
 			<main className="page__main main">
 				<div className="main__content">
-					<div className="build-info-card build-info-card--build-info-to-bottom build-details-page__build-info">
-						<div className="build-info-card__status-icon icon icon--success"></div>
-						<div className="build-info-card__commit-first-line">
-							<div className="build-info-card__commit-number build-info-card__commit-number--success">#1368</div>
-							<div className="build-info-card__commit-name">add documentation for postgres scaler</div>
-						</div>
-						<div className="build-info-card__commit-second-line">
-							<div className="text-with-icon">
-								<div className="text-with-icon__icon icon icon--branch icon--size-s "></div>
-								<div className="text-with-icon__primary-text">master</div>
-								<div className="text-with-icon__secondary-text">9c9f0b9</div>
-							</div>
-							<div className="text-with-icon build-info-card__author">
-								<div className="text-with-icon__icon icon icon--person icon--size-s"></div>
-								<div className="text-with-icon__primary-text">Philip Kirkorov</div>
-							</div>
-						</div>
-						<div className="build-info-card__build-info">
-							<div className="text-with-icon build-info-card__build-date">
-								<div className="text-with-icon__icon icon icon--calendar icon--size-s"></div>
-								<div className="text-with-icon__secondary-text">21 янв, 03:06</div>
-							</div>
-							<div className="text-with-icon">
-								<div className="text-with-icon__icon icon icon--timer icon--size-s"></div>
-								<div className="text-with-icon__secondary-text">1 ч 20 мин</div>
-							</div>
-						</div>
-					</div>
+					<BuildInfoCard buildInfoToBottom className="build-details-page__build-info"/>
 					<pre className="build-details-page__log">
 						{logText}
 					</pre>
