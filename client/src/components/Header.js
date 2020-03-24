@@ -1,13 +1,16 @@
 import React from "react";
+import { bemHelper } from '../bem-helper';
+
+const cn = bemHelper('header');
 
 export function Header({ leftContent, rightContent, className }) {
 	return (
-		<header className={"header " + className || ""}>
-			<div className="header__content">
-				<div className="header__left">
+		<header className={cn(null, null, className)}>
+			<div className={cn("content")}>
+				<div className={cn("left")}>
 					{leftContent}
 				</div>
-				<div className="header__right">
+				<div className={cn("right")}>
 					{rightContent}
 				</div>
 			</div>
