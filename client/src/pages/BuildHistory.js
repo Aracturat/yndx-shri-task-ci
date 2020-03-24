@@ -3,6 +3,7 @@ import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 import { BuildInfoCard } from '../components/BuildInfoCard';
+import { Main } from '../components/Main';
 
 export function BuildHistory() {
 	return (
@@ -19,18 +20,16 @@ export function BuildHistory() {
 					</>
 				}
 			/>
-			<main className="page__main main">
-				<div className="main__content">
-					<ol className="build-history-page__list">
-						<BuildInfoCard tag="li" withHover/>
-						<BuildInfoCard tag="li" withHover/>
-						<BuildInfoCard tag="li" withHover/>
-						<BuildInfoCard tag="li" withHover/>
-						<BuildInfoCard tag="li" withHover/>
-					</ol>
-					<Button small className="build-history-page__show-more-button">Show more</Button>
-				</div>
-			</main>
+			<Main className="page__main">
+				<ol className="build-history-page__list">
+					<BuildInfoCard tag="li" withHover />
+					<BuildInfoCard tag="li" withHover />
+					<BuildInfoCard tag="li" withHover />
+					<BuildInfoCard tag="li" withHover />
+					<BuildInfoCard tag="li" withHover />
+				</ol>
+				<Button small className="build-history-page__show-more-button">Show more</Button>
+			</Main>
 			<Footer />
 		</div>
 	);

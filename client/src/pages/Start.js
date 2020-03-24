@@ -2,6 +2,7 @@ import React from 'react';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
+import { Main } from '../components/Main';
 
 export function Start() {
 	return (
@@ -15,13 +16,13 @@ export function Start() {
 					<Button small icon="gear">Settings</Button>
 				}
 			/>
-			<main className="page__main main">
-				<div className="main__content start-page__content">
-					<div className="start-page__image"></div>
+			<Main className="page__main">
+				<div className="start-page__content">
+					<div className="start-page__image"/>
 					<div className="start-page__description text text--size-s">Configure repository connection and synchronization settings</div>
-					<Button action className="start-page__button" >Open settings</Button>
+					<Button action className="start-page__button">Open settings</Button>
 				</div>
-			</main>
+			</Main>
 			<Footer />
 		</div>
 	);

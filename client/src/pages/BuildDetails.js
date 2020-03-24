@@ -2,8 +2,8 @@ import React from 'react';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
-import { Icon } from '../components/Icon';
 import { BuildInfoCard } from '../components/BuildInfoCard';
+import { Main } from '../components/Main';
 
 export function BuildDetails() {
 	const logText = `Starting type checking and linting service...
@@ -73,19 +73,20 @@ Child
 				}
 				rightContent={
 					<>
-						<Button small icon="restart" className="build-details-page__restart-build-button">Rebuild</Button>
-						<Button small icon="gear" className="build-history-page__settings-button"/>
+						<Button small
+							icon="restart"
+							className="build-details-page__restart-build-button"
+						>Rebuild</Button>
+						<Button small icon="gear" className="build-history-page__settings-button" />
 					</>
 				}
 			/>
-			<main className="page__main main">
-				<div className="main__content">
-					<BuildInfoCard buildInfoToBottom className="build-details-page__build-info"/>
-					<pre className="build-details-page__log">
+			<Main className="page__main">
+				<BuildInfoCard buildInfoToBottom className="build-details-page__build-info" />
+				<pre className="build-details-page__log">
 						{logText}
-					</pre>
-				</div>
-			</main>
+				</pre>
+			</Main>
 			<Footer />
 		</div>
 	);
