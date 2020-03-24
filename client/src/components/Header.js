@@ -3,6 +3,7 @@ import { bemHelper } from '../bem-helper';
 
 const cn = bemHelper('header');
 
+
 export function Header({ leftContent, rightContent, className }) {
 	return (
 		<header className={cn(null, null, className)}>

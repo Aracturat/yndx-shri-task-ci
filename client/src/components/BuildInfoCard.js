@@ -5,6 +5,7 @@ import { TextWithIcon } from './TextWithIcon';
 
 const cn = bemHelper('build-info-card');
 
+
 export function BuildInfoCard({ buildInfoToBottom, withHover, tag = 'div', className = '' }) {
 	let WrapperTag = tag;
 

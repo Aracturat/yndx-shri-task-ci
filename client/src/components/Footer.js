@@ -5,6 +5,7 @@ import { Text } from './Text';
 
 const cn = bemHelper('footer');
 
+
 export function Footer({ className }) {
 	return (
 		<footer className={cn(null, null, className)}>

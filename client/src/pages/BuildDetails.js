@@ -1,11 +1,12 @@
 import React from 'react';
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 import { BuildInfoCard } from '../components/BuildInfoCard';
-import { Main } from '../components/Main';
 import { Log } from '../components/Log';
-import { HeaderText } from '../components/HeaderText';
+import { Page } from '../components/Page';
+import { bemHelper } from '../bem-helper';
+
+const cn = bemHelper('build-details-page');
+
 
 export function BuildDetails() {
 	const logText = `Starting type checking and linting service...
@@ -65,29 +66,19 @@ Child
     [./src/account/store.ts] 1.05 KiB {main} [built]
         + 1484 hidden modules`;
 
-
 	return (
-		<div className="page build-details-page">
-			<Header
-				className="page__header"
-				leftContent={
-					<HeaderText>philip1967/my-awesome-repo</HeaderText>
-				}
-				rightContent={
-					<>
-						<Button small
-							icon="restart"
-							className="build-details-page__restart-build-button"
-						>Rebuild</Button>
-						<Button small icon="gear" className="build-history-page__settings-button" />
-					</>
-				}
-			/>
-			<Main className="page__main">
-				<BuildInfoCard buildInfoToBottom className="build-details-page__build-info" />
-				<Log>{logText}</Log>
-			</Main>
-			<Footer />
-		</div>
+		<Page
+			className={cn()}
+			repoName="philip1967/my-awesome-repo"
+			headerButtons={
+				<>
+					<Button	small icon="restart" className={cn('restart-build-button')}>Rebuild</Button>
+					<Button small icon="gear" className={cn('settings-button')} />
+				</>
+			}
+		>
+			<BuildInfoCard buildInfoToBottom className={cn('build-info')} />
+			<Log>{logText}</Log>
+		</Page>
 	);
 }

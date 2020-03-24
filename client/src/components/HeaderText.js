@@ -3,6 +3,7 @@ import { bemHelper } from '../bem-helper';
 
 const cn = bemHelper('header-text');
 
+
 export function HeaderText({ small, inactive, children, className }) {
 	let WrapperTag = small ? 'h2' : 'h1';
 

@@ -4,6 +4,7 @@ import { Icon } from './Icon';
 
 const cn = bemHelper('text-with-icon');
 
+
 export function TextWithIcon({ icon, primary, secondary, className }) {
 	return (
 		<div className={cn(null, null, className)}>

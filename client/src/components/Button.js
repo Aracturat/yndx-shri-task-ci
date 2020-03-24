@@ -4,6 +4,7 @@ import { Icon } from './Icon';
 
 const cn = bemHelper('button');
 
+
 export function Button({ children, small = false, action = false, className = '', icon }) {
 	return (
 		<button className={cn(null, { small, action }, className)}>
