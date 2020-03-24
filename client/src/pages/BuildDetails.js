@@ -1,6 +1,7 @@
 import React from 'react';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
+import { Button } from '../components/Button';
 
 export function BuildDetails() {
 	const logText = `Starting type checking and linting service...
@@ -70,13 +71,8 @@ Child
 				}
 				rightContent={
 					<>
-						<button className="button button--small build-details-page__restart-build-button">
-							<span className="button__icon icon icon--restart"></span>
-							<span className="button__text">Rebuild</span>
-						</button>
-						<button className="button button--small build-details-page__settings-button">
-							<span className="button__icon icon icon--gear"></span>
-						</button>
+						<Button small icon="restart" className="build-details-page__restart-build-button">Rebuild</Button>
+						<Button small icon="gear" className="build-history-page__settings-button"/>
 					</>
 				}
 			/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+import { Button } from '../components/Button';
 
 export function Settings() {
 	return (
@@ -48,17 +49,13 @@ export function Settings() {
 							<span className="form-field__after-element">minutes</span>
 						</div>
 						<div className="settings-page__buttons">
-							<button className="button button--action settings-page__button">
-								<span className="button__text">Save</span>
-							</button>
-							<button className="button settings-page__button">
-								<span className="button__text">Cancel</span>
-							</button>
+							<Button action className="settings-page__button">Save</Button>
+							<Button className="settings-page__button">Cancel</Button>
 						</div>
 					</div>
 				</div>
 			</main>
-			<Footer/>
+			<Footer />
 		</div>
 	);
 }
