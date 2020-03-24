@@ -20,7 +20,7 @@
 
   @each $key in branch, calendar, clear, error, gear, pending, person, restart, start, success, timer {
     &--#{$key} {
-      background-image: url('src/assets/icons/#{$key}.svg');
+      background-image: url('../../src/assets/icons/#{$key}.svg');
     }
   }
 }
