@@ -6,17 +6,4 @@
   &__build-info {
     margin-bottom: 12px;
   }
-
-  &__log {
-    background: var(--color-log);
-    border-radius: 6px;
-
-    padding: 8px 12px;
-    max-width: 100%;
-
-    overflow-x: auto;
-
-    font-size: 10px;
-    line-height: 20px;
-  }
 }

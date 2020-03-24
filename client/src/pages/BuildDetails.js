@@ -4,6 +4,7 @@ import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Main } from '../components/Main';
+import { Log } from '../components/Log';
 
 export function BuildDetails() {
 	const logText = `Starting type checking and linting service...
@@ -83,9 +84,7 @@ Child
 			/>
 			<Main className="page__main">
 				<BuildInfoCard buildInfoToBottom className="build-details-page__build-info" />
-				<pre className="build-details-page__log">
-						{logText}
-				</pre>
+				<Log>{logText}</Log>
 			</Main>
 			<Footer />
 		</div>
