@@ -1,61 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
-	<meta content="ie=edge" http-equiv="X-UA-Compatible">
-	<title>Build details</title>
-	<link href="style.css" rel="stylesheet" />
-</head>
-<body class="page build-details-page">
-<header class="page__header header">
-	<div class="header__content">
-		<div class="header__left">
-			<h1 class="header-text">philip1967/my-awesome-repo</h1>
-		</div>
-		<div class="header__right">
-			<button class="button button--small build-details-page__restart-build-button">
-				<span class="button__icon icon icon--restart"></span>
-				<span class="button__text">Rebuild</span>
-			</button>
-			<button class="button button--small build-details-page__settings-button">
-				<span class="button__icon icon icon--gear"></span>
-			</button>
-		</div>
-	</div>
-</header>
-<main class="page__main main">
-	<div class="main__content">
-		<div class="build-info-card build-info-card--build-info-to-bottom build-details-page__build-info">
-			<div class="build-info-card__status-icon icon icon--success"></div>
-			<div class="build-info-card__commit-first-line">
-				<div class="build-info-card__commit-number build-info-card__commit-number--success">#1368</div>
-				<div class="build-info-card__commit-name">add documentation for postgres scaler</div>
-			</div>
-			<div class="build-info-card__commit-second-line">
-				<div class="text-with-icon">
-					<div class="text-with-icon__icon icon icon--branch icon--size-s "></div>
-					<div class="text-with-icon__primary-text">master</div>
-					<div class="text-with-icon__secondary-text">9c9f0b9</div>
-				</div>
-				<div class="text-with-icon build-info-card__author">
-					<div class="text-with-icon__icon icon icon--person icon--size-s"></div>
-					<div class="text-with-icon__primary-text">Philip Kirkorov</div>
-				</div>
-			</div>
-			<div class="build-info-card__build-info">
-				<div class="text-with-icon build-info-card__build-date">
-					<div class="text-with-icon__icon icon icon--calendar icon--size-s"></div>
-					<div class="text-with-icon__secondary-text">21 янв, 03:06</div>
-				</div>
-				<div class="text-with-icon">
-					<div class="text-with-icon__icon icon icon--timer icon--size-s"></div>
-					<div class="text-with-icon__secondary-text">1 ч 20 мин</div>
-				</div>
-			</div>
-		</div>
-		<pre class="build-details-page__log">
-Starting type checking and linting service...
+import React from 'react';
+import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
+
+export function BuildDetails() {
+	const logText = `Starting type checking and linting service...
 Using 1 worker with 2048MB memory limit
 Hash: d54ed20309f352b3bda76cbbb6d272ed6afde438bd7a265eb08db3624c32dfc883a8c379c67f4de6
 Version: webpack 4.41.6
@@ -110,20 +58,64 @@ Child
     [./src/account/reducers/serverError.ts] 526 bytes {main} [built]
     [./src/account/server.tsx] 1.62 KiB {main} [built]
     [./src/account/store.ts] 1.05 KiB {main} [built]
-        + 1484 hidden modules
-		</pre>
-	</div>
-</main>
-<footer class="page__footer footer">
-	<div class="footer__content">
-		<div class="footer__left">
-			<a class="footer__item link" href="#">Support</a>
-			<a class="footer__item link" href="#">Leaning</a>
+        + 1484 hidden modules`;
+
+
+	return (
+		<div className="page build-details-page">
+			<Header
+				className="page__header"
+				leftContent={
+					<h1 className="header-text">philip1967/my-awesome-repo</h1>
+				}
+				rightContent={
+					<>
+						<button className="button button--small build-details-page__restart-build-button">
+							<span className="button__icon icon icon--restart"></span>
+							<span className="button__text">Rebuild</span>
+						</button>
+						<button className="button button--small build-details-page__settings-button">
+							<span className="button__icon icon icon--gear"></span>
+						</button>
+					</>
+				}
+			/>
+			<main className="page__main main">
+				<div className="main__content">
+					<div className="build-info-card build-info-card--build-info-to-bottom build-details-page__build-info">
+						<div className="build-info-card__status-icon icon icon--success"></div>
+						<div className="build-info-card__commit-first-line">
+							<div className="build-info-card__commit-number build-info-card__commit-number--success">#1368</div>
+							<div className="build-info-card__commit-name">add documentation for postgres scaler</div>
+						</div>
+						<div className="build-info-card__commit-second-line">
+							<div className="text-with-icon">
+								<div className="text-with-icon__icon icon icon--branch icon--size-s "></div>
+								<div className="text-with-icon__primary-text">master</div>
+								<div className="text-with-icon__secondary-text">9c9f0b9</div>
+							</div>
+							<div className="text-with-icon build-info-card__author">
+								<div className="text-with-icon__icon icon icon--person icon--size-s"></div>
+								<div className="text-with-icon__primary-text">Philip Kirkorov</div>
+							</div>
+						</div>
+						<div className="build-info-card__build-info">
+							<div className="text-with-icon build-info-card__build-date">
+								<div className="text-with-icon__icon icon icon--calendar icon--size-s"></div>
+								<div className="text-with-icon__secondary-text">21 янв, 03:06</div>
+							</div>
+							<div className="text-with-icon">
+								<div className="text-with-icon__icon icon icon--timer icon--size-s"></div>
+								<div className="text-with-icon__secondary-text">1 ч 20 мин</div>
+							</div>
+						</div>
+					</div>
+					<pre className="build-details-page__log">
+						{logText}
+					</pre>
+				</div>
+			</main>
+			<Footer />
 		</div>
-		<div class="footer__right">
-			<span class="footer__item text text--size-s">© 2020 Nikolay Dozmorov</span>
-		</div>
-	</div>
-</footer>
-</body>
-</html>
+	);
+}
