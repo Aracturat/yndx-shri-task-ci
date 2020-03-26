@@ -1,25 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Start } from './pages/Start';
-import { Settings } from './pages/Settings';
-import { BuildHistory } from './pages/BuildHistory';
-import { BuildDetails } from './pages/BuildDetails';
+
+import { StartPage } from './pages/StartPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { BuildHistoryPage } from './pages/BuildHistoryPage';
+import { BuildDetailsPage } from './pages/BuildDetailsPage';
 
 export function App() {
 	return (
 		<Router>
 			<Switch>
 				<Route path="/settings">
-					<Settings />
+					<SettingsPage />
 				</Route>
 				<Route path="/build-history">
-					<BuildHistory />
+					<BuildHistoryPage />
 				</Route>
 				<Route path="/build-details">
-					<BuildDetails />
+					<BuildDetailsPage />
 				</Route>
 				<Route path="/">
-					<Start />
+					<StartPage />
 				</Route>
 			</Switch>
 		</Router>

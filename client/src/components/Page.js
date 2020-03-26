@@ -5,6 +5,9 @@ import { HeaderText } from './HeaderText';
 import { Footer } from './Footer';
 import { Main } from './Main';
 
+import "./Page.scss";
+
+
 const cn = bemHelper('page');
 
 

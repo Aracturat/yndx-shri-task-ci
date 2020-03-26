@@ -1,6 +1,9 @@
 import React from 'react';
 import { bemHelper } from '../bem-helper';
 
+import "./Link.scss";
+
+
 const cn = bemHelper('link');
 
 

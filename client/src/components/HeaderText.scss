@@ -1,26 +1,4 @@
-.text {
-  font-family: var(--text-font-family);
-
-  &--size-s {
-    font-size: var(--text-size-s);
-    letter-spacing: var(--text-letter-spacing-s);
-  }
-
-  &--size-m {
-    font-size: var(--text-size-m);
-    letter-spacing: var(--text-letter-spacing-m);
-  }
-
-  &--size-l {
-    font-size: var(--text-size-l);
-    letter-spacing: var(--text-letter-spacing-l);
-  }
-
-  &--size-xl {
-    font-size: var(--text-size-xl);
-    letter-spacing: var(--text-letter-spacing-xl);
-  }
-}
+@import "../scss/scss-variables";
 
 .header-text {
   font-family: var(--text-font-family);

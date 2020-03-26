@@ -2,6 +2,9 @@ import React from 'react';
 import { bemHelper } from '../bem-helper';
 import { Icon } from './Icon';
 
+import "./Button.scss";
+
+
 const cn = bemHelper('button');
 
 

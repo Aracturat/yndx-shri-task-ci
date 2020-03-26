@@ -6,10 +6,13 @@ import { Text } from '../components/Text';
 import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
 
+import "./SettingsPage.scss";
+
+
 const cn = bemHelper('settings-page');
 
 
-export function Settings() {
+export function SettingsPage() {
 	return (
 		<Page className={cn()}>
 			<div className={cn('form')}>

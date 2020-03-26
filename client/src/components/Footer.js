@@ -3,6 +3,9 @@ import { bemHelper } from '../bem-helper';
 import { Link } from './Link';
 import { Text } from './Text';
 
+import "./Footer.scss";
+
+
 const cn = bemHelper('footer');
 
 

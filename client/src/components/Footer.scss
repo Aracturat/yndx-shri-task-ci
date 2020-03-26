@@ -1,3 +1,5 @@
+@import "../scss/scss-variables";
+
 .footer {
   display: grid;
   grid-template-columns: minmax(16px, 1fr) minmax(0px, var(--max-content-width)) minmax(16px, 1fr);

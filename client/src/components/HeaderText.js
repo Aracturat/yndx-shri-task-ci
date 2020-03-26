@@ -1,6 +1,9 @@
 import React from 'react';
 import { bemHelper } from '../bem-helper';
 
+import "./HeaderText.scss"
+
+
 const cn = bemHelper('header-text');
 
 

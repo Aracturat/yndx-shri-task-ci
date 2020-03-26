@@ -4,10 +4,13 @@ import { Text } from '../components/Text';
 import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
 
+import "./StartPage.scss";
+
+
 const cn = bemHelper('start-page');
 
 
-export function Start() {
+export function StartPage() {
 	return (
 		<Page
 			className={cn()}

@@ -1,0 +1,27 @@
+@import "../scss/scss-variables";
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(16px, 1fr) minmax(0px, var(--max-content-width)) minmax(16px, 1fr);
+
+  &__content {
+    grid-column: 2;
+    padding: 12px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (min-width: $desktop-breakpoint) {
+      padding: 10px 0;
+    }
+  }
+
+  &__left {
+    display: flex;
+  }
+
+  &__right {
+    display: flex;
+  }
+}

@@ -4,10 +4,13 @@ import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
 
+import "./BuildHistoryPage.scss";
+
+
 const cn = bemHelper('build-history-page');
 
 
-export function BuildHistory() {
+export function BuildHistoryPage() {
 	return (
 		<Page
 			className={cn()}

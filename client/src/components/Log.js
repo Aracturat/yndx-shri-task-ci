@@ -1,6 +1,9 @@
 import React from 'react';
 import { bemHelper } from '../bem-helper';
 
+import "./Log.scss";
+
+
 const cn = bemHelper('log');
 
 

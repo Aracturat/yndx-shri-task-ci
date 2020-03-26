@@ -3,6 +3,9 @@ import { bemHelper } from '../bem-helper';
 import { Icon } from './Icon';
 import { TextWithIcon } from './TextWithIcon';
 
+import "./BuildInfoCard.scss";
+
+
 const cn = bemHelper('build-info-card');
 
 
