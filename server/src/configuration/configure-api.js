@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors')
 
 const settingsApi = require('../apis/settings');
 const buildsApi = require('../apis/builds');
 
 function configureApi(app) {
+	app.use(cors());
 	app.use(express.json());
 
 	app.get('/api/settings', settingsApi.getSettings);

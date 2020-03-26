@@ -53,10 +53,10 @@ export function updateSettings(settings) {
 	}
 }
 
-export function getBuilds() {
+export function getBuilds(limit, offset) {
 	return async dispatch => {
 		await callApi(
-			() => api.getBuilds(),
+			() => api.getBuilds({ limit, offset }),
 			dispatch,
 			action(GET_BUILDS),
 			action(GET_BUILDS_SUCCESS)
@@ -67,7 +67,7 @@ export function getBuilds() {
 export function getBuild(buildId) {
 	return async dispatch => {
 		await callApi(
-			() => api.getBuild(buildId),
+			() => api.getBuild({ buildId }),
 			dispatch,
 			action(GET_BUILD),
 			action(GET_BUILD_SUCCESS)
@@ -78,7 +78,7 @@ export function getBuild(buildId) {
 export function getBuildLogs(buildId) {
 	return async dispatch => {
 		await callApi(
-			() => api.getBuildLogs(buildId),
+			() => api.getBuildLogs({ buildId }),
 			dispatch,
 			action(GET_BUILD_LOGS),
 			action(GET_BUILD_LOGS_SUCCESS)
@@ -89,7 +89,7 @@ export function getBuildLogs(buildId) {
 export function requestBuild(commitHash) {
 	return async dispatch => {
 		await callApi(
-			() => api.requestBuilds(commitHash),
+			() => api.requestBuild({ commitHash }),
 			dispatch,
 			action(REQUEST_BUILD),
 			action(REQUEST_BUILD_SUCCESS)
