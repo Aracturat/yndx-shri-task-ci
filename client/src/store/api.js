@@ -87,6 +87,6 @@ export function getBuild({ buildId }) {
  */
 export function getBuildLogs({ buildId }) {
 	return instance
-		.get(`/build/${buildId}/logs`)
+		.get(`/builds/${buildId}/logs`)
 		.then(result => result.data);
 }

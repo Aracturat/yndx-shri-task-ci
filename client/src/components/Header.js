@@ -7,11 +7,11 @@ import "./Header.scss";
 const cn = bemHelper('header');
 
 
-export function Header({ leftContent, rightContent, className }) {
+export function Header({ leftContent, rightContent, className, onLeftClick }) {
 	return (
 		<header className={cn(null, null, className)}>
 			<div className={cn("content")}>
-				<div className={cn("left")}>
+				<div className={cn("left")} onClick={onLeftClick}>
 					{leftContent}
 				</div>
 				<div className={cn("right")}>

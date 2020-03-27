@@ -13,7 +13,7 @@ export function App() {
 	const isConfigured = useSelector(state => !!state.settings.repoName);
 
 	if (!isLoaded) {
-		return <LoadingPage />
+		return <Router><LoadingPage /></Router>;
 	}
 
 	return (
@@ -22,10 +22,7 @@ export function App() {
 				<Route path="/settings">
 					<SettingsPage />
 				</Route>
-				<Route path="/build-history">
-					<BuildHistoryPage />
-				</Route>
-				<Route path="/build-details">
+				<Route path="/build/:buildId">
 					<BuildDetailsPage />
 				</Route>
 				<Route path="/">

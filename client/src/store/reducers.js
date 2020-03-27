@@ -6,7 +6,8 @@ import {
 	GET_BUILDS,
 	GET_BUILDS_SUCCESS,
 	GET_SETTINGS,
-	GET_SETTINGS_SUCCESS, INIT_APP,
+	GET_SETTINGS_SUCCESS,
+	INIT_APP,
 	REQUEST_BUILD,
 	REQUEST_BUILD_SUCCESS,
 	UPDATE_SETTINGS,
@@ -17,7 +18,8 @@ import {
 export const defaultState = {
 	isLoaded: false,
 	settings: {},
-	builds: []
+	builds: [],
+	buildLogs: []
 };
 
 
@@ -40,13 +42,26 @@ export function reducer(state = defaultState, action) {
 		case GET_BUILD_LOGS:
 			return state;
 		case GET_BUILD_LOGS_SUCCESS:
-			return state;
+			const buildLogs = state.buildLogs.filter(buildLog => buildLog.id !== action.data.id);
+
+			return {
+				...state,
+				buildLogs: [...buildLogs, action.data]
+			};
 		case GET_BUILD_SUCCESS:
-			return state;
+			const builds = state.builds.filter(build => build.id !== action.data.id);
+
+			return {
+				...state,
+				builds: [...builds, action.data]
+			};
 		case GET_BUILDS:
 			return state;
 		case GET_BUILDS_SUCCESS:
-			return state;
+			return {
+				...state,
+				builds: action.data
+			};
 		case REQUEST_BUILD:
 			return state;
 		case REQUEST_BUILD_SUCCESS:

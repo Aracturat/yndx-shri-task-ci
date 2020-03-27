@@ -2,46 +2,72 @@ import React from 'react';
 import { bemHelper } from '../bem-helper';
 import { Icon } from './Icon';
 import { TextWithIcon } from './TextWithIcon';
+import { format } from 'date-fns'
 
-import "./BuildInfoCard.scss";
+import './BuildInfoCard.scss';
 
 
 const cn = bemHelper('build-info-card');
 
+/**
+ * Format duration.
+ * @param duration in seconds
+ */
+function formatDuration(duration) {
+	let minutes = Math.floor(duration / 60);
+	let seconds = duration - 60 * minutes;
+	let hours = Math.floor(minutes / 60);
 
-export function BuildInfoCard({ buildInfoToBottom, withHover, tag = 'div', className = '' }) {
-	let WrapperTag = tag;
+	minutes = minutes - 60 * hours;
 
-	let config = {
-		status: 'success',
-		buildNumber: '1368',
-		commitName: 'add documentation for postgres scaler',
-		commitBranch: 'master',
-		commitHash: '9c9f0b9',
-		commitAuthor: 'Philip Kirkorov',
-		buildDate: '21 янв, 03:06',
-		buildDuration: '1 ч 20 мин'
-	};
+	if (hours) {
+		return `${hours} h ${minutes} min`;
+	}
+	if (minutes) {
+		return `${minutes} m ${seconds} sec`;
+	}
+
+	return `${seconds} sec`
+}
+
+export function BuildInfoCard(
+	{
+		build,
+		buildInfoToBottom,
+		withHover,
+		tag = 'div',
+		className = '',
+		onClick
+	}
+) {
+	const WrapperTag = tag;
+
+	const formattedStart = format(new Date(build.start), 'd MMM, kk:HH');
+	const formattedDuration = formatDuration(build.duration);
+
 
 	return (
-		<WrapperTag className={
-			cn(null, {
-				'build-info-to-bottom': buildInfoToBottom,
-				'with-hover': withHover
-			}, className)}
+		<WrapperTag
+			className={
+				cn(null, {
+					'buildInfo-info-to-bottom': buildInfoToBottom,
+					'with-hover': withHover
+				}, className)
+			}
+			onClick={onClick}
 		>
-			<Icon name={config.status} className={cn('status-icon')} />
+			<Icon name={build.status.toLowerCase()} className={cn('status-icon')} />
 			<div className={cn('commit-first-line')}>
-				<div className={cn('commit-number', { 'success': config.status === 'success' })}>#{config.buildNumber}</div>
-				<div className={cn('commit-name')}>{config.commitName}</div>
+				<div className={cn('commit-number', { 'success': build.status === 'Success' })}>#{build.buildNumber}</div>
+				<div className={cn('commit-name')}>{build.commitMessage}</div>
 			</div>
 			<div className={cn('commit-second-line')}>
-				<TextWithIcon icon="branch" primary={config.commitBranch} secondary={config.commitHash} />
-				<TextWithIcon icon="person" primary={config.commitAuthor} />
+				<TextWithIcon icon="branch" primary={build.branchName} secondary={build.commitHash} />
+				<TextWithIcon icon="person" primary={build.authorName} />
 			</div>
 			<div className={cn('build-info')}>
-				<TextWithIcon icon="calendar" secondary={config.buildDate} />
-				<TextWithIcon icon="timer" secondary={config.buildDuration} />
+				<TextWithIcon icon="calendar" secondary={formattedStart} />
+				<TextWithIcon icon="timer" secondary={formattedDuration} />
 			</div>
 		</WrapperTag>
 	)
