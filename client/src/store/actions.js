@@ -31,6 +31,12 @@ function action(type) {
 	});
 }
 
+export function initApp() {
+	return dispatch => {
+		dispatch(getSettings());
+	}
+}
+
 export function getSettings() {
 	return async dispatch => {
 		await callApi(

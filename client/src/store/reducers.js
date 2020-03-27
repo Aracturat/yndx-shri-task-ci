@@ -6,7 +6,7 @@ import {
 	GET_BUILDS,
 	GET_BUILDS_SUCCESS,
 	GET_SETTINGS,
-	GET_SETTINGS_SUCCESS,
+	GET_SETTINGS_SUCCESS, INIT_APP,
 	REQUEST_BUILD,
 	REQUEST_BUILD_SUCCESS,
 	UPDATE_SETTINGS,
@@ -23,11 +23,16 @@ export const defaultState = {
 
 export function reducer(state = defaultState, action) {
 	switch (action.type) {
+		case INIT_APP:
+			return defaultState;
 		case GET_SETTINGS:
+		case UPDATE_SETTINGS:
 			return state;
+		case UPDATE_SETTINGS_SUCCESS:
 		case GET_SETTINGS_SUCCESS:
 			return {
 				...state,
+				isLoaded: true,
 				settings: action.data
 			};
 		case GET_BUILD:
@@ -46,11 +51,6 @@ export function reducer(state = defaultState, action) {
 			return state;
 		case REQUEST_BUILD_SUCCESS:
 			return state;
-		case UPDATE_SETTINGS:
-			return state;
-		case UPDATE_SETTINGS_SUCCESS:
-			return state;
-
 		default:
 			return state;
 	}

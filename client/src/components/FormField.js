@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bemHelper } from '../bem-helper';
 
 import './FormField.scss';
@@ -23,11 +23,18 @@ export function FormField(
 ) {
 	const inputId = `form-field-${id++}`;
 
-	const [inputValue, setInputValue] = useState(value);
+	const [inputValue, setInputValue] = useState(value || '');
+
+	useEffect(() => {
+		onChange && onChange(inputValue);
+	}, [inputValue]);
 
 	const handleChange = (event) => {
 		setInputValue(event.target.value);
-		onChange && onChange(event.target.value);
+	};
+
+	const handleClearClick = () => {
+		setInputValue("");
 	};
 
 	return (
@@ -37,10 +44,11 @@ export function FormField(
 				type="text"
 				placeholder={placeholder}
 				id={inputId}
-				defaultValue={value}
+				value={inputValue}
 				onChange={handleChange}
+				required={required}
 			/>
-			{inputValue && <span className={cn('clear-button')} />}
+			{inputValue && <span className={cn('clear-button')} onClick={handleClearClick} />}
 			{afterElement && <span className={cn('after-element')}>{afterElement}</span>}
 		</div>
 	)

@@ -5,11 +5,9 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 
 import './scss/index.scss';
-import { getSettings } from './store/actions';
+import { initApp } from './store/actions';
 
-store.dispatch(getSettings());
-
-window.store = store;
+store.dispatch(initApp());
 
 ReactDOM.render(
 	<React.StrictMode>
