@@ -9,6 +9,8 @@ import { bemHelper } from '../bem-helper';
 import { getBuilds } from '../store/actions';
 
 import './BuildHistoryPage.scss';
+import { ModalOpener } from '../components/ModalOpener';
+import { NewBuildModal } from '../components/NewBuildModal';
 
 
 const cn = bemHelper('build-history-page');
@@ -36,7 +38,10 @@ export function BuildHistoryPage() {
 			className={cn()}
 			headerButtons={
 				<>
-					<Button small icon="start" className={cn('run-build-button')}>Run build</Button>
+					<ModalOpener
+						modal={({ closeModal }) => <NewBuildModal closeModal={closeModal}/>}
+						opener={({ openModal }) => <Button small icon="start" className={cn('run-build-button')} onClick={openModal}>Run build</Button>}
+					/>
 					<Button small icon="gear" className={cn('settings-button')} onClick={goToSettingsPage} />
 				</>
 			}

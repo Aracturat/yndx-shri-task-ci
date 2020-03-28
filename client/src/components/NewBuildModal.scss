@@ -1,0 +1,22 @@
+.new-build-modal {
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(67, 68, 69, 0.3), 0 0 1px rgba(67, 68, 69, 0.3);
+  border-radius: 4px;
+
+  &__header {
+    margin-bottom: 12px;
+  }
+
+  &__form {
+    display: grid;
+    grid-gap: 12px;
+  }
+
+  &__buttons {
+    display: grid;
+    grid-gap: 10px;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+  }
+
+}

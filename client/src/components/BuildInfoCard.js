@@ -14,6 +14,10 @@ const cn = bemHelper('build-info-card');
  * @param duration in seconds
  */
 function formatDuration(duration) {
+	if (!duration) {
+		return;
+	}
+
 	let minutes = Math.floor(duration / 60);
 	let seconds = duration - 60 * minutes;
 	let hours = Math.floor(minutes / 60);
@@ -30,6 +34,14 @@ function formatDuration(duration) {
 	return `${seconds} sec`
 }
 
+function formatStart(start) {
+	if (!start) {
+		return;
+	}
+
+	return format(new Date(start), 'd MMM, kk:HH');
+}
+
 export function BuildInfoCard(
 	{
 		build,
@@ -42,7 +54,7 @@ export function BuildInfoCard(
 ) {
 	const WrapperTag = tag;
 
-	const formattedStart = format(new Date(build.start), 'd MMM, kk:HH');
+	const formattedStart = formatStart(build.start);
 	const formattedDuration = formatDuration(build.duration);
 
 
@@ -66,8 +78,8 @@ export function BuildInfoCard(
 				<TextWithIcon icon="person" primary={build.authorName} />
 			</div>
 			<div className={cn('build-info')}>
-				<TextWithIcon icon="calendar" secondary={formattedStart} />
-				<TextWithIcon icon="timer" secondary={formattedDuration} />
+				{ formattedStart && <TextWithIcon icon="calendar" secondary={formattedStart} />}
+				{ formattedDuration && <TextWithIcon icon="timer" secondary={formattedDuration} />}
 			</div>
 		</WrapperTag>
 	)

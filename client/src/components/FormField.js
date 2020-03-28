@@ -39,7 +39,7 @@ export function FormField(
 
 	return (
 		<div className={cn(null, { required, inline }, className)}>
-			<label className={cn('label')} htmlFor={inputId}>{label}</label>
+			{ label && <label className={cn('label')} htmlFor={inputId}>{label}</label>}
 			<input className={cn('input')}
 				type="text"
 				placeholder={placeholder}
