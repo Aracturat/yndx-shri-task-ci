@@ -19,7 +19,8 @@ export const defaultState = {
 	isLoaded: false,
 	settings: {},
 	builds: [],
-	buildLogs: []
+	hasMoreBuilds: false,
+	buildLogs: [],
 };
 
 
@@ -53,14 +54,15 @@ export function reducer(state = defaultState, action) {
 
 			return {
 				...state,
-				builds: [...builds, action.data]
+				builds: [action.data, ...builds]
 			};
 		case GET_BUILDS:
 			return state;
 		case GET_BUILDS_SUCCESS:
 			return {
 				...state,
-				builds: action.data
+				builds: [...state.builds, ...action.data.builds],
+				hasMoreBuilds: action.data.hasMoreBuilds
 			};
 		case REQUEST_BUILD:
 			return state;

@@ -14,6 +14,7 @@ import {
 } from './actions-types';
 
 import * as api from './api';
+import { BUILDS_PER_PAGE } from '../constants';
 
 async function callApi(api, dispatch, beforeActionCreator, successActionCreator) {
 	dispatch(beforeActionCreator());
@@ -64,10 +65,16 @@ export function updateSettings(settings) {
 	}
 }
 
-export function getBuilds(limit, offset) {
+export function getBuilds(limit = BUILDS_PER_PAGE, offset = 0) {
 	return async dispatch => {
 		return await callApi(
-			() => api.getBuilds({ limit, offset }),
+			// Load one more build to understand do we have more
+			() => api
+				.getBuilds({ limit: limit + 1, offset })
+				.then(data => ({
+					builds: data,
+					hasMoreBuilds: data.length === limit + 1
+				})),
 			dispatch,
 			action(GET_BUILDS),
 			action(GET_BUILDS_SUCCESS)

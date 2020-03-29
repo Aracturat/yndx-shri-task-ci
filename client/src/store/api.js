@@ -1,9 +1,10 @@
+import { API_URL } from '../constants';
+
 const axios = require('axios');
 
-const apiUrl = 'http://localhost:3005/api/';
 
 const instance = axios.create({
-	baseURL: apiUrl,
+	baseURL: API_URL,
 	timeout: 5000
 });
 

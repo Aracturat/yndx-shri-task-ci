@@ -11,6 +11,7 @@ import { getBuilds } from '../store/actions';
 import './BuildHistoryPage.scss';
 import { ModalOpener } from '../components/ModalOpener';
 import { NewBuildModal } from '../components/NewBuildModal';
+import { BUILDS_PER_PAGE } from '../constants';
 
 
 const cn = bemHelper('build-history-page');
@@ -19,11 +20,12 @@ const cn = bemHelper('build-history-page');
 export function BuildHistoryPage() {
 	const dispatch = useDispatch();
 	const builds = useSelector(state => state.builds);
+	const hasMoreBuilds = useSelector(state => state.hasMoreBuilds);
 	const history = useHistory();
 
 	useEffect(() => {
-		dispatch(getBuilds());
-	}, [dispatch]);
+		loadMoreBuilds();
+	}, []);
 
 	const goToSettingsPage = () => {
 		history.push('/settings');
@@ -31,6 +33,10 @@ export function BuildHistoryPage() {
 
 	const goToBuildDetailsPage = (buildId) => {
 		history.push(`/build/${buildId}`);
+	};
+
+	const loadMoreBuilds = () => {
+		dispatch(getBuilds(BUILDS_PER_PAGE, builds.length))
 	};
 
 	return (
@@ -56,7 +62,7 @@ export function BuildHistoryPage() {
 						withHover
 					/>)}
 			</ol>
-			<Button small className={cn('show-more-button')}>Show more</Button>
+			{ hasMoreBuilds && <Button small className={cn('show-more-button')} onClick={loadMoreBuilds}>Show more</Button>}
 		</Page>
 	);
 }
