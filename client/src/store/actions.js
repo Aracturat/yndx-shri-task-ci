@@ -21,6 +21,8 @@ async function callApi(api, dispatch, beforeActionCreator, successActionCreator)
 	return await api()
 		.then(data => {
 			dispatch(successActionCreator(data));
+
+			return data;
 		});
 }
 
@@ -33,13 +35,13 @@ function action(type) {
 
 export function initApp() {
 	return dispatch => {
-		dispatch(getSettings());
+		return dispatch(getSettings());
 	}
 }
 
 export function getSettings() {
 	return async dispatch => {
-		await callApi(
+		return await callApi(
 			() => api.getSettings(),
 			dispatch,
 			action(GET_SETTINGS),
@@ -50,7 +52,7 @@ export function getSettings() {
 
 export function updateSettings(settings) {
 	return async dispatch => {
-		await callApi(
+		return await callApi(
 			() => api.updateSettings(settings),
 			dispatch,
 			action(UPDATE_SETTINGS),
@@ -61,7 +63,7 @@ export function updateSettings(settings) {
 
 export function getBuilds(limit, offset) {
 	return async dispatch => {
-		await callApi(
+		return await callApi(
 			() => api.getBuilds({ limit, offset }),
 			dispatch,
 			action(GET_BUILDS),
@@ -72,7 +74,7 @@ export function getBuilds(limit, offset) {
 
 export function getBuild(buildId) {
 	return async dispatch => {
-		await callApi(
+		return await callApi(
 			() => api.getBuild({ buildId }),
 			dispatch,
 			action(GET_BUILD),
@@ -83,7 +85,7 @@ export function getBuild(buildId) {
 
 export function getBuildLogs(buildId) {
 	return async dispatch => {
-		await callApi(
+		return await callApi(
 			() => api.getBuildLogs({ buildId }),
 			dispatch,
 			action(GET_BUILD_LOGS),
@@ -94,7 +96,7 @@ export function getBuildLogs(buildId) {
 
 export function requestBuild(commitHash) {
 	return async dispatch => {
-		await callApi(
+		return await callApi(
 			() => api.requestBuild({ commitHash }),
 			dispatch,
 			action(REQUEST_BUILD),

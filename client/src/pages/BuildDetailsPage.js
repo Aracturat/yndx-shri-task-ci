@@ -9,7 +9,7 @@ import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
 
 import { LoadingPage } from './LoadingPage';
-import { getBuild, getBuildLogs } from '../store/actions';
+import { getBuild, getBuildLogs, requestBuild } from '../store/actions';
 
 import './BuildDetailsPage.scss';
 
@@ -39,13 +39,32 @@ export function BuildDetailsPage() {
 		history.push('/settings');
 	};
 
+	const handleRebuild = () => {
+		dispatch(requestBuild(build.commitHash))
+			.then(newBuild => {
+				history.push(`/build/${newBuild.id}`);
+			});
+	};
+
 	return (
 		<Page
 			className={cn()}
 			headerButtons={
 				<>
-					<Button small icon="restart" className={cn('restart-build-button')}>Rebuild</Button>
-					<Button small icon="gear" className={cn('settings-button')} onClick={goToSettingsPage} />
+					<Button
+						small
+						icon="restart"
+						className={cn('restart-build-button')}
+						onClick={handleRebuild}
+					>
+						Rebuild
+					</Button>
+					<Button
+						small
+						icon="gear"
+						className={cn('settings-button')}
+						onClick={goToSettingsPage}
+					/>
 				</>
 			}
 		>
