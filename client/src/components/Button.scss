@@ -43,6 +43,7 @@
   &[disabled] {
     --color-border-button: var(--color-bg-disabled);
     --color-bg-button: var(--color-bg-disabled);
+    cursor: not-allowed;
   }
 
   &__icon {

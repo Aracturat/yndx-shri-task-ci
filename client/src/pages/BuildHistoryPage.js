@@ -23,7 +23,7 @@ export function BuildHistoryPage() {
 
 	useEffect(() => {
 		dispatch(getBuilds());
-	}, []);
+	}, [dispatch]);
 
 	const goToSettingsPage = () => {
 		history.push('/settings');

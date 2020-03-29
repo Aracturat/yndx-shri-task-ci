@@ -18,11 +18,14 @@ import * as api from './api';
 async function callApi(api, dispatch, beforeActionCreator, successActionCreator) {
 	dispatch(beforeActionCreator());
 
-	return await api()
+	return api()
 		.then(data => {
 			dispatch(successActionCreator(data));
 
 			return data;
+		})
+		.catch(err => {
+			throw err.response.data;
 		});
 }
 

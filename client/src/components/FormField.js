@@ -29,7 +29,7 @@ export function FormField(
 
 	useEffect(() => {
 		onChange && onChange(inputValue);
-	}, [inputValue]);
+	}, [inputValue, onChange]);
 
 	const handleChange = (event) => {
 		setInputValue(event.target.value);

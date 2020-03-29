@@ -11,6 +11,8 @@ import { bemHelper } from '../bem-helper';
 import { updateSettings } from '../store/actions';
 
 import './SettingsPage.scss';
+import { ModalOpener } from '../components/ModalOpener';
+import { ErrorModal } from '../components/ErrorModal';
 
 
 const cn = bemHelper('settings-page');
@@ -27,6 +29,8 @@ export function SettingsPage() {
 	const [period, setPeriod] = useState(settings.period);
 
 	const [isFormValid, setIsFormValid] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
+	const [error, setError] = useState();
 
 	useEffect(() => {
 		if (repoName) {
@@ -36,7 +40,15 @@ export function SettingsPage() {
 		}
 	}, [repoName, buildCommand, mainBranch, period]);
 
-	const handleSave = () => {
+	const handleSave = (e) => {
+		e.preventDefault();
+
+		if (isSaving) {
+			return;
+		}
+		setIsSaving(true);
+		setError(null);
+
 		const newSettings = {
 			repoName,
 			buildCommand,
@@ -44,9 +56,16 @@ export function SettingsPage() {
 			period
 		};
 
-		dispatch(updateSettings(newSettings));
-
-		history.push('/');
+		dispatch(updateSettings(newSettings))
+			.then(() => {
+				//history.push('/');
+			})
+			.catch(err => {
+				setError(err.error);
+			})
+			.finally(() => {
+				setIsSaving(false)
+			});
 	};
 
 	const handleCancel = () => {
@@ -97,10 +116,21 @@ export function SettingsPage() {
 				/>
 
 				<div className={cn('buttons')}>
-					<Button action type="submit" onClick={handleSave} disabled={!isFormValid}>Save</Button>
-					<Button onClick={handleCancel}>Cancel</Button>
+					<Button action type="submit" onClick={handleSave} disabled={!isFormValid || isSaving}>Save</Button>
+					<Button onClick={handleCancel} disabled={isSaving}>Cancel</Button>
 				</div>
 			</form>
+			{
+				error
+				&&
+				<ModalOpener
+					modal={({ closeModal }) =>
+						<ErrorModal
+							closeModal={closeModal}
+							error={error}
+						/>}
+				/>
+			}
 		</Page>
 	);
 }

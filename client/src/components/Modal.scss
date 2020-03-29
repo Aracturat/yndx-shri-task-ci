@@ -1,0 +1,12 @@
+.modal {
+  width: 485px;
+  max-width: 100%;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(67, 68, 69, 0.3), 0 0 1px rgba(67, 68, 69, 0.3);
+  background: white;
+  border-radius: 4px;
+
+  &__header {
+    margin-bottom: 12px;
+  }
+}

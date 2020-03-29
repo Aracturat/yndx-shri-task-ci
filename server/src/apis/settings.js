@@ -1,4 +1,5 @@
 const db = require('../db-api');
+const git = require('../git');
 
 const Settings = require('../models/settings');
 
@@ -24,17 +25,21 @@ async function getSettings(req, res) {
 }
 
 async function setSettings(req, res) {
+	const newSettings = {
+		repoName: req.body.repoName,
+		buildCommand: req.body.buildCommand,
+		mainBranch: req.body.mainBranch || 'master',
+		period: req.body.period || 100
+	};
+
 	try {
-		await db.setBuildConfiguration({
-			repoName: req.body.repoName,
-			buildCommand: req.body.buildCommand,
-			mainBranch: req.body.mainBranch,
-			period: req.body.period
-		});
+		await git.actualizeLocalRepository(newSettings.repoName)
+
+		await db.setBuildConfiguration(newSettings);
 
 		await getSettings(req, res);
-	} catch {
-		res.status(500).send({ error: 'Something is going bad'})
+	} catch (err) {
+		res.status(500).send({ error: err })
 	}
 }
 

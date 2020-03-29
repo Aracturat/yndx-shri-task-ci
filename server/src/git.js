@@ -122,6 +122,7 @@ async function getCommitInfo(repository, commitHash) {
 }
 
 module.exports = {
+	actualizeLocalRepository,
 	getCommitInfo,
 	getCommitBranch
 };

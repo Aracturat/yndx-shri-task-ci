@@ -1,7 +1,6 @@
-.new-build-modal {
-   &__form {
-    display: grid;
-    grid-gap: 12px;
+.error-modal {
+  &__text {
+    margin-bottom: 12px;
   }
 
   &__buttons {

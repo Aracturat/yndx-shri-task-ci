@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -25,15 +25,15 @@ export function BuildDetailsPage() {
 	const build = useSelector(state => state.builds.filter(e => e.id === buildId).shift());
 	const buildLog = useSelector(state => state.buildLogs.filter(e => e.id === buildId).shift());
 
-	if (!build) {
-		dispatch(getBuild(buildId));
+	useEffect(() => {
+		if (!build) {
+			dispatch(getBuild(buildId));
+		}
 
-		return <LoadingPage />;
-	}
-
-	if (!buildLog) {
-		dispatch(getBuildLogs(buildId));
-	}
+		if (!buildLog) {
+			dispatch(getBuildLogs(buildId));
+		}
+	});
 
 	const goToSettingsPage = () => {
 		history.push('/settings');
@@ -45,6 +45,10 @@ export function BuildDetailsPage() {
 				history.push(`/build/${newBuild.id}`);
 			});
 	};
+
+	if (!build) {
+		return <LoadingPage/>;
+	}
 
 	return (
 		<Page
@@ -69,7 +73,7 @@ export function BuildDetailsPage() {
 			}
 		>
 			<BuildInfoCard build={build} buildInfoToBottom className={cn('build-info')} />
-			{buildLog && <Log text={buildLog.text} />}
+			{buildLog && <Log text={buildLog.text || 'Log is empty.'} />}
 		</Page>
 	);
 }
