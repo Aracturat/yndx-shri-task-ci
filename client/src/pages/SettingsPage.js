@@ -45,10 +45,19 @@ export function SettingsPage() {
 		};
 
 		dispatch(updateSettings(newSettings));
+
+		history.push('/');
 	};
 
 	const handleCancel = () => {
 		history.goBack();
+	};
+
+	const numberMask = (input) => {
+		return input
+			.split('')
+			.filter(e => /\d/.test(e))
+			.map(_ => /\d/);
 	};
 
 	return (
@@ -67,6 +76,7 @@ export function SettingsPage() {
 				<FormField
 					value={buildCommand}
 					onChange={setBuildCommand}
+					required
 					label="Build command"
 					placeholder="npm ci && npm run build"
 				/>
@@ -83,6 +93,7 @@ export function SettingsPage() {
 					label="Synchronize every"
 					placeholder="10"
 					afterElement="minutes"
+					mask={numberMask}
 				/>
 
 				<div className={cn('buttons')}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { bemHelper } from '../bem-helper';
 
 import './FormField.scss';
+import MaskedInput from 'react-text-mask';
 
 
 const cn = bemHelper('form-field');
@@ -18,6 +19,7 @@ export function FormField(
 		required = false,
 		inline = false,
 		placeholder,
+		mask,
 		className
 	}
 ) {
@@ -37,10 +39,16 @@ export function FormField(
 		setInputValue("");
 	};
 
+	const defaultMask = (input) => {
+		return input.split("").map(() => /./);
+	};
+
 	return (
 		<div className={cn(null, { required, inline }, className)}>
 			{ label && <label className={cn('label')} htmlFor={inputId}>{label}</label>}
-			<input className={cn('input')}
+			<MaskedInput
+				mask={mask || defaultMask}
+				className={cn('input')}
 				type="text"
 				placeholder={placeholder}
 				id={inputId}
