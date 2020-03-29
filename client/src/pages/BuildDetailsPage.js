@@ -12,6 +12,7 @@ import { LoadingPage } from './LoadingPage';
 import { getBuild, getBuildLogs, requestBuild } from '../store/actions';
 
 import './BuildDetailsPage.scss';
+import { Spinner } from '../components/Spinner';
 
 
 const cn = bemHelper('build-details-page');
@@ -73,7 +74,10 @@ export function BuildDetailsPage() {
 			}
 		>
 			<BuildInfoCard build={build} buildInfoToBottom className={cn('build-info')} />
-			{buildLog && <Log text={buildLog.text || 'Log is empty.'} />}
+			{
+				buildLog
+				? <Log text={buildLog.text || 'Log is empty.'} />
+				: <div className={cn('spinner-area')}><Spinner/></div>}
 		</Page>
 	);
 }

@@ -4,6 +4,7 @@ import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
 
 import './LoadingPage.scss';
+import { Spinner } from '../components/Spinner';
 
 
 const cn = bemHelper('loading-page');
@@ -11,13 +12,7 @@ const cn = bemHelper('loading-page');
 export function LoadingPage() {
 	return (
 		<Page className={cn()}>
-			<div className={cn("spinner-area")}>
-				<div className={cn('spinner')}>
-					<div className={cn('spinner-bar')}/>
-					<div className={cn('spinner-bar')}/>
-					<div className={cn('spinner-bar')}/>
-				</div>
-			</div>
+			<Spinner />
 		</Page>
 	)
 }

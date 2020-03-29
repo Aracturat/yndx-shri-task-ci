@@ -1,5 +1,7 @@
 export const INIT_APP = 'INIT_APP';
 
+export const CLEAR_BUILDS = 'CLEAR_BUILDS';
+
 export const GET_SETTINGS = 'GET_SETTINGS';
 export const GET_SETTINGS_SUCCESS = 'GET_SETTINGS_SUCCESS';
 

@@ -58,7 +58,7 @@ export function SettingsPage() {
 
 		dispatch(updateSettings(newSettings))
 			.then(() => {
-				//history.push('/');
+				history.push('/');
 			})
 			.catch(err => {
 				setError(err.error);

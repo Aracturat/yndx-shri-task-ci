@@ -1,4 +1,5 @@
 import {
+	CLEAR_BUILDS,
 	GET_BUILD,
 	GET_BUILD_LOGS,
 	GET_BUILD_LOGS_SUCCESS,
@@ -40,6 +41,12 @@ function action(type) {
 export function initApp() {
 	return dispatch => {
 		return dispatch(getSettings());
+	}
+}
+
+export function clearBuilds() {
+	return {
+		type: CLEAR_BUILDS
 	}
 }
 

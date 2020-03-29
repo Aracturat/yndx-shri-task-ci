@@ -6,4 +6,12 @@
   &__build-info {
     margin-bottom: 12px;
   }
+
+  &__spinner-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 300px;
+  }
 }

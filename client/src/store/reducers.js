@@ -1,4 +1,5 @@
 import {
+	CLEAR_BUILDS,
 	GET_BUILD,
 	GET_BUILD_LOGS,
 	GET_BUILD_LOGS_SUCCESS,
@@ -28,9 +29,13 @@ export function reducer(state = defaultState, action) {
 	switch (action.type) {
 		case INIT_APP:
 			return defaultState;
-		case GET_SETTINGS:
-		case UPDATE_SETTINGS:
-			return state;
+		case CLEAR_BUILDS:
+			return {
+				...state,
+				builds: [],
+				hasMoreBuilds: false,
+				buildLogs: []
+			};
 		case UPDATE_SETTINGS_SUCCESS:
 		case GET_SETTINGS_SUCCESS:
 			return {
@@ -38,10 +43,6 @@ export function reducer(state = defaultState, action) {
 				isLoaded: true,
 				settings: action.data
 			};
-		case GET_BUILD:
-			return state;
-		case GET_BUILD_LOGS:
-			return state;
 		case GET_BUILD_LOGS_SUCCESS:
 			const buildLogs = state.buildLogs.filter(buildLog => buildLog.id !== action.data.id);
 
@@ -49,6 +50,7 @@ export function reducer(state = defaultState, action) {
 				...state,
 				buildLogs: [...buildLogs, action.data]
 			};
+		case REQUEST_BUILD_SUCCESS:
 		case GET_BUILD_SUCCESS:
 			const builds = state.builds.filter(build => build.id !== action.data.id);
 
@@ -56,18 +58,12 @@ export function reducer(state = defaultState, action) {
 				...state,
 				builds: [action.data, ...builds]
 			};
-		case GET_BUILDS:
-			return state;
 		case GET_BUILDS_SUCCESS:
 			return {
 				...state,
 				builds: [...state.builds, ...action.data.builds],
 				hasMoreBuilds: action.data.hasMoreBuilds
 			};
-		case REQUEST_BUILD:
-			return state;
-		case REQUEST_BUILD_SUCCESS:
-			return state;
 		default:
 			return state;
 	}
