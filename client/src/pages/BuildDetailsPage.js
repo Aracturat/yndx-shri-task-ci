@@ -27,9 +27,12 @@ export function BuildDetailsPage() {
 
 	if (!build) {
 		dispatch(getBuild(buildId));
-		dispatch(getBuildLogs(buildId));
 
-		return <LoadingPage/>;
+		return <LoadingPage />;
+	}
+
+	if (!buildLog) {
+		dispatch(getBuildLogs(buildId));
 	}
 
 	const goToSettingsPage = () => {
@@ -42,12 +45,12 @@ export function BuildDetailsPage() {
 			headerButtons={
 				<>
 					<Button small icon="restart" className={cn('restart-build-button')}>Rebuild</Button>
-					<Button small icon="gear" className={cn('settings-button')} onClick={goToSettingsPage	} />
+					<Button small icon="gear" className={cn('settings-button')} onClick={goToSettingsPage} />
 				</>
 			}
 		>
 			<BuildInfoCard build={build} buildInfoToBottom className={cn('build-info')} />
-			{buildLog && <Log>{buildLog.text}</Log>}
+			{buildLog && <Log text={buildLog.text} />}
 		</Page>
 	);
 }
