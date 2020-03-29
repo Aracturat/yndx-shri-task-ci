@@ -75,7 +75,7 @@ export function BuildInfoCard(
 		<WrapperTag
 			className={
 				cn(null, {
-					'buildInfo-info-to-bottom': buildInfoToBottom,
+					'build-info-to-bottom': buildInfoToBottom,
 					'with-hover': withHover
 				}, className)
 			}

@@ -33,7 +33,7 @@ export function SettingsPage() {
 	const [error, setError] = useState();
 
 	useEffect(() => {
-		if (repoName) {
+		if (repoName && buildCommand) {
 			setIsFormValid(true);
 		} else {
 			setIsFormValid(false);

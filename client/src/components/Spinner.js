@@ -6,7 +6,7 @@ import './Spinner.scss';
 
 const cn = bemHelper('spinner');
 
-export function Spinner({}) {
+export function Spinner() {
 	return (
 		<div className={cn()}>
 			<div className={cn('content')}>

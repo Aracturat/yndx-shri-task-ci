@@ -13,6 +13,7 @@ import { ModalOpener } from '../components/ModalOpener';
 import { NewBuildModal } from '../components/NewBuildModal';
 import { BUILDS_PER_PAGE } from '../constants';
 import { Spinner } from '../components/Spinner';
+import { Text } from '../components/Text';
 
 
 const cn = bemHelper('build-history-page');
@@ -61,16 +62,21 @@ export function BuildHistoryPage() {
 				</>
 			}
 		>
-			<ol className={cn('list')}>
-				{builds.map(build =>
-					<BuildInfoCard
-						key={build.id}
-						onClick={() => goToBuildDetailsPage(build.id)}
-						build={build}
-						tag="li"
-						withHover
-					/>)}
-			</ol>
+			{ !isLoading && builds.length === 0 && <Text>We don't have builds yet. Press 'Run build' button for a new build.</Text>}
+			{
+				builds.length > 0
+				&&
+				<ol className={cn('list')}>
+					{builds.map(build =>
+						<BuildInfoCard
+							key={build.id}
+							onClick={() => goToBuildDetailsPage(build.id)}
+							build={build}
+							tag="li"
+							withHover
+						/>)}
+				</ol>
+			}
 			{
 				isLoading
 				&&

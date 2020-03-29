@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -7,12 +7,11 @@ import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Log } from '../components/Log';
 import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
-
+import { Spinner } from '../components/Spinner';
 import { LoadingPage } from './LoadingPage';
 import { getBuild, getBuildLogs, requestBuild } from '../store/actions';
 
 import './BuildDetailsPage.scss';
-import { Spinner } from '../components/Spinner';
 
 
 const cn = bemHelper('build-details-page');
@@ -25,6 +24,7 @@ export function BuildDetailsPage() {
 	const dispatch = useDispatch();
 	const build = useSelector(state => state.builds.filter(e => e.id === buildId).shift());
 	const buildLog = useSelector(state => state.buildLogs.filter(e => e.id === buildId).shift());
+	const [isRebuild, setIsRebuild] = useState(false);
 
 	useEffect(() => {
 		if (!build) {
@@ -41,8 +41,14 @@ export function BuildDetailsPage() {
 	};
 
 	const handleRebuild = () => {
+		if (isRebuild) {
+			return;
+		}
+		setIsRebuild(true);
+
 		dispatch(requestBuild(build.commitHash))
 			.then(newBuild => {
+				setIsRebuild(false);
 				history.push(`/build/${newBuild.id}`);
 			});
 	};
@@ -61,6 +67,7 @@ export function BuildDetailsPage() {
 						icon="restart"
 						className={cn('restart-build-button')}
 						onClick={handleRebuild}
+						disabled={isRebuild}
 					>
 						Rebuild
 					</Button>

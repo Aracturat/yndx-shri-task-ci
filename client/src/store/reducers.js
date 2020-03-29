@@ -1,19 +1,14 @@
 import {
 	CLEAR_BUILDS,
-	GET_BUILD,
-	GET_BUILD_LOGS,
 	GET_BUILD_LOGS_SUCCESS,
 	GET_BUILD_SUCCESS,
-	GET_BUILDS,
 	GET_BUILDS_SUCCESS,
-	GET_SETTINGS,
 	GET_SETTINGS_SUCCESS,
 	INIT_APP,
-	REQUEST_BUILD,
 	REQUEST_BUILD_SUCCESS,
-	UPDATE_SETTINGS,
 	UPDATE_SETTINGS_SUCCESS
 } from './actions-types';
+import { BUILDS_PER_PAGE } from '../constants';
 
 
 export const defaultState = {
@@ -61,7 +56,10 @@ export function reducer(state = defaultState, action) {
 		case GET_BUILDS_SUCCESS:
 			return {
 				...state,
-				builds: [...state.builds, ...action.data.builds],
+				builds: [
+					...state.builds,
+					...action.data.builds.slice(0, Math.max(action.data.builds.length - 1, BUILDS_PER_PAGE))
+				],
 				hasMoreBuilds: action.data.hasMoreBuilds
 			};
 		default:
