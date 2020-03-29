@@ -15,7 +15,7 @@ const cn = bemHelper('build-info-card');
  */
 function formatDuration(duration) {
 	if (!duration) {
-		return;
+		return '- h -- min';
 	}
 
 	let minutes = Math.floor(duration / 60);
@@ -36,10 +36,22 @@ function formatDuration(duration) {
 
 function formatStart(start) {
 	if (!start) {
-		return;
+		return '- ---, --:--';
 	}
 
 	return format(new Date(start), 'd MMM, kk:HH');
+}
+
+function convertStatusToCssModifier(status) {
+	const mapper = {
+		'Success': 'success',
+		'Fail': 'error',
+		'Waiting': 'pending',
+		'InProgress': 'pending',
+		'Canceled': 'error'
+	};
+
+	return mapper[status];
 }
 
 export function BuildInfoCard(
@@ -57,6 +69,7 @@ export function BuildInfoCard(
 	const formattedStart = formatStart(build.start);
 	const formattedDuration = formatDuration(build.duration);
 
+	const statusModifier = convertStatusToCssModifier(build.status);
 
 	return (
 		<WrapperTag
@@ -68,9 +81,9 @@ export function BuildInfoCard(
 			}
 			onClick={onClick}
 		>
-			<Icon name={build.status.toLowerCase()} className={cn('status-icon')} />
+			<Icon name={statusModifier} className={cn('status-icon')} />
 			<div className={cn('commit-first-line')}>
-				<div className={cn('commit-number', { 'success': build.status === 'Success' })}>#{build.buildNumber}</div>
+				<div className={cn('commit-number', { [statusModifier]: true })}>#{build.buildNumber}</div>
 				<div className={cn('commit-name')}>{build.commitMessage}</div>
 			</div>
 			<div className={cn('commit-second-line')}>
@@ -78,8 +91,8 @@ export function BuildInfoCard(
 				<TextWithIcon icon="person" primary={build.authorName} />
 			</div>
 			<div className={cn('build-info')}>
-				{ formattedStart && <TextWithIcon icon="calendar" secondary={formattedStart} />}
-				{ formattedDuration && <TextWithIcon icon="timer" secondary={formattedDuration} />}
+				<TextWithIcon icon="calendar" secondary={formattedStart} />
+				<TextWithIcon icon="timer" secondary={formattedDuration} />
 			</div>
 		</WrapperTag>
 	)
