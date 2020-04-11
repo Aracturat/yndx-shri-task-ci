@@ -29,7 +29,7 @@ async function setSettings(req, res) {
 		repoName: req.body.repoName,
 		buildCommand: req.body.buildCommand,
 		mainBranch: req.body.mainBranch || 'master',
-		period: req.body.period || 100
+		period: +req.body.period || 100
 	};
 
 	try {
