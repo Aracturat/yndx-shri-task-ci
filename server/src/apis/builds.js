@@ -62,6 +62,14 @@ async function requestBuild(req, res) {
 	try {
 		commitInfo = await git.getCommitInfo(repoName, commitHash);
 		commitBranch = await git.getCommitBranch(repoName, commitHash, mainBranch);
+
+		if (!commitInfo) {
+			throw 'Missing commit info';
+		}
+
+		if (!commitBranch) {
+			throw 'Missing commit branch';
+		}
 	} catch (err) {
 		return res.status(500).send({ error: `Git error: ${err}` });
 	}

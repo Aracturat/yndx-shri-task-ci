@@ -25,7 +25,7 @@ class FileCache {
 	}
 
 	async get(key) {
-		if (this.has(key)) {
+		if (await this.has(key)) {
 			const keyPath = path.join(this.folder, key);
 
 			return await promisifiedReadFile(keyPath, {encoding: 'utf-8'});
