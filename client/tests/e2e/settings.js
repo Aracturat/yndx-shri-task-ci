@@ -1,11 +1,11 @@
-const { expect } = require('chai');
-const { SettingsPage } = require('./page-objects/settings.page');
-const { ErrorModal } = require('./page-objects/error-modal.page');
+import { expect } from 'chai';
+import { SettingsPage } from './page-objects/settings.page';
+import { ErrorModal } from './page-objects/error.modal';
 
 describe('Страница настроек', () => {
 	const page = new SettingsPage();
 
-	const correctConfig = {
+	const correctSettings = {
 		repo: 'Aracturat/yndx-shri-task-ci',
 		buildCommand: 'npm ci',
 		mainBranch: 'master',
@@ -17,17 +17,17 @@ describe('Страница настроек', () => {
 	});
 
 	it('должна позволять ввести новые настройки', () => {
-		page.fill(correctConfig);
+		page.fill(correctSettings);
 
-		expect(page.repo.getValue()).to.equal(correctConfig.repo);
-		expect(page.buildCommand.getValue()).to.equal(correctConfig.buildCommand);
-		expect(page.mainBranch.getValue()).to.equal(correctConfig.mainBranch);
-		expect(page.period.getValue()).to.equal(correctConfig.period);
+		expect(page.repo.getValue()).to.equal(correctSettings.repo);
+		expect(page.buildCommand.getValue()).to.equal(correctSettings.buildCommand);
+		expect(page.mainBranch.getValue()).to.equal(correctSettings.mainBranch);
+		expect(page.period.getValue()).to.equal(correctSettings.period);
 		expect(page.saveButton.isEnabled()).to.equal(true);
 	});
 
 	it('должна позволять сохранять настройки', () => {
-		page.fill(correctConfig);
+		page.fill(correctSettings);
 		page.save();
 
 		browser.waitUntil(() => $$('.build-history-page').length > 0, { timeout: 60000 })
@@ -35,7 +35,7 @@ describe('Страница настроек', () => {
 
 	it('должна показывать ошибку, если неверный репозиторий', () => {
 		const badConfig = {
-			...correctConfig,
+			...correctSettings,
 			repo: 'test/test'
 		};
 
