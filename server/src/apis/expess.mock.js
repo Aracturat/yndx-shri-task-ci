@@ -1,8 +1,9 @@
-const mockRequest = ({ query = {}, params = {} } = {}) => {
+const mockRequest = ({ query = {}, params = {}, body = {}} = {}) => {
 	return {
-		query: query,
-		params: params}
-	;
+		query,
+		params,
+		body
+	};
 };
 
 const mockResponse = () => {

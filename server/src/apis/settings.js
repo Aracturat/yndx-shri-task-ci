@@ -33,7 +33,7 @@ async function setSettings(req, res) {
 	};
 
 	try {
-		await git.actualizeLocalRepository(newSettings.repoName)
+		await git.actualizeLocalRepository(newSettings.repoName);
 
 		await db.setBuildConfiguration(newSettings);
 
