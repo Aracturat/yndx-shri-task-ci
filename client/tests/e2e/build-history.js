@@ -4,6 +4,7 @@ import { BuildHistoryPage } from './page-objects/build-history.page';
 import { ErrorModal } from './page-objects/error.modal';
 
 import { updateSettings } from '../../src/store/api';
+import { BuildDetailsPage } from './page-objects/build-details.page';
 
 describe('Страница с историей билдов', () => {
 	const page = new BuildHistoryPage();
@@ -29,7 +30,9 @@ describe('Страница с историей билдов', () => {
 		modal.fill('63f157f');
 		modal.runBuild();
 
-		browser.waitUntil(() => $$('.build-details-page').length > 0);
+		const buildDetailsPage = new BuildDetailsPage();
+
+		browser.waitUntil(() => buildDetailsPage.isVisible);
 		expect(browser.getUrl().includes('/build/')).to.equal(true);
 	}, 2);
 
@@ -40,7 +43,7 @@ describe('Страница с историей билдов', () => {
 		modal.runBuild();
 
 		const errorModal = new ErrorModal();
-		errorModal.text.waitForDisplayed({ timeout: 60000 });
+		errorModal.text.waitForDisplayed();
 		expect(errorModal.text.getText()).to.equal('Git error: Unknown revision');
 	});
 });

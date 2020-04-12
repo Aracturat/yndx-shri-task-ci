@@ -1,4 +1,8 @@
 export class SettingsPage {
+	get isVisible() {
+		return $$('.settings-page').length > 0;
+	}
+
 	get repo() {
 		return $$('.form-field')[0].$('.form-field__input');
 	}
@@ -28,7 +32,7 @@ export class SettingsPage {
 
 	open() {
 		browser.url('/settings');
-		browser.waitUntil(() => $$('.settings-page__form').length > 0);
+		browser.waitUntil(() => this.isVisible);
 	}
 
 	save() {

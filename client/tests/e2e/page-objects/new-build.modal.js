@@ -1,4 +1,8 @@
 export class NewBuildModal {
+	get isVisible() {
+		return $$('.new-build-modal').length > 0;
+	}
+
 	get commitHashInput() {
 		return $('.new-build-modal__form .form-field__input');
 	}
@@ -10,10 +14,6 @@ export class NewBuildModal {
 
 	fill(commitHash) {
 		this.commitHashInput.setValue(commitHash);
-	}
-
-	isVisible() {
-		return $$('.new-build-modal').length > 0;
 	}
 
 	runBuild() {

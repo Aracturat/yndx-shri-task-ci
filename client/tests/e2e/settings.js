@@ -1,6 +1,8 @@
 import { expect } from 'chai';
+
 import { SettingsPage } from './page-objects/settings.page';
 import { ErrorModal } from './page-objects/error.modal';
+import { BuildHistoryPage } from './page-objects/build-history.page';
 
 describe('Страница настроек', () => {
 	const page = new SettingsPage();
@@ -30,7 +32,9 @@ describe('Страница настроек', () => {
 		page.fill(correctSettings);
 		page.save();
 
-		browser.waitUntil(() => $$('.build-history-page').length > 0, { timeout: 60000 })
+		const buildHistoryPage = new BuildHistoryPage();
+
+		browser.waitUntil(() => buildHistoryPage.isVisible, { timeout: 60000 })
 	});
 
 	it('должна показывать ошибку, если неверный репозиторий', () => {
