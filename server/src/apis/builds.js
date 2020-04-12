@@ -1,7 +1,8 @@
 const path = require('path');
 
 const db = require('../db-api');
-const git = require('../git');
+const Git = require('../git');
+const git = new Git();
 
 const Build = require('../models/build');
 const BuildLog = require('../models/build-log');

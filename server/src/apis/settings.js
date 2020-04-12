@@ -1,5 +1,7 @@
 const db = require('../db-api');
-const git = require('../git');
+
+const Git = require('../git');
+const git = new Git();
 
 const Settings = require('../models/settings');
 
@@ -20,8 +22,6 @@ async function getSettings(req, res) {
 	} catch (err) {
 		return res.status(404).send({ error: 'Build settings has not found' });
 	}
-
-
 }
 
 async function setSettings(req, res) {
