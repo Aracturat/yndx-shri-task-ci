@@ -6,17 +6,18 @@ const utils = require('./utils');
 let git;
 
 beforeEach(() => {
-	jest.resetAllMocks()
+	jest.resetAllMocks();
 	git = new Git();
 });
 
+describe('getRepositoryUrl', () => {
+	test('should return correct url', () => {
+		const repository = 'test';
 
-test('getRepositoryUrl should return correct url', () => {
-	const repository = 'test';
+		const repositoryUrl = git.getRepositoryUrl(repository);
 
-	const repositoryUrl = git.getRepositoryUrl(repository);
-
-	expect(repositoryUrl).toEqual(`https://github.com/test.git`);
+		expect(repositoryUrl).toEqual(`https://github.com/test.git`);
+	});
 });
 
 describe('cloneRemoteGithubRepository', () => {
@@ -127,5 +128,59 @@ describe('getCommitInfo', () => {
 
 		expect(git.commands.getCommitMessage).toHaveBeenCalledTimes(1);
 		expect(git.commands.getCommitMessage).toHaveBeenCalledWith(commitHash);
+	});
+});
+
+describe('actualizeLocalRepository', () => {
+	const repository = 'test';
+
+	beforeEach(() => {
+		git.isGithubRepositoryCloned = jest.fn();
+		git.cloneRemoteGithubRepository = jest.fn();
+		git.commands.fetchAllBranches = jest.fn();
+	});
+
+	test('should clone repository if don\'t have it', async () => {
+		git.isGithubRepositoryCloned.mockReturnValue(Promise.resolve(false));
+
+		await git.actualizeLocalRepository(repository);
+
+		expect(git.cloneRemoteGithubRepository).toHaveBeenCalledTimes(1);
+		expect(git.cloneRemoteGithubRepository).toHaveBeenCalledWith(repository);
+	});
+
+	test('should fetch all branches if have repository', async () => {
+		git.isGithubRepositoryCloned.mockReturnValue(Promise.resolve(true));
+
+		await git.actualizeLocalRepository(repository);
+
+		expect(git.commands.fetchAllBranches).toHaveBeenCalledTimes(1);
+		expect(git.commands.fetchAllBranches).toHaveBeenCalledWith();
+	});
+});
+
+describe('isGithubRepositoryCloned', () => {
+	const repository = 'test';
+
+	test('should return false if folder doesn\'t exist', async () => {
+		utils.isDirectoryExist.mockReturnValue(Promise.resolve(false));
+
+		const result = await git.isGithubRepositoryCloned(repository);
+
+		expect(result).toEqual(false);
+	});
+
+	test('should return true if remote origin equals repository url', async () => {
+		const repositoryUrl = git.getRepositoryUrl(repository);
+		utils.isDirectoryExist.mockReturnValue(Promise.resolve(true));
+
+		git.commands.getRemoteOrigin = jest.fn().mockReturnValue(repositoryUrl);
+
+		const result = await git.isGithubRepositoryCloned(repository);
+
+		expect(result).toEqual(true);
+
+		expect(git.commands.getRemoteOrigin).toHaveBeenCalledTimes(1);
+		expect(git.commands.getRemoteOrigin).toHaveBeenCalledWith();
 	});
 });
