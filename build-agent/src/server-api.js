@@ -6,15 +6,6 @@ const instance = axios.create({
 
 
 /**
- * Get build configuration.
- */
-function notifyAgent() {
-	return instance
-		.port('/notify-agent')
-		.then(result => result.data);
-}
-
-/**
  * Notify build server about new agent.
  *
  * @param {String} host
@@ -32,7 +23,7 @@ function notifyAgent({ host, port }) {
  * Notify build server about build result.
  *
  * @param {String} id
- * @param {Number} status
+ * @param {String} status
  * @param {String} log
  * @returns {Promise<>}
  */
@@ -42,4 +33,9 @@ function notifyBuildResult({ id, status, log }) {
 		status,
 		log
 	});
+}
+
+module.exports = {
+	notifyAgent,
+	notifyBuildResult
 }

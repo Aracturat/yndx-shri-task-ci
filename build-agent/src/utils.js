@@ -1,7 +1,7 @@
 const fs = require('fs');
 const child_process = require('child_process')
 const util = require('util');
-const rimraf = require("rimraf");
+const rimraf = require('rimraf');
 
 const promisifiedExec = util.promisify(child_process.exec);
 const promisifiedStat = util.promisify(fs.stat);
@@ -22,8 +22,7 @@ async function isFileExist(file) {
 		await promisifiedStat(file);
 
 		return true;
-	}
-	catch (e) {
+	} catch (e) {
 		if (e.code === 'ENOENT') {
 			return false;
 		} else {
@@ -37,8 +36,7 @@ async function isDirectoryExist(dir) {
 		const stat = await promisifiedStat(dir);
 
 		return stat.isDirectory();
-	}
-	catch (e) {
+	} catch (e) {
 		if (e.code === 'ENOENT') {
 			return false;
 		} else {

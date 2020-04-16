@@ -12,6 +12,6 @@ const app = express();
 configure(app);
 
 const port = process.env.PORT || 3000;
-app.listen(port, function() {
+app.listen(port, function () {
 	console.log(`School CI Build Agent is listening on port ${port}.`)
 });

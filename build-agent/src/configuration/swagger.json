@@ -44,7 +44,7 @@
       "BuildConfig": {
         "required": [
           "id",
-          "repositoryUrl",
+          "repository",
           "commitHash",
           "command"
         ],
@@ -54,7 +54,7 @@
             "type": "string",
             "format": "uuid"
           },
-          "repositoryUrl": {
+          "repository": {
             "type": "string"
           },
           "commitHash": {
