@@ -1,0 +1,25 @@
+{
+  "name": "@ci-server/config-server-ui-e2e",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "test": "wdio wdio.conf.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
+    "@wdio/cli": "^6.0.13",
+    "@wdio/local-runner": "^6.0.13",
+    "@wdio/mocha-framework": "^6.0.13",
+    "@wdio/spec-reporter": "^6.0.12",
+    "@wdio/sync": "^6.0.12",
+    "chai": "^4.2.0",
+    "chromedriver": "^80.0.2",
+    "wdio-chromedriver-service": "^6.0.1",
+    "@ci-server/shared": "^0.1.0",
+    "@ci-server/config-server": "^0.1.0",
+    "dotenv": "^8.2.0"
+  }
+}

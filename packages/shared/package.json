@@ -1,0 +1,16 @@
+{
+  "name": "@ci-server/shared",
+  "private": true,
+  "version": "0.1.0",
+  "license": "ISC",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^25.3.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "rimraf": "^3.0.2"
+  }
+}
