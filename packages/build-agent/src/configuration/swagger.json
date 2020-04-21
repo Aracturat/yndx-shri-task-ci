@@ -37,6 +37,15 @@
           }
         }
       }
+    },
+    "/is-alive": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {

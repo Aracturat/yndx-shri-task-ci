@@ -11,7 +11,7 @@ class GitCommands {
 	async cloneRemoteRepository(repositoryUrl) {
 		const command = `git clone ${repositoryUrl} ${this.repositoryTempDirectory}`;
 
-		return await runCommandInDirectory(command);
+		return await runCommandInDirectory(command, __dirname);
 	}
 
 	async fetchAllBranches() {

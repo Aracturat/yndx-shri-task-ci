@@ -71,14 +71,10 @@
     "schemas": {
       "AgentConfig": {
         "required": [
-          "host",
           "port"
         ],
         "type": "object",
         "properties": {
-          "host": {
-            "type": "string"
-          },
           "port": {
             "type": "string"
           }
@@ -99,6 +95,7 @@
         "required": [
           "id",
           "status",
+          "duration",
           "log"
         ],
         "type": "object",
@@ -113,6 +110,9 @@
                 "$ref": "#/components/schemas/BuildStatus"
               }
             ]
+          },
+          "duration": {
+            "type": "number"
           },
           "log": {
             "type": "string"

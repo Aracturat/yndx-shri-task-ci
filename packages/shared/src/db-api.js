@@ -1,10 +1,12 @@
 const https = require('https');
 const axios = require('axios');
 
+console.log(`Creation of connection to DB: ${process.env.API_BASE_URL}`)
+
 const instance = axios.create({
-	baseURL: process.env.DB_URL,
+	baseURL: process.env.API_BASE_URL,
 	headers: {
-		'Authorization': `Bearer ${process.env.DB_AUTH_TOKEN}`,
+		'Authorization': `Bearer ${process.env.API_TOKEN}`,
 	},
 	httpsAgent: new https.Agent({
 		rejectUnauthorized: false
@@ -69,8 +71,8 @@ function requestBuild({ commitMessage, commitHash, branchName, authorName }) {
 /**
  * Start build.
  *
- * @param {Number} buildId
- * @param {Date} dateTime
+ * @param {String} buildId
+ * @param {Date?} dateTime
  * @returns {Promise<>}
  */
 function startBuild({ buildId, dateTime }) {

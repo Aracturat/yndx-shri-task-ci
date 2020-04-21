@@ -1,7 +1,9 @@
 node_modules
 .idea
 server.env
-___TEMP___
+
+packages/build-agent/src/___TEMP___/repository/
+packages/config-server/src/___TEMP___/
 
 server-conf.json
 agent-conf.json

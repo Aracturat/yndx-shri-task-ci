@@ -1,17 +1,16 @@
+require('./src/read-config');
+
 const express = require('express');
 
-const config = require('./server-conf.json');
-
-process.env.PORT = config.port;
-process.env.API_BASE_URL = config.apiBaseUrl;
-process.env.API_TOKEN = config.apiToken;
-
+const { checkWaitingBuilds } = require('./src/waiting-build-watcher');
 const configure = require('./src/configuration');
 
 const app = express();
 configure(app);
 
-const port = process.env.PORT || 3000;
+checkWaitingBuilds();
+
+const port = process.env.PORT;
 app.listen(port, function() {
 	console.log(`School CI Build Server is listening on port ${port}.`)
 });

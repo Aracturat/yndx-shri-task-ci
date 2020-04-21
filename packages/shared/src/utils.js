@@ -8,7 +8,7 @@ const promisifiedStat = util.promisify(fs.stat);
 const promisifiedMkdir = util.promisify(fs.mkdir);
 
 
-async function runCommandInDirectory(command, dir = process.cwd()) {
+async function runCommandInDirectory(command, dir) {
 	const { stdout = '', stderr = '' } = await promisifiedExec(command, { cwd: dir });
 
 	return [stdout, stderr]
@@ -62,10 +62,16 @@ async function createDirectory(dir) {
 	}
 }
 
+async function wait(timeout) {
+	await new Promise(resolve => setTimeout(resolve, timeout));
+}
+
+
 module.exports = {
 	runCommandInDirectory,
 	isDirectoryExist,
 	isFileExist,
 	removeDirectory,
-	createDirectory
+	createDirectory,
+	wait
 };

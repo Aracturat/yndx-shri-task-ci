@@ -7,16 +7,23 @@ const {
 
 const GitCommands = require('./git-commands');
 
+
 class Git {
-	repositoryTempDirectory = path.join(__dirname, '___TEMP___', 'repository');
-	commands = new GitCommands(this.repositoryTempDirectory);
+	constructor(repositoryTempDirectory) {
+		this.repositoryTempDirectory = repositoryTempDirectory || path.join(__dirname, '___TEMP___', 'repository');
+		this.commands = new GitCommands(this.repositoryTempDirectory);
+	}
 
 	getRepositoryUrl(repository) {
 		return `https://github.com/${repository}.git`;
 	}
 
-	async cloneRemoteGithubRepository(repository) {
+	async removeTempDirectory() {
 		await removeDirectory(this.repositoryTempDirectory);
+	}
+
+	async cloneRemoteGithubRepository(repository) {
+		await this.removeTempDirectory();
 
 		const repositoryUrl = this.getRepositoryUrl(repository);
 

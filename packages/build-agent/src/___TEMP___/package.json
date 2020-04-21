@@ -1,0 +1,4 @@
+{
+  "name": "__TEMP__",
+  "description": "This file needs to help build-agent package.json to live if package run npm ci without package.json"
+}

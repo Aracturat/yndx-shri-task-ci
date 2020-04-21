@@ -1,17 +1,20 @@
+require('./src/read-config');
+
 const express = require('express');
 
-const config = require('./agent-conf.json');
-
-process.env.PORT = config.port;
-process.env.SERVER_HOST = config.serverHost;
-process.env.SERVER_PORT = config.serverPort;
-
 const configure = require('./src/configuration');
+const { connectToBuildServer } = require('./src/connect-to-build-server');
 
 const app = express();
 configure(app);
 
-const port = process.env.PORT || 3000;
-app.listen(port, function () {
-	console.log(`School CI Build Agent is listening on port ${port}.`)
+const port = process.env.PORT;
+const server = app.listen(port, async function () {
+	console.log(`School CI Build Agent is listening on port ${port}.`);
+
+	const isConnected = await connectToBuildServer();
+	if (!isConnected) {
+		console.error(`Shutdown agent...`);
+		server.close();
+	}
 });

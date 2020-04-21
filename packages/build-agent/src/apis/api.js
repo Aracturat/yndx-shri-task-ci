@@ -1,8 +1,4 @@
-const server = require('../server-api');
-const utils = require('@ci-server/shared/src/utils');
-const Git = require('@ci-server/shared/src/git');
-
-const git = new Git();
+const { runBuild } = require('../build-runner');
 
 async function build(req, res) {
 	const {
@@ -12,27 +8,20 @@ async function build(req, res) {
 		command
 	} = req.body;
 
-	let log = "";
-	let status = "";
+	console.log(`Get new build request, buildId: ${id}`);
 
-	try {
-		await git.checkout(repository, commitHash);
+	setTimeout(() => runBuild({ id, repository, commitHash, command }), 0);
 
-		log = await utils.runCommandInDirectory(command, git.repositoryTempDirectory);
-		status = "Success";
-	}
-	catch {
-		status = "Fail";
-	}
+	res.status(200).send({});
+}
 
-	try {
-		await server.notifyBuildResult({ id, log, status });
-		res.status(200);
-	} catch {
-		res.status(500).send({ log, error: 'Something is going bad. Maybe build settings is missing.' });
-	}
+async function isAlive(req, res) {
+	console.log(`Get new alive request`);
+
+	res.send({});
 }
 
 module.exports = {
-	build
+	build,
+	isAlive
 };

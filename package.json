@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "run-config-server": "lerna run start --scope=@ci-server/config-server*",
+    "run-build-server": "lerna run start --scope=@ci-server/build-server --stream",
+    "run-build-agent": "lerna run start --scope=@ci-server/build-agent --stream",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {

@@ -1,7 +1,3 @@
-let configuration = {};
-let builds = [];
-let buildLogs = [];
-
 const BUILD_STATUS = {
 	Waiting: 0,
 	InProgress: 1,
@@ -9,6 +5,10 @@ const BUILD_STATUS = {
 	Fail: 3,
 	Canceled: 4
 };
+
+let configuration = {};
+let builds = [];
+let buildLogs = [];
 
 function getBuildConfiguration() {
 	return Promise.resolve({ data: configuration })
