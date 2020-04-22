@@ -3,9 +3,76 @@ const server = require('./server-api');
 const utils = require('@ci-server/shared/src/utils');
 const Git = require('@ci-server/shared/src/git');
 
+function writeToLog(log, message, duplicateToConsole = true) {
+	log.push(message);
+
+	if (duplicateToConsole) {
+		console.log(message);
+	}
+}
+
+function reportToLog(result, log) {
+	writeToLog(log, '\n>>> STDOUT <<<', false);
+	writeToLog(log, result.stdout, false);
+	writeToLog(log, '>>> STDOUT END <<<\n', false);
+
+	writeToLog(log, '>>> STDERR <<<', false);
+	writeToLog(log, result.stderr, false);
+	writeToLog(log, '>>> STDERR END <<<\n', false);
+}
+
+async function checkout({ git, repository, commitHash, log }) {
+	let success = false;
+
+	try {
+		writeToLog(log, `Checkout repository`);
+
+		const result = await git.checkout(repository, commitHash);
+
+		success = result.success;
+
+		reportToLog(result, log);
+
+		if (result.success) {
+			writeToLog(log, `Checkout successfully finished`);
+		} else {
+			writeToLog(log, `Checkout failed`);
+		}
+	} catch (err) {
+		writeToLog(log, `Checkout failed with error:\n ${err}`);
+	}
+
+	return success;
+}
+
+async function runCommand({ git, command, log }) {
+	let success = false;
+
+	try {
+		writeToLog(log, `Run command in repository`);
+
+		const result = await utils.runCommandInDirectory(command, git.repositoryTempDirectory);
+
+		success = result.success;
+
+		reportToLog(result, log);
+
+		if (result.success) {
+			writeToLog(log, `Command successfully finished`);
+		} else {
+			writeToLog(log, `Command failed`);
+		}
+	} catch (err) {
+		writeToLog(log, `Command failed with error:\n ${err}`);
+	}
+
+	return success;
+}
+
+
 async function runBuild({ id, repository, commitHash, command }) {
-	let log = '';
-	let status = '';
+	let log = [];
+	let success = false;
 
 	console.log(`Start new build, buildId: ${id}`);
 
@@ -16,24 +83,10 @@ async function runBuild({ id, repository, commitHash, command }) {
 
 	const startTime = new Date();
 
-	try {
-		console.log(`Checkout repository ${repository}, commit hash ${commitHash}`);
-		await git.checkout(repository, commitHash);
+	const isCheckoutSuccessful = await checkout({ git, commitHash, repository, log });
 
-		console.log(`Checkout successfully finished`);
-	} catch (err) {
-		console.error(`Checkout failed with error ${err}`);
-	}
-
-	try {
-		console.log(`Run command in repository ${command}`);
-		log = await utils.runCommandInDirectory(command, git.repositoryTempDirectory);
-		status = 'Success';
-
-		console.log(`Command successfully finished`);
-	} catch (err) {
-		status = 'Fail';
-		console.error(`Command failed with error ${err}`)
+	if (isCheckoutSuccessful) {
+		success = await runCommand({ git, command, log });
 	}
 
 	const duration = Math.floor((new Date() - startTime) / 1000);
@@ -50,7 +103,7 @@ async function runBuild({ id, repository, commitHash, command }) {
 
 	try {
 		console.log(`Return result to build server`);
-		await server.notifyBuildResult({ id, log, duration, status });
+		await server.notifyBuildResult({ id, log: log.join('\n'), duration, success });
 
 		console.log(`Result successfully returned`);
 	} catch (err) {

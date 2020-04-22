@@ -3,7 +3,7 @@ const agentApi = require('./agent-api');
 const { getNotFinishedBuilds } = require('./utils');
 const { assignBuild } = require('./agents');
 
-const CHECK_NEW_BUILD_TIMEOUT_MS = 10000;
+const CHECK_NEW_BUILD_TIMEOUT_MS = 30 * 1000;
 
 function checkWaitingBuilds() {
 	console.log('[checkWaitingBuilds] Starting check waiting builds watcher...');

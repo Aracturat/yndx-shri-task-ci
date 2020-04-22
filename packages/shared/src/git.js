@@ -27,15 +27,24 @@ class Git {
 
 		const repositoryUrl = this.getRepositoryUrl(repository);
 
-		try {
-			return await this.commands.cloneRemoteRepository(repositoryUrl);
-		} catch (err) {
-			if (err.stderr.includes('Repository not found.')) {
+		const result = await this.commands.cloneRemoteRepository(repositoryUrl);
+		if (!result.success) {
+			if (result.stderr.includes('Repository not found.')) {
 				throw 'Repository not found';
 			}
-
-			throw err;
+			throw result.stderr;
 		}
+
+		return result.stdout;
+	}
+
+	async getRemoteOrigin() {
+		const result = await this.commands.getRemoteOrigin();
+		if (!result.success) {
+			throw result.stderr;
+		}
+
+		return result.stdout;
 	}
 
 	async isGithubRepositoryCloned(repository) {
@@ -43,7 +52,7 @@ class Git {
 
 		if (isRepositoryDirectoryExist) {
 			const repositoryUrl = this.getRepositoryUrl(repository);
-			const currentRepositoryUrl = await this.commands.getRemoteOrigin();
+			const currentRepositoryUrl = await this.getRemoteOrigin();
 
 			return repositoryUrl === currentRepositoryUrl;
 		}
@@ -64,63 +73,56 @@ class Git {
 	async getCommitBranch(repository, commitHash, mainBranch) {
 		await this.actualizeLocalRepository(repository);
 
-		try {
-			const result = await this.commands.getRemoteBranches(commitHash);
-
-			// Convert origin/branchName to branchName and drop HEAD
-			const branches = result
-				.split('\n')
-				.map(e => e.trim().replace('origin/', ''))
-				.filter(e => !e.startsWith('HEAD -> '));
-
-			if (branches.includes(mainBranch)) {
-				return mainBranch;
-			} else {
-				return branches[0];
-			}
-		} catch (err) {
-			if (err.stderr.includes('malformed object name')) {
+		const result = await this.commands.getRemoteBranches(commitHash);
+		if (!result.success) {
+			if (result.stderr.includes('malformed object name')) {
 				throw 'Unknown revision';
-			} else {
-				throw err;
 			}
+			throw result.stderr;
+		}
+
+		// Convert origin/branchName to branchName and drop HEAD
+		const branches = result
+			.stdout
+			.split('\n')
+			.map(e => e.trim().replace('origin/', ''))
+			.filter(e => !e.startsWith('HEAD -> '));
+
+		if (branches.includes(mainBranch)) {
+			return mainBranch;
+		} else {
+			return branches[0];
 		}
 	}
 
 	async getCommitInfo(repository, commitHash) {
 		await this.actualizeLocalRepository(repository);
 
-		try {
-			const commitAuthor = await this.commands.getCommitAuthor(commitHash);
-			const commitMessage = await this.commands.getCommitMessage(commitHash);
-
-			return {
-				commitHash,
-				commitAuthor,
-				commitMessage
-			};
-		} catch (err) {
-			if (err.stderr.includes('unknown revision or path not in the working tree.')) {
+		const commitAuthorResult = await this.commands.getCommitAuthor(commitHash);
+		if (!commitAuthorResult.success) {
+			if (commitAuthorResult.stderr.includes('unknown revision or path not in the working tree.')) {
 				throw 'Unknown revision';
 			} else {
-				throw err;
+				throw commitAuthorResult.stderr;
 			}
 		}
+
+		const commitMessageResult = await this.commands.getCommitMessage(commitHash);
+		if (!commitMessageResult.success) {
+			throw commitMessageResult.stderr;
+		}
+
+		return {
+			commitHash,
+			commitAuthor: commitAuthorResult.stdout,
+			commitMessage: commitMessageResult.stdout
+		};
 	}
 
 	async checkout(repository, commitHash) {
 		await this.actualizeLocalRepository(repository);
 
-		try {
-			await this.commands.checkout(commitHash);
-
-		} catch (err) {
-			if (err.stderr.includes('unknown revision or path not in the working tree.')) {
-				throw 'Unknown revision';
-			} else {
-				throw err;
-			}
-		}
+		return await this.commands.checkout(commitHash);
 	}
 }
 

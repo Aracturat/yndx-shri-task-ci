@@ -16,7 +16,7 @@ async function notifyAgent(req, res) {
 async function notifyBuildResult(req, res) {
 	const {
 		id,
-		status,
+		success,
 		duration,
 		log
 	} = req.body;
@@ -26,7 +26,7 @@ async function notifyBuildResult(req, res) {
 			buildId: id,
 			buildLog: log,
 			duration,
-			success: status === 'Success'
+			success
 		}), 5);
 
 		stopBuild(id);

@@ -22,15 +22,15 @@ function notifyAgent({ port }) {
  * Notify build server about build result.
  *
  * @param {String} id
- * @param {String} status
+ * @param {Boolean} success
  * @param {Number} duration
  * @param {String} log
  * @returns {Promise<>}
  */
-function notifyBuildResult({ id, status, duration, log }) {
+function notifyBuildResult({ id, success, duration, log }) {
 	return instance.post('/notify-build-result', {
 		id,
-		status,
+		success,
 		duration,
 		log
 	});

@@ -1,3 +1,5 @@
+const path = require('path');
+
 const {
 	runCommandInDirectory,
 } = require('./utils');
@@ -11,7 +13,7 @@ class GitCommands {
 	async cloneRemoteRepository(repositoryUrl) {
 		const command = `git clone ${repositoryUrl} ${this.repositoryTempDirectory}`;
 
-		return await runCommandInDirectory(command, __dirname);
+		return await runCommandInDirectory(command, path.join(__dirname, '..'));
 	}
 
 	async fetchAllBranches() {

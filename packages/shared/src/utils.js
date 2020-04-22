@@ -9,12 +9,21 @@ const promisifiedMkdir = util.promisify(fs.mkdir);
 
 
 async function runCommandInDirectory(command, dir) {
-	const { stdout = '', stderr = '' } = await promisifiedExec(command, { cwd: dir });
+	try {
+		const result = await promisifiedExec(command, { cwd: dir });
 
-	return [stdout, stderr]
-		.map(e => e.trim())
-		.filter(e => e)
-		.join('\n');
+		return {
+			stdout: result.stdout,
+			stderr: result.stderr,
+			success: true
+		}
+	} catch (err) {
+		return {
+			stdout: err.stdout,
+			stderr: err.stderr,
+			success: err.code === 0
+		}
+	}
 }
 
 async function isFileExist(file) {

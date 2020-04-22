@@ -19,9 +19,9 @@ async function getNotFinishedBuilds() {
 		5
 	);
 
-	const notFinishedBuilds = builds.filter(e => e.status === 'Waiting' || e.status === 'InProgress');
-
-	return notFinishedBuilds;
+	return builds
+		.filter(e => e.status === 'Waiting' || e.status === 'InProgress')
+		.sort((a, b) => a.buildNumber - b.buildNumber);
 }
 
 module.exports = {

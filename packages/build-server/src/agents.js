@@ -2,6 +2,13 @@ const agents = [];
 let ID = 0;
 
 function addAgent({ host, port }) {
+	const existingAgent = agents.filter(e => e.host === host && e.port === port).shift();
+
+	if (existingAgent) {
+		existingAgent.buildId = null;
+		return existingAgent;
+	}
+
 	const agent = {
 		id: ID++,
 		host: host,
@@ -30,7 +37,6 @@ async function assignBuild(buildId) {
 }
 
 function stopBuild(buildId) {
-	console.log(agents);
 	const agent = agents.filter(e => e.buildId === buildId).shift();
 
 	if (agent) {
