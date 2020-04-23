@@ -75,6 +75,17 @@ async function wait(timeout) {
 	await new Promise(resolve => setTimeout(resolve, timeout));
 }
 
+async function retryIfError(fn, retryCount = 3, timeout = 0) {
+	if (retryCount > 0) {
+		return await fn().catch(async () => {
+			await wait(timeout);
+			return await retryIfError(fn, retryCount - 1)
+		});
+	} else {
+		return await fn();
+	}
+}
+
 
 module.exports = {
 	runCommandInDirectory,
@@ -82,5 +93,6 @@ module.exports = {
 	isFileExist,
 	removeDirectory,
 	createDirectory,
-	wait
+	wait,
+	retryIfError
 };

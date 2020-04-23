@@ -1,5 +1,6 @@
 const dbApi = require('@ci-server/shared/src/db-api');
 const agentApi = require('./agent-api');
+const { retryIfError } = require('@ci-server/shared/src/utils');
 const { getNotFinishedBuilds } = require('./utils');
 const { assignBuild } = require('./agents');
 
@@ -34,7 +35,13 @@ function checkWaitingBuilds() {
 
 			try {
 				console.log('[checkWaitingBuilds] Get configuration from DB');
-				config = (await dbApi.getBuildConfiguration()).data;
+				config = (
+					await retryIfError(
+						() => dbApi.getBuildConfiguration(),
+						5,
+						1000
+					)
+				).data;
 				console.log('[checkWaitingBuilds] Configuration successfully loaded');
 
 			} catch (err) {
@@ -93,7 +100,11 @@ async function findAgentAndSendBuildCommand({ buildId, repoName, buildCommand, c
 
 		console.log(`[checkWaitingBuilds] Send start build info to DB.`);
 
-		await dbApi.startBuild({ buildId: buildId });
+		await retryIfError(
+			() => dbApi.startBuild({ buildId: buildId }),
+			5,
+			1000
+		)
 
 		console.log(`[checkWaitingBuilds] DB updated.`);
 

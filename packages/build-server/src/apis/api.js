@@ -22,11 +22,14 @@ async function notifyBuildResult(req, res) {
 
 	try {
 		await retryIfError(() => db.finishBuild({
-			buildId: id,
-			buildLog: log,
-			duration,
-			success
-		}), 5);
+				buildId: id,
+				buildLog: log,
+				duration,
+				success
+			}),
+			5,
+			1000
+		);
 
 		stopBuild(id);
 
