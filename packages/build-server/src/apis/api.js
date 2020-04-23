@@ -8,7 +8,6 @@ async function notifyAgent(req, res) {
 	const port = req.body.port;
 
 	const agent = addAgent({ host, port });
-	console.log(`New agent is registered: ${host}:${port}`);
 
 	res.send(agent);
 }

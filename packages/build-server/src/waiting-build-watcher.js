@@ -41,36 +41,17 @@ function checkWaitingBuilds() {
 				console.error(`[checkWaitingBuilds] Can't get configuration, error ${err}`);
 			}
 
-			if (config && config.repoName) {
+			if (config && config.repoName && config.buildCommand) {
 				for (const build of waitingBuilds) {
-					try {
-						console.log(`[checkWaitingBuilds] Get free agent for build ${build.id}`);
+					const found = await findAgentAndSendBuildCommand({
+						buildId: build.id,
+						commitHash: build.commitHash,
+						repoName: config.repoName,
+						buildCommand: config.buildCommand
+					});
 
-						const agent = await assignBuild(build.id);
-
-						if (!agent) {
-							console.log(`[checkWaitingBuilds] Agent has not found =(`);
-							break;
-						}
-						console.log(`[checkWaitingBuilds] Agent found: ${agent.host}:${agent.port}`);
-
-						console.log(`[checkWaitingBuilds] Send build command to agent.`);
-
-						await agentApi.build(agent, {
-							repository: config.repoName,
-							command: config.buildCommand,
-							id: build.id,
-							commitHash: build.commitHash
-						});
-						console.log(`[checkWaitingBuilds] Build command has been successfully sent.`);
-
-						console.log(`[checkWaitingBuilds] Send start build info to DB.`);
-
-						await dbApi.startBuild({ buildId: build.id });
-
-						console.log(`[checkWaitingBuilds] DB updated.`);
-					} catch (err) {
-						console.error(`[checkWaitingBuilds] Error during of assignment: ${err}`)
+					if (!found) {
+						break;
 					}
 				}
 			}
@@ -87,6 +68,43 @@ function checkWaitingBuilds() {
 		}
 	};
 }
+
+async function findAgentAndSendBuildCommand({ buildId, repoName, buildCommand, commitHash }) {
+	try {
+		console.log(`[checkWaitingBuilds] Get free agent for build ${buildId}`);
+
+		const agent = await assignBuild(buildId);
+
+		if (!agent) {
+			console.log(`[checkWaitingBuilds] Agent has not found =(`);
+			return false;
+		}
+		console.log(`[checkWaitingBuilds] Agent found: ${agent.host}:${agent.port}`);
+
+		console.log(`[checkWaitingBuilds] Send build command to agent.`);
+
+		await agentApi.build(agent, {
+			repository: repoName,
+			command: buildCommand,
+			id: buildId,
+			commitHash: commitHash
+		});
+		console.log(`[checkWaitingBuilds] Build command has been successfully sent.`);
+
+		console.log(`[checkWaitingBuilds] Send start build info to DB.`);
+
+		await dbApi.startBuild({ buildId: buildId });
+
+		console.log(`[checkWaitingBuilds] DB updated.`);
+
+		return true;
+	} catch (err) {
+		console.error(`[checkWaitingBuilds] Error during of assignment: ${err}`)
+	}
+
+	return false;
+}
+
 
 module.exports = {
 	checkWaitingBuilds

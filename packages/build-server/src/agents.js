@@ -1,16 +1,18 @@
-const agents = [];
-let ID = 0;
+const agentApi = require('./agent-api');
+let agents = [];
 
 function addAgent({ host, port }) {
+	console.log(`[agents] Add agent ${host}:${port}`);
+
 	const existingAgent = agents.filter(e => e.host === host && e.port === port).shift();
 
 	if (existingAgent) {
+		console.log(`[agents] Agent with address ${host}:${port} exist, update it`);
 		existingAgent.buildId = null;
 		return existingAgent;
 	}
 
 	const agent = {
-		id: ID++,
 		host: host,
 		port: port,
 		buildId: null
@@ -21,11 +23,31 @@ function addAgent({ host, port }) {
 	return agent;
 }
 
+function removeAgent({ host, port }) {
+	console.log(`[agents] Remove agent ${host}:${port}`);
+
+	agents = agents.filter(e => e.host !== host && e.port !== port);
+}
+
 async function assignBuild(buildId) {
 	const freeAgent = agents.filter(e => !e.buildId).shift();
 
 	if (!freeAgent) {
 		return null;
+	}
+
+	const agentConfig = {
+		host: freeAgent.host,
+		port: freeAgent.port
+	}
+
+	const isAgentAlive = await agentApi.isAlive(agentConfig);
+
+	if (!isAgentAlive) {
+		console.log(`[agents] ${freeAgent.host}:${freeAgent.port} isn't alive, remove it`);
+		removeAgent(agentConfig);
+
+		return assignBuild(buildId);
 	}
 
 	freeAgent.buildId = buildId;
