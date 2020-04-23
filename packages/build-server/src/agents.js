@@ -26,10 +26,12 @@ function addAgent({ host, port }) {
 function removeAgent({ host, port }) {
 	console.log(`[agents] Remove agent ${host}:${port}`);
 
-	agents = agents.filter(e => e.host !== host && e.port !== port);
+	agents = agents.filter(e => !(e.host === host && e.port === port));
 }
 
 async function assignBuild(buildId) {
+	console.log(agents);
+
 	const freeAgent = agents.filter(e => !e.buildId).shift();
 
 	if (!freeAgent) {
@@ -59,22 +61,28 @@ async function assignBuild(buildId) {
 }
 
 function stopBuild(buildId) {
-	const agent = agents.filter(e => e.buildId === buildId).shift();
+	const agent = getAgentByBuildId(buildId);
 
 	if (agent) {
 		agent.buildId = null;
 	}
+
+	console.log(agents)
 }
 
 function getAllAgents() {
 	return agents.map(e => ({ host: e.host, port: e.port }));
 }
 
+function getAgentByBuildId(buildId) {
+	return agents.filter(e => e.buildId === buildId).shift();
+}
 
 module.exports = {
 	addAgent,
 	assignBuild,
 	stopBuild,
 	removeAgent,
-	getAllAgents
+	getAllAgents,
+	getAgentByBuildId
 }
