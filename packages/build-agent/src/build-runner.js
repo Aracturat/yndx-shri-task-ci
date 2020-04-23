@@ -1,6 +1,6 @@
 const path = require('path');
 const server = require('./server-api');
-const utils = require('@ci-server/shared/src/utils');
+const { retryIfError, runCommandInDirectory } = require('@ci-server/shared/src/utils');
 const Git = require('@ci-server/shared/src/git');
 
 function writeToLog(log, message, duplicateToConsole = true) {
@@ -51,7 +51,7 @@ async function runCommand({ git, command, log }) {
 	try {
 		writeToLog(log, `Run command in repository`);
 
-		const result = await utils.runCommandInDirectory(command, git.repositoryTempDirectory);
+		const result = await runCommandInDirectory(command, git.repositoryTempDirectory);
 
 		success = result.success;
 
@@ -103,7 +103,11 @@ async function runBuild({ id, repository, commitHash, command }) {
 
 	try {
 		console.log(`Return result to build server`);
-		await server.notifyBuildResult({ id, log: log.join('\n'), duration, success });
+		await retryIfError(
+			() => server.notifyBuildResult({ id, log: log.join('\n'), duration, success }),
+			5,
+			1000
+		);
 
 		console.log(`Result successfully returned`);
 	} catch (err) {

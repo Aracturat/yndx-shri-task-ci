@@ -20,7 +20,11 @@ async function notifyBuildResult(req, res) {
 		log
 	} = req.body;
 
+	console.log(`Get build result for build ${id}`);
+
 	try {
+		console.log(`Send result to DB for build ${id}`);
+
 		await retryIfError(() => db.finishBuild({
 				buildId: id,
 				buildLog: log,
@@ -35,7 +39,7 @@ async function notifyBuildResult(req, res) {
 
 		res.send({});
 	} catch (err) {
-		console.error(err);
+		console.error(`Error during send result to DB, error: ${err}`);
 		res.status(500).send({ error: 'Something is going bad.' });
 	}
 }

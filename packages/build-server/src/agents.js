@@ -30,8 +30,6 @@ function removeAgent({ host, port }) {
 }
 
 async function assignBuild(buildId) {
-	console.log(agents);
-
 	const freeAgent = agents.filter(e => !e.buildId).shift();
 
 	if (!freeAgent) {

@@ -2,12 +2,15 @@
   "name": "ci-server",
   "private": true,
   "scripts": {
-    "run-config-server": "lerna run start --scope=@ci-server/config-server*",
-    "run-build-server": "lerna run start --scope=@ci-server/build-server --stream",
-    "run-build-agent": "lerna run start --scope=@ci-server/build-agent --stream",
+    "config-server": "lerna run --scope=@ci-server/config-server* start -- --",
+    "build-server": "lerna run --scope=@ci-server/build-server --stream start -- --",
+    "build-agent": "lerna run --scope=@ci-server/build-agent --stream start -- --",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
     "lerna": "^3.20.2"
+  },
+  "engines": {
+    "node": ">=12.6.0"
   }
 }

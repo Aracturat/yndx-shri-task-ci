@@ -15,10 +15,11 @@
     "node": ">=12.6.0"
   },
   "dependencies": {
+    "@ci-server/shared": "^0.1.0",
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "rimraf": "^3.0.2",
-    "@ci-server/shared": "^0.1.0",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "yargs": "^15.3.1"
   }
 }
