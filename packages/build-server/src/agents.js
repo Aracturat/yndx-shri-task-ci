@@ -66,8 +66,15 @@ function stopBuild(buildId) {
 	}
 }
 
+function getAllAgents() {
+	return agents.map(e => ({ host: e.host, port: e.port }));
+}
+
+
 module.exports = {
 	addAgent,
 	assignBuild,
-	stopBuild
+	stopBuild,
+	removeAgent,
+	getAllAgents
 }

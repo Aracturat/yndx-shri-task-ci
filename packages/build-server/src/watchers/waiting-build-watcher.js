@@ -1,8 +1,8 @@
 const dbApi = require('@ci-server/shared/src/db-api');
-const agentApi = require('./agent-api');
+const agentApi = require('../agent-api');
 const { retryIfError } = require('@ci-server/shared/src/utils');
-const { getNotFinishedBuilds } = require('./utils');
-const { assignBuild } = require('./agents');
+const { getNotFinishedBuilds } = require('../utils');
+const { assignBuild } = require('../agents');
 
 const CHECK_NEW_BUILD_TIMEOUT_MS = 30 * 1000;
 

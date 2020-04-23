@@ -2,13 +2,16 @@ require('./src/read-config');
 
 const express = require('express');
 
-const { checkWaitingBuilds } = require('./src/waiting-build-watcher');
+const { checkWaitingBuilds } = require('./src/watchers/waiting-build-watcher');
+const { checkAgents } = require('./src/watchers/check-agent-watcher');
+
 const configure = require('./src/configuration');
 
 const app = express();
 configure(app);
 
 checkWaitingBuilds();
+checkAgents();
 
 const port = process.env.PORT;
 app.listen(port, function() {
