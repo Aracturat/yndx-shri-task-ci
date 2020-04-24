@@ -1,6 +1,6 @@
-const dotEnv = require('dotenv');
-const path = require('path');
-const express = require('express');
+import dotEnv from 'dotenv';
+import path from 'path';
+import express from 'express';
 
 // Loading of environment variables should be the first action in the app.
 dotEnv.config({ path: path.join(__dirname, 'server.env') });

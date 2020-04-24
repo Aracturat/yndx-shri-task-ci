@@ -1,22 +1,29 @@
-const path = require('path');
+import path from 'path';
 
-const db = require('@ci-server/shared/src/db-api');
-const FileCache = require('@ci-server/shared/src/file-cache');
-const Git = require('@ci-server/shared/src/git');
+import db from '@ci-server/shared/src/db-api';
+import FileCache from '@ci-server/shared/src/file-cache';
+import Git from '@ci-server/shared/src/git';
 
 const git = new Git();
 
-const Build = require('../models/build');
-const BuildLog = require('../models/build-log');
+import { Build } from '../models/build';
+import { BuildLog } from '../models/build-log';
+import { Error } from '../models/error';
+import { Request, Response,  } from "express";
 
-async function getBuilds(req, res) {
+export interface GetBuildsQuery {
+	limit: number;
+	offset: number;
+}
+
+export async function getBuilds(req: Request<{}, {}, {}, GetBuildsQuery>, res: Response<Build[] | Error>) {
 	try {
 		const buildList = await db.getBuildList({
 			limit: req.query.limit,
 			offset: req.query.offset
-		});
+		}) as { data: Build[] };
 
-		res.send(buildList.data.map(build => new Build({
+		res.send(buildList.data.map(build => ({
 			id: build.id,
 			buildNumber: build.buildNumber,
 			commitMessage: build.commitMessage,
@@ -32,7 +39,12 @@ async function getBuilds(req, res) {
 	}
 }
 
-async function requestBuild(req, res) {
+export interface RequestBuildParams {
+	commitHash: string;
+	[key: string]: string;
+}
+
+export async function requestBuild(req: Request<RequestBuildParams>, res: Response<Build | Error>) {
 	const commitHash = req.params.commitHash;
 
 	if (!commitHash) {
@@ -83,9 +95,9 @@ async function requestBuild(req, res) {
 			branchName: commitBranch
 		});
 
-		const newBuild = await db.getBuildList({ limit: 1 }).then(res => res.data[0]);
+		const newBuild = await db.getBuildList({ limit: 1 }).then((res: any) => res.data[0]);
 
-		res.send(new Build({
+		res.send({
 			id: newBuild.id,
 			buildNumber: newBuild.buildNumber,
 			commitMessage: newBuild.commitMessage,
@@ -95,19 +107,24 @@ async function requestBuild(req, res) {
 			status: newBuild.status,
 			start: newBuild.start,
 			duration: newBuild.duration
-		}));
+		});
 	} catch (err) {
 		res.status(500).send({ error: 'Something is going bad' });
 	}
 }
 
-async function getBuildDetails(req, res) {
+export interface BuildIdParams {
+	buildId: string
+	[key: string]: string;
+}
+
+export async function getBuildDetails(req: Request<BuildIdParams>, res: Response<Build | Error>) {
 	try {
 		const build = await db.getBuildDetails({
 			buildId: req.params.buildId
 		});
 
-		res.send(new Build({
+		res.send({
 			id: build.data.id,
 			buildNumber: build.data.buildNumber,
 			commitMessage: build.data.commitMessage,
@@ -117,7 +134,7 @@ async function getBuildDetails(req, res) {
 			status: build.data.status,
 			start: build.data.start,
 			duration: build.data.duration
-		}));
+		});
 	} catch (err) {
 		return res.status(404).send({ error: 'Build has not found' });
 	}
@@ -125,7 +142,7 @@ async function getBuildDetails(req, res) {
 
 const buildLogCache = new FileCache(path.join(__dirname, '../___TEMP___/log-cache'));
 
-async function getBuildLog(req, res) {
+export async function getBuildLog(req: Request<BuildIdParams>, res: Response<BuildLog | Error>) {
 	const buildId = req.params.buildId;
 
 	try {
@@ -143,18 +160,11 @@ async function getBuildLog(req, res) {
 			}
 		}
 
-		res.send(new BuildLog({
+		res.send({
 			id: buildId,
 			text: logText
-		}));
+		});
 	} catch (err) {
 		return res.status(404).send({ error: 'Build has not found' });
 	}
 }
-
-module.exports = {
-	getBuilds,
-	requestBuild,
-	getBuildDetails,
-	getBuildLog
-};

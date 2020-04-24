@@ -1,10 +1,12 @@
-const express = require('express');
-const cors = require('cors')
+import { Express } from "express";
 
-const settingsApi = require('../apis/settings');
-const buildsApi = require('../apis/builds');
+import express from 'express';
+import cors from 'cors';
 
-function configureApi(app) {
+import * as settingsApi from '../apis/settings';
+import * as buildsApi from '../apis/builds';
+
+export default function configureApi(app: Express) {
 	app.use(cors());
 	app.use(express.json());
 
@@ -17,4 +19,3 @@ function configureApi(app) {
 	app.get('/api/builds/:buildId/logs', buildsApi.getBuildLog);
 }
 
-module.exports = configureApi;
