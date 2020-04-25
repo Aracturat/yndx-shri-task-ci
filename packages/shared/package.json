@@ -10,7 +10,9 @@
     "jest": "^25.3.0"
   },
   "dependencies": {
+    "@types/rimraf": "^3.0.0",
     "axios": "^0.19.2",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3"
   }
 }
