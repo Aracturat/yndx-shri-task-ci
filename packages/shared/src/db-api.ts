@@ -1,6 +1,15 @@
 import https from 'https';
 import axios from 'axios';
 
+import { BuildConfiguration } from "./db-api-models/build-configuration";
+import { BuildRequest } from "./db-api-models/build-request";
+import { StartBuildRequest } from "./db-api-models/start-build-request";
+import { FinishBuildRequest } from "./db-api-models/finish-build-request";
+import { GetBuildListRequest } from "./db-api-models/get-build-list-request";
+import { Build } from "./db-api-models/build";
+import { DataResponse } from "./db-api-models/data-response";
+import { BuildIdRequest } from "./db-api-models/build-id-request";
+
 console.log(`Creation of connection to DB: ${ process.env.API_BASE_URL }`);
 
 const instance = axios.create({
@@ -13,32 +22,21 @@ const instance = axios.create({
     }),
 });
 
-export interface BuildConfiguration {
-    repoName: string;
-    buildCommand: string;
-    mainBranch: string;
-    period: number;
-}
 
 /**
  * Get build configuration.
  */
-export function getBuildConfiguration(): Promise<BuildConfiguration> {
+export function getBuildConfiguration() {
     return instance
-        .get<BuildConfiguration>('/conf')
+        .get<DataResponse<BuildConfiguration>>('/conf')
         .then(result => result.data);
 }
 
 /**
  * Set build configuration.
  */
-export function setBuildConfiguration({ repoName, buildCommand, mainBranch, period }: BuildConfiguration) {
-    return instance.post<BuildConfiguration>('/conf', {
-        repoName,
-        buildCommand,
-        mainBranch,
-        period
-    });
+export function setBuildConfiguration(configuration: BuildConfiguration) {
+    return instance.post('/conf', configuration);
 }
 
 /**
@@ -48,48 +46,28 @@ export function deleteBuildConfiguration() {
     return instance.delete('/conf');
 }
 
-export interface BuildRequest {
-    commitMessage: string;
-    commitHash: string;
-    branchName: string;
-    authorName: string;
-}
 
 /**
  * Request build.
  */
-export function requestBuild({ commitMessage, commitHash, branchName, authorName }: BuildRequest) {
-    return instance.post<BuildRequest>('/build/request', {
-        commitMessage,
-        commitHash,
-        branchName,
-        authorName
-    });
+export function requestBuild(buildRequest: BuildRequest) {
+    return instance.post('/build/request', buildRequest);
 }
 
 /**
  * Start build.
  */
-export function startBuild({ buildId, dateTime }: { buildId: string, dateTime: Date }) {
-    if (!buildId) {
+export function startBuild(request: StartBuildRequest) {
+    if (!request.buildId) {
         throw 'buildId parameter is missing';
     }
-    if (!dateTime) {
-        dateTime = new Date();
+    if (!request.dateTime) {
+        request.dateTime = new Date().toISOString();
     }
 
-    return instance.post('/build/start', {
-        buildId,
-        dateTime: dateTime.toISOString(),
-    });
+    return instance.post('/build/start', request);
 }
 
-export interface FinishBuildRequest {
-    buildId: string;
-    duration: number;
-    success: boolean;
-    buildLog: string;
-}
 
 /**
  * Finish build.
@@ -101,35 +79,18 @@ export function finishBuild(request: FinishBuildRequest) {
 /**
  * Cancel build.
  */
-export function cancelBuild({ buildId }: { buildId: string}) {
-    return instance.post('/build/finish', {
-        buildId
-    });
+export function cancelBuild(request: BuildIdRequest) {
+    return instance.post('/build/finish', request);
 }
 
-export interface GetBuildListRequest {
-    limit: number;
-    offset: number;
-}
 
-export interface Build {
-    id: string;
-    buildNumber: number;
-    commitMessage: string;
-    commitHash: string;
-    branchName: string;
-    authorName: string;
-    status: string;
-    start: Date;
-    duration: number;
-}
 
 /**
  * Get list of all builds.
  */
 export function getBuildList({ limit = 25, offset = 0 }: GetBuildListRequest) {
     return instance
-        .get<{ data: Build[] }>('/build/list', {
+        .get<DataResponse<Build[]>>('/build/list', {
             params: {
                 limit,
                 offset
@@ -141,12 +102,10 @@ export function getBuildList({ limit = 25, offset = 0 }: GetBuildListRequest) {
 /**
  * Get build details.
  */
-export function getBuildDetails({ buildId }: { buildId: string }) {
+export function getBuildDetails(request: BuildIdRequest) {
     return instance
-        .get('/build/details', {
-            params: {
-                buildId
-            }
+        .get<DataResponse<Build>>('/build/details', {
+            params: request
         })
         .then(result => result.data);
 }
@@ -154,12 +113,10 @@ export function getBuildDetails({ buildId }: { buildId: string }) {
 /**
  * Get build log.
  */
-export function getBuildLog({ buildId }: { buildId: string }) {
+export function getBuildLog(request: BuildIdRequest) {
     return instance
-        .get('/build/log', {
-            params: {
-                buildId
-            }
+        .get<string>('/build/log', {
+            params: request
         })
         .then(result => result.data);
 }

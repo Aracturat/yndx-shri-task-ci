@@ -8,7 +8,7 @@ export class Git {
     repositoryTempDirectory: string;
     commands: GitCommands;
 
-    constructor(repositoryTempDirectory: string) {
+    constructor(repositoryTempDirectory?: string) {
         this.repositoryTempDirectory = repositoryTempDirectory || path.join(__dirname, '___TEMP___', 'repository');
         this.commands = new GitCommands(this.repositoryTempDirectory);
     }

@@ -1,9 +1,10 @@
-import db from '@ci-server/shared/src/db-api';
+import * as db from '@ci-server/shared/src/db-api';
+import { Request, Response } from 'express';
 
-import Git from '@ci-server/shared/src/git';
+import { Git } from '@ci-server/shared/src/git';
+
 import { Settings } from '../models/settings';
 import { Error } from '../models/error';
-import { Request, Response } from 'express';
 
 const git = new Git();
 
