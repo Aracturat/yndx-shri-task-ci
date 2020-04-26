@@ -18,7 +18,9 @@
 
 ## Доступные команды
 
-- `npm run config-server` - запустить сервер настроек (с UI, доступным по адресу http://localhost:3000/)
+- `npm run config-server` - запустить сервер настроек.
+
+- `npm run config-server-ui` - запустить UI для сервера настроек, доступный по адресу http://localhost:3000/).
 
 - `npm run build-server` - запустить билд-сервер, обрабатывающий очередь билдов. 
   Также настройки можно задать в файле `packages/build-server/server-conf.json`.

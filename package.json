@@ -2,7 +2,8 @@
   "name": "ci-server",
   "private": true,
   "scripts": {
-    "config-server": "lerna run --scope=@ci-server/config-server* start -- --",
+    "config-server": "lerna run --scope=@ci-server/config-server --stream start -- --",
+    "config-server-ui": "lerna run --scope=@ci-server/config-server-ui start -- --",
     "build-server": "lerna run --scope=@ci-server/build-server --stream start -- --",
     "build-agent": "lerna run --scope=@ci-server/build-agent --stream start -- --",
     "postinstall": "lerna bootstrap"
