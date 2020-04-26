@@ -75,7 +75,7 @@ export async function wait(timeout: number) {
     await new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-async function retryIfError<T>(fn: () => Promise<T>, retryCount = 3, timeout = 0): Promise<T> {
+export async function retryIfError<T>(fn: () => Promise<T>, retryCount = 3, timeout = 0): Promise<T> {
     if (retryCount > 0) {
         return await fn().catch(async () => {
             await wait(timeout);

@@ -1,9 +1,9 @@
-require('./src/read-config');
+import './src/read-config';
 
-const express = require('express');
+import express from 'express';
 
-const configure = require('./src/configuration');
-const { connectToBuildServer } = require('./src/connect-to-build-server');
+import configure from './src/configuration';
+import { connectToBuildServer } from './src/connect-to-build-server';
 
 const app = express();
 configure(app);

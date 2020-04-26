@@ -1,5 +1,5 @@
 const config = require('../agent-conf.json');
-const consoleConfig = require('yargs').argv;
+import { argv as consoleConfig } from 'yargs';
 
 
 process.env.PORT = process.env.PORT || consoleConfig.port || config.port;
