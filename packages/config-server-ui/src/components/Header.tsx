@@ -6,10 +6,16 @@ import "./Header.scss";
 
 const cn = bemHelper('header');
 
+interface HeaderProps {
+	leftContent: React.ReactNode;
+	rightContent: React.ReactNode;
+	className?: string;
+	onLeftClick: () => void;
+}
 
-export function Header({ leftContent, rightContent, className, onLeftClick }) {
+export function Header({ leftContent, rightContent, className, onLeftClick }: HeaderProps) {
 	return (
-		<header className={cn(null, null, className)}>
+		<header className={cn(undefined, undefined, className)}>
 			<div className={cn("content")}>
 				<div className={cn("left")} onClick={onLeftClick}>
 					{leftContent}

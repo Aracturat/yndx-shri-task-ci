@@ -6,24 +6,28 @@ import { bemHelper } from '../bem-helper';
 import { Button } from './Button';
 import { FormField } from './FormField';
 
-import { requestBuild } from '../store/actions';
+import { AppDispatch, requestBuild } from '../store/actions';
 import { Modal } from './Modal';
 import { ErrorModal } from './ErrorModal';
 
 import './NewBuildModal.scss';
 
 
+interface NewBuildModalProps {
+	closeModal: () => void;
+}
+
 const cn = bemHelper('new-build-modal');
 
-export function NewBuildModal({ closeModal }) {
+export function NewBuildModal({ closeModal }: NewBuildModalProps) {
 	const history = useHistory();
 
-	const dispatch = useDispatch();
-	const [commitHash, setCommitHash] = useState();
-	const [isSaving, setIsSaving] = useState(false);
-	const [error, setError] = useState();
+	const dispatch = useDispatch<AppDispatch>();
+	const [commitHash, setCommitHash] = useState<string>();
+	const [isSaving, setIsSaving] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
 		if (isSaving) {

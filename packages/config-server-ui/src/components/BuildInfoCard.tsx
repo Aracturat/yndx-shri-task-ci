@@ -4,6 +4,8 @@ import { Icon } from './Icon';
 import { TextWithIcon } from './TextWithIcon';
 import { format } from 'date-fns'
 
+import { Build } from "../../../config-server/src/models/build";
+
 import './BuildInfoCard.scss';
 
 
@@ -13,7 +15,7 @@ const cn = bemHelper('build-info-card');
  * Format duration.
  * @param duration in seconds
  */
-function formatDuration(duration) {
+function formatDuration(duration: number): string {
 	if (!duration) {
 		return '- h -- min';
 	}
@@ -34,7 +36,7 @@ function formatDuration(duration) {
 	return `${seconds} sec`
 }
 
-function formatStart(start) {
+function formatStart(start: string): string {
 	if (!start) {
 		return '- ---, --:--';
 	}
@@ -42,8 +44,10 @@ function formatStart(start) {
 	return format(new Date(start), 'd MMM, kk:HH');
 }
 
-function convertStatusToCssModifier(status) {
-	const mapper = {
+type StatusCssModifier = 'success' | 'error' | 'pending';
+
+function convertStatusToCssModifier(status: string): StatusCssModifier {
+	const mapper: Record<string, StatusCssModifier> = {
 		'Success': 'success',
 		'Fail': 'error',
 		'Waiting': 'pending',
@@ -54,17 +58,26 @@ function convertStatusToCssModifier(status) {
 	return mapper[status];
 }
 
+interface BuildInfoCardProps {
+	build: Build;
+	buildInfoToBottom?: boolean;
+	withHover?: boolean;
+	tag?: string;
+	className?: string;
+	onClick?: () => void;
+}
+
 export function BuildInfoCard(
 	{
 		build,
-		buildInfoToBottom,
-		withHover,
+		buildInfoToBottom = false,
+		withHover = false,
 		tag = 'div',
 		className = '',
 		onClick
-	}
+	} : BuildInfoCardProps
 ) {
-	const WrapperTag = tag;
+	const WrapperTag = tag as any;
 
 	const formattedStart = formatStart(build.start);
 	const formattedDuration = formatDuration(build.duration);
@@ -74,7 +87,7 @@ export function BuildInfoCard(
 	return (
 		<WrapperTag
 			className={
-				cn(null, {
+				cn(undefined, {
 					'build-info-to-bottom': buildInfoToBottom,
 					'with-hover': withHover
 				}, className)

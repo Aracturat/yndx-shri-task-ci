@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Page } from '../components/Page';
+import { Spinner } from '../components/Spinner';
+
 import { bemHelper } from '../bem-helper';
 
 import './LoadingPage.scss';
-import { Spinner } from '../components/Spinner';
 
 
 const cn = bemHelper('loading-page');

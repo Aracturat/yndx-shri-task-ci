@@ -9,7 +9,11 @@ import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
 import { Spinner } from '../components/Spinner';
 import { LoadingPage } from './LoadingPage';
-import { getBuild, getBuildLogs, requestBuild } from '../store/actions';
+import { AppDispatch, getBuild, getBuildLogs, requestBuild } from '../store/actions';
+import { AppState } from "../store/reducers";
+
+import { Build } from "../../../config-server/src/models/build";
+import { BuildLog } from "../../../config-server/src/models/build-log";
 
 import './BuildDetailsPage.scss';
 
@@ -18,15 +22,19 @@ const cn = bemHelper('build-details-page');
 
 
 export function BuildDetailsPage() {
-	const { buildId } = useParams();
+	const { buildId } = useParams<{ buildId: string | undefined }>();
 	const history = useHistory();
 
-	const dispatch = useDispatch();
-	const build = useSelector(state => state.builds.filter(e => e.id === buildId).shift());
-	const buildLog = useSelector(state => state.buildLogs.filter(e => e.id === buildId).shift());
-	const [isRebuild, setIsRebuild] = useState(false);
+	const dispatch = useDispatch<AppDispatch>();
+	const build = useSelector<AppState, Build | undefined>(state => state.builds.filter(e => e.id === buildId).shift());
+	const buildLog = useSelector<AppState, BuildLog | undefined>(state => state.buildLogs.filter(e => e.id === buildId).shift());
+	const [isRebuild, setIsRebuild] = useState<boolean>(false);
 
 	useEffect(() => {
+		if (!buildId) {
+			return;
+		}
+
 		if (!build) {
 			dispatch(getBuild(buildId));
 		}
@@ -41,7 +49,7 @@ export function BuildDetailsPage() {
 	};
 
 	const handleRebuild = () => {
-		if (isRebuild) {
+		if (isRebuild || !build) {
 			return;
 		}
 		setIsRebuild(true);

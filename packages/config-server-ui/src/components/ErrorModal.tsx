@@ -10,7 +10,12 @@ import { Modal } from './Modal';
 
 const cn = bemHelper('error-modal');
 
-export function ErrorModal({ closeModal, error }) {
+interface ErrorModalProps {
+	closeModal: () => void;
+	error: string;
+}
+
+export function ErrorModal({ closeModal, error }: ErrorModalProps) {
 	return (
 		<Modal className={cn()} header="Error">
 			<Text className={cn('text')}>{error}</Text>

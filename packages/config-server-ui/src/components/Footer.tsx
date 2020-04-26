@@ -8,10 +8,13 @@ import "./Footer.scss";
 
 const cn = bemHelper('footer');
 
+interface FooterProps {
+	className?: string;
+}
 
-export function Footer({ className }) {
+export function Footer({ className }: FooterProps) {
 	return (
-		<footer className={cn(null, null, className)}>
+		<footer className={cn(undefined, undefined, className)}>
 			<div className={cn('content')}>
 				<div className={cn('left')}>
 					<Link className={cn('item')} href="#">Support</Link>

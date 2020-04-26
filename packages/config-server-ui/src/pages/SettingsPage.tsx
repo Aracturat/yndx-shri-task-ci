@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -8,10 +8,14 @@ import { HeaderText } from '../components/HeaderText';
 import { Text } from '../components/Text';
 import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
-import { updateSettings } from '../store/actions';
+import { AppDispatch, updateSettings } from '../store/actions';
 
 import { ModalOpener } from '../components/ModalOpener';
 import { ErrorModal } from '../components/ErrorModal';
+
+import { AppState } from "../store/reducers";
+import { Settings } from "../../../config-server/src/models/settings";
+import { ServerError } from "../../../config-server/src/models/error";
 
 import './SettingsPage.scss';
 
@@ -20,18 +24,18 @@ const cn = bemHelper('settings-page');
 
 
 export function SettingsPage() {
-	const settings = useSelector(store => store.settings);
-	const dispatch = useDispatch();
+	const settings = useSelector<AppState, Settings | null>(store => store.settings);
+	const dispatch = useDispatch<AppDispatch>();
 	const history = useHistory();
 
-	const [repoName, setRepoName] = useState(settings.repoName);
-	const [buildCommand, setBuildCommand] = useState(settings.buildCommand);
-	const [mainBranch, setMainBranch] = useState(settings.mainBranch);
-	const [period, setPeriod] = useState(settings.period);
+	const [repoName, setRepoName] = useState<string>(settings?.repoName ?? "");
+	const [buildCommand, setBuildCommand] = useState<string>(settings?.buildCommand ?? "");
+	const [mainBranch, setMainBranch] = useState<string>(settings?.mainBranch ?? "");
+	const [period, setPeriod] = useState<string>((settings?.period ?? 0).toString());
 
-	const [isFormValid, setIsFormValid] = useState(false);
-	const [isSaving, setIsSaving] = useState(false);
-	const [error, setError] = useState();
+	const [isFormValid, setIsFormValid] = useState<boolean>(false);
+	const [isSaving, setIsSaving] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (repoName && buildCommand) {
@@ -41,7 +45,7 @@ export function SettingsPage() {
 		}
 	}, [repoName, buildCommand, mainBranch, period]);
 
-	const handleSave = (e) => {
+	const handleSave = (e: FormEvent) => {
 		e.preventDefault();
 
 		if (isSaving) {
@@ -54,14 +58,14 @@ export function SettingsPage() {
 			repoName,
 			buildCommand,
 			mainBranch,
-			period
-		};
+			period: +period
+		} as Settings;
 
 		dispatch(updateSettings(newSettings))
 			.then(() => {
 				history.push('/');
 			})
-			.catch(err => {
+			.catch((err: ServerError) => {
 				setError(err.error);
 			})
 			.finally(() => {
@@ -73,7 +77,7 @@ export function SettingsPage() {
 		history.goBack();
 	};
 
-	const numberMask = (input) => {
+	const numberMask = (input: string) => {
 		return input
 			.split('')
 			.filter(e => /\d/.test(e))
@@ -117,7 +121,7 @@ export function SettingsPage() {
 				/>
 
 				<div className={cn('buttons')}>
-					<Button action type="submit" onClick={handleSave} disabled={!isFormValid || isSaving}>Save</Button>
+					<Button action type="submit" disabled={!isFormValid || isSaving}>Save</Button>
 					<Button onClick={handleCancel} disabled={isSaving}>Cancel</Button>
 				</div>
 			</form>

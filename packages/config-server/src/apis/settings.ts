@@ -4,11 +4,11 @@ import { Request, Response } from 'express';
 import { Git } from '@ci-server/shared/src/git';
 
 import { Settings } from '../models/settings';
-import { Error } from '../models/error';
+import { ServerError } from '../models/error';
 
 const git = new Git();
 
-export async function getSettings(req: Request, res: Response<Settings | Error>) {
+export async function getSettings(req: Request, res: Response<Settings | ServerError>) {
     try {
         const config = await db.getBuildConfiguration();
 
@@ -27,7 +27,7 @@ export async function getSettings(req: Request, res: Response<Settings | Error>)
     }
 }
 
-export async function setSettings(req: Request<{}, Settings>, res: Response<Settings | Error>) {
+export async function setSettings(req: Request<{}, Settings>, res: Response<Settings | ServerError>) {
     const newSettings = {
         repoName: req.body.repoName,
         buildCommand: req.body.buildCommand,

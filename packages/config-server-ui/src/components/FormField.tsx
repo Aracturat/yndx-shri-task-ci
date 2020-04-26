@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import MaskedInput from 'react-text-mask';
+
 import { bemHelper } from '../bem-helper';
 
 import './FormField.scss';
-import MaskedInput from 'react-text-mask';
 
 
 const cn = bemHelper('form-field');
+
+interface FormFieldProps {
+	value?: string;
+	onChange?: (value: string) => void;
+	label?: string;
+	afterElement?: React.ReactNode;
+	required?: boolean;
+	inline?: boolean;
+	placeholder?: string;
+	mask?: (input: string) => RegExp[];
+	className?: string;
+}
 
 
 let id = 0;
@@ -21,7 +34,7 @@ export function FormField(
 		placeholder,
 		mask,
 		className
-	}
+	}: FormFieldProps
 ) {
 	const inputId = `form-field-${id++}`;
 
@@ -31,7 +44,7 @@ export function FormField(
 		onChange && onChange(inputValue);
 	}, [inputValue, onChange]);
 
-	const handleChange = (event) => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(event.target.value);
 	};
 
@@ -39,12 +52,12 @@ export function FormField(
 		setInputValue("");
 	};
 
-	const defaultMask = (input) => {
+	const defaultMask = (input: string) => {
 		return input.split("").map(() => /./);
 	};
 
 	return (
-		<div className={cn(null, { required, inline }, className)}>
+		<div className={cn(undefined, { required, inline }, className)}>
 			{ label && <label className={cn('label')} htmlFor={inputId}>{label}</label>}
 			<MaskedInput
 				mask={mask || defaultMask}

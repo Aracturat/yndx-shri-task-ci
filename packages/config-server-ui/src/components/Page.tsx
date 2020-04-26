@@ -9,13 +9,20 @@ import { Footer } from './Footer';
 import { Main } from './Main';
 
 import "./Page.scss";
+import { AppState } from "../store/reducers";
+
+interface PageProps {
+	children: React.ReactNode;
+	headerButtons?: React.ReactNode;
+	className?: string;
+}
 
 
 const cn = bemHelper('page');
 
 
-export function Page({ children, headerButtons, className }) {
-	const repoName = useSelector(state => state.settings.repoName);
+export function Page({ children, headerButtons, className }: PageProps) {
+	const repoName = useSelector<AppState, string | undefined>(state => state.settings?.repoName);
 	const history = useHistory();
 
 	const goToMainPage = () => {
@@ -23,7 +30,7 @@ export function Page({ children, headerButtons, className }) {
 	};
 
 	return (
-		<div className={cn(null, null, className)}>
+		<div className={cn(undefined, undefined, className)}>
 			<Header
 				className={cn('header')}
 				leftContent={

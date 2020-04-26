@@ -9,11 +9,15 @@ import './Log.scss';
 const cn = bemHelper('log');
 const convert = new Convert({ fg: '#000', bg: '#000' });
 
+interface LogProps {
+	text: string;
+	className?: string;
+}
 
-export function Log({ text, className }) {
+export function Log({ text, className }: LogProps) {
 	const convertedText = convert.toHtml(text);
 
 	return (
-		<pre className={cn(null, null, className)} dangerouslySetInnerHTML={{ __html: convertedText }} />
+		<pre className={cn(undefined, undefined, className)} dangerouslySetInnerHTML={{ __html: convertedText }} />
 	)
 }

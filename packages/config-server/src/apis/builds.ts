@@ -15,7 +15,7 @@ import { BuildIdParams } from "../models/build-id-params";
 const git = new Git();
 
 
-export async function getBuilds(req: Request<{}, {}, {}, GetBuildsQuery>, res: Response<Build[] | Error>) {
+export async function getBuilds(req: Request<{}, {}, {}, GetBuildsQuery>, res: Response<Build[] | ServerError>) {
     try {
         const buildList = await db.getBuildList({
             limit: req.query.limit,
@@ -38,7 +38,7 @@ export async function getBuilds(req: Request<{}, {}, {}, GetBuildsQuery>, res: R
     }
 }
 
-export async function requestBuild(req: Request<RequestBuildParams>, res: Response<Build | Error>) {
+export async function requestBuild(req: Request<RequestBuildParams>, res: Response<Build | ServerError>) {
     const commitHash = req.params.commitHash;
 
     if (!commitHash) {
@@ -107,7 +107,7 @@ export async function requestBuild(req: Request<RequestBuildParams>, res: Respon
     }
 }
 
-export async function getBuildDetails(req: Request<BuildIdParams>, res: Response<Build | Error>) {
+export async function getBuildDetails(req: Request<BuildIdParams>, res: Response<Build | ServerError>) {
     try {
         const build = await db.getBuildDetails({
             buildId: req.params.buildId
@@ -131,7 +131,7 @@ export async function getBuildDetails(req: Request<BuildIdParams>, res: Response
 
 const buildLogCache = new FileCache(path.join(__dirname, '../___TEMP___/log-cache'));
 
-export async function getBuildLog(req: Request<BuildIdParams>, res: Response<BuildLog | Error>) {
+export async function getBuildLog(req: Request<BuildIdParams>, res: Response<BuildLog | ServerError>) {
     const buildId = req.params.buildId;
 
     try {
