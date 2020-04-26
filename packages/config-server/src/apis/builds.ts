@@ -7,10 +7,10 @@ import { Git } from '@ci-server/shared/src/git';
 
 import { Build } from '../models/build';
 import { BuildLog } from '../models/build-log';
-import { Error } from '../models/error';
 import { GetBuildsQuery } from "../models/get-builds-query";
 import { RequestBuildParams } from "../models/request-build-params";
 import { BuildIdParams } from "../models/build-id-params";
+import { ServerError } from "../models/error";
 
 const git = new Git();
 
@@ -20,7 +20,7 @@ export async function getBuilds(req: Request<{}, {}, {}, GetBuildsQuery>, res: R
         const buildList = await db.getBuildList({
             limit: req.query.limit,
             offset: req.query.offset
-        }) as { data: Build[] };
+        });
 
         res.send(buildList.data.map(build => ({
             id: build.id,
