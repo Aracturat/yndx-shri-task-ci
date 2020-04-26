@@ -1,11 +1,11 @@
 import { API_URL } from '../constants';
 
 import axios from 'axios';
-import { Settings } from "../../../config-server/src/models/settings";
-import { GetBuildsQuery  } from "../../../config-server/src/models/get-builds-query";
-import { BuildIdParams } from "../../../config-server/src/models/build-id-params";
-import { Build } from "../../../config-server/src/models/build";
-import { BuildLog } from "../../../config-server/src/models/build-log";
+import { Settings } from "@ci-server/config-server/src/models/settings";
+import { GetBuildsQuery  } from "@ci-server/config-server/src/models/get-builds-query";
+import { BuildIdParams } from "@ci-server/config-server/src/models/build-id-params";
+import { Build } from "@ci-server/config-server/src/models/build";
+import { BuildLog } from "@ci-server/config-server/src/models/build-log";
 
 const instance = axios.create({
 	baseURL: API_URL,

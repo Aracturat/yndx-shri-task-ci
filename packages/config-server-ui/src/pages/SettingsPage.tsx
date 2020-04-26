@@ -14,8 +14,8 @@ import { ModalOpener } from '../components/ModalOpener';
 import { ErrorModal } from '../components/ErrorModal';
 
 import { AppState } from "../store/reducers";
-import { Settings } from "../../../config-server/src/models/settings";
-import { ServerError } from "../../../config-server/src/models/error";
+import { Settings } from "@ci-server/config-server/src/models/settings";
+import { ServerError } from "@ci-server/config-server/src/models/error";
 
 import './SettingsPage.scss';
 

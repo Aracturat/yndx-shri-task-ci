@@ -4,7 +4,7 @@ import { Icon } from './Icon';
 import { TextWithIcon } from './TextWithIcon';
 import { format } from 'date-fns'
 
-import { Build } from "../../../config-server/src/models/build";
+import { Build } from "@ci-server/config-server/src/models/build";
 
 import './BuildInfoCard.scss';
 

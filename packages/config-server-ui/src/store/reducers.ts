@@ -8,10 +8,11 @@ import {
     REQUEST_BUILD_SUCCESS,
     UPDATE_SETTINGS_SUCCESS
 } from './actions-types';
+
 import { BUILDS_PER_PAGE } from '../constants';
-import { Settings } from "../../../config-server/src/models/settings";
-import { Build } from "../../../config-server/src/models/build";
-import { BuildLog } from "../../../config-server/src/models/build-log";
+import { Settings } from "@ci-server/config-server/src/models/settings";
+import { Build } from "@ci-server/config-server/src/models/build";
+import { BuildLog } from "@ci-server/config-server/src/models/build-log";
 
 export interface AppState {
     isLoaded: boolean;

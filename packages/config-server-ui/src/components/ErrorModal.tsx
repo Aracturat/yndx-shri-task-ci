@@ -3,9 +3,9 @@ import React from 'react';
 import { bemHelper } from '../bem-helper';
 import { Button } from './Button';
 import { Text } from './Text';
+import { Modal } from './Modal';
 
 import './ErrorModal.scss';
-import { Modal } from './Modal';
 
 
 const cn = bemHelper('error-modal');

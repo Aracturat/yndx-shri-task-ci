@@ -17,7 +17,7 @@ import { BUILDS_PER_PAGE } from '../constants';
 
 import './BuildHistoryPage.scss';
 import { AppState } from "../store/reducers";
-import { Build } from "../../../config-server/src/models/build";
+import { Build } from "@ci-server/config-server/src/models/build";
 
 
 const cn = bemHelper('build-history-page');

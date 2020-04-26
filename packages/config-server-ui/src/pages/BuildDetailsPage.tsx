@@ -12,8 +12,8 @@ import { LoadingPage } from './LoadingPage';
 import { AppDispatch, getBuild, getBuildLogs, requestBuild } from '../store/actions';
 import { AppState } from "../store/reducers";
 
-import { Build } from "../../../config-server/src/models/build";
-import { BuildLog } from "../../../config-server/src/models/build-log";
+import { Build } from "@ci-server/config-server/src/models/build";
+import { BuildLog } from "@ci-server/config-server/src/models/build-log";
 
 import './BuildDetailsPage.scss';
 
