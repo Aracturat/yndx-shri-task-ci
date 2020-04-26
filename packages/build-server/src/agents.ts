@@ -1,7 +1,14 @@
-const agentApi = require('./agent-api');
-let agents = [];
+import { HostPort } from "./models/host-port";
 
-function addAgent({ host, port }) {
+import * as agentApi from './agent-api';
+
+export interface Agent extends HostPort {
+	buildId: string | null;
+}
+
+let agents: Agent[] = [];
+
+export function addAgent({ host, port }: HostPort) {
 	console.log(`[agents] Add agent ${host}:${port}`);
 
 	const existingAgent = agents.filter(e => e.host === host && e.port === port).shift();
@@ -23,13 +30,13 @@ function addAgent({ host, port }) {
 	return agent;
 }
 
-function removeAgent({ host, port }) {
+export function removeAgent({ host, port }: HostPort) {
 	console.log(`[agents] Remove agent ${host}:${port}`);
 
 	agents = agents.filter(e => !(e.host === host && e.port === port));
 }
 
-async function assignBuild(buildId) {
+export async function assignBuild(buildId: string): Promise<HostPort | null> {
 	const freeAgent = agents.filter(e => !e.buildId).shift();
 
 	if (!freeAgent) {
@@ -58,29 +65,18 @@ async function assignBuild(buildId) {
 	};
 }
 
-function stopBuild(buildId) {
+export function stopBuild(buildId: string) {
 	const agent = getAgentByBuildId(buildId);
 
 	if (agent) {
 		agent.buildId = null;
 	}
-
-	console.log(agents)
 }
 
-function getAllAgents() {
+export function getAllAgents() {
 	return agents.map(e => ({ host: e.host, port: e.port }));
 }
 
-function getAgentByBuildId(buildId) {
+export function getAgentByBuildId(buildId: string) {
 	return agents.filter(e => e.buildId === buildId).shift();
-}
-
-module.exports = {
-	addAgent,
-	assignBuild,
-	stopBuild,
-	removeAgent,
-	getAllAgents,
-	getAgentByBuildId
 }

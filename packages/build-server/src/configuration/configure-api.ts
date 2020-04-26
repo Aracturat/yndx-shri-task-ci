@@ -1,12 +1,12 @@
-const express = require('express');
+import express, { Express } from 'express';
 
-const api = require('../apis/api');
+import * as api from '../apis/api';
 
-function configureApi(app) {
+export default function configureApi(app: Express) {
 	app.use(express.json());
+
 
 	app.post('/notify-agent', api.notifyAgent);
 	app.post('/notify-build-result', api.notifyBuildResult);
 }
 
-module.exports = configureApi;

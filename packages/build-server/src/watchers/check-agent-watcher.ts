@@ -1,10 +1,10 @@
-const agentApi = require('../agent-api');
-const { getAllAgents, removeAgent } = require('../agents');
-const { retryIfError } = require('@ci-server/shared/src/utils');
+import * as agentApi from '../agent-api';
+import { getAllAgents, removeAgent } from '../agents';
+import { retryIfError } from '@ci-server/shared/src/utils';
 
 const CHECK_AGENT_TIMEOUT_MS = 60 * 1000;
 
-function checkAgents() {
+export function checkAgents() {
 	console.log('[checkAgents] Starting check agents watcher...');
 
 	let isRunning = true;
@@ -48,8 +48,4 @@ function checkAgents() {
 			isRunning = false;
 		}
 	};
-}
-
-module.exports = {
-	checkAgents
 }

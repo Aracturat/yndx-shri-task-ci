@@ -1,9 +1,9 @@
-const db = require('@ci-server/shared/src/db-api');
-const { addAgent, stopBuild } = require('../agents');
-const { retryIfError } = require('../utils');
+import * as db from '@ci-server/shared/src/db-api';
+import { addAgent, stopBuild } from '../agents';
+import { Request, Response} from "express";
+import { retryIfError } from "@ci-server/shared/src/utils";
 
-
-async function notifyAgent(req, res) {
+export async function notifyAgent(req: Request<{}, {}, { port: number }>, res: Response) {
 	const host = req.hostname;
 	const port = req.body.port;
 
@@ -12,7 +12,14 @@ async function notifyAgent(req, res) {
 	res.send(agent);
 }
 
-async function notifyBuildResult(req, res) {
+export interface NotifyBuildResultRequestBody {
+	id: string;
+	success: boolean;
+	duration: number;
+	log: string;
+}
+
+export async function notifyBuildResult(req: Request<{}, {}, NotifyBuildResultRequestBody>, res: Response<{}>) {
 	const {
 		id,
 		success,
@@ -43,8 +50,3 @@ async function notifyBuildResult(req, res) {
 		res.status(500).send({ error: 'Something is going bad.' });
 	}
 }
-
-module.exports = {
-	notifyAgent,
-	notifyBuildResult
-};
