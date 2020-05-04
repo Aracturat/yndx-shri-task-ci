@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import * as settingsApi from '../apis/settings';
 import * as buildsApi from '../apis/builds';
+import * as pushApi from '../apis/push';
 
 export default function configureApi(app: Express) {
 	app.use(cors());
@@ -17,5 +18,7 @@ export default function configureApi(app: Express) {
 	app.post('/api/builds/:commitHash', buildsApi.requestBuild);
 	app.get('/api/builds/:buildId', buildsApi.getBuildDetails);
 	app.get('/api/builds/:buildId/logs', buildsApi.getBuildLog);
+
+	app.post('/api/push/subscribe', pushApi.subscribe);
 }
 

@@ -4,8 +4,9 @@ import { App } from './App';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
+import * as push from './push';
 import './scss/index.scss';
-import { initApp } from './store/actions';
+import { initApp, updateBuild } from './store/actions';
 
 store.dispatch(initApp());
 
@@ -25,9 +26,17 @@ if ('serviceWorker' in navigator) {
             .then(
                 function (registration) {
                     console.log('ServiceWorker registration successful');
+
+                    push.register(registration);
                 }, function (err) {
                     console.log('ServiceWorker registration failed: ', err);
                 }
             );
+
+        navigator.serviceWorker.addEventListener('message', (e) => {
+            if (e.data) {
+                store.dispatch(updateBuild(e.data));
+            }
+        });
     });
 }

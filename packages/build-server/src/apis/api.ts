@@ -2,6 +2,7 @@ import * as db from '@ci-server/shared/src/db-api';
 import { addAgent, stopBuild } from '../agents';
 import { Request, Response} from "express";
 import { retryIfError } from "@ci-server/shared/src/utils";
+import { sendToAll } from "../notifications/send";
 
 export async function notifyAgent(req: Request<{}, {}, { port: number }>, res: Response) {
 	const host = req.hostname;
@@ -43,6 +44,12 @@ export async function notifyBuildResult(req: Request<{}, {}, NotifyBuildResultRe
 		);
 
 		stopBuild(id);
+
+		await sendToAll('Build status changed', 'Build finished', {
+			id,
+			status: success ? 'Success' : 'Fail',
+			duration
+		});
 
 		res.send({});
 	} catch (err) {

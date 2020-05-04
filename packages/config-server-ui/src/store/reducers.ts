@@ -5,7 +5,7 @@ import {
     GET_BUILDS_SUCCESS,
     GET_SETTINGS_SUCCESS,
     INIT_APP,
-    REQUEST_BUILD_SUCCESS,
+    REQUEST_BUILD_SUCCESS, UPDATE_BUILD,
     UPDATE_SETTINGS_SUCCESS
 } from './actions-types';
 
@@ -76,6 +76,14 @@ export function reducer(state = defaultState, action: any) {
                 ],
                 hasMoreBuilds: action.data.hasMoreBuilds
             };
+        case UPDATE_BUILD: {
+            const builds = state.builds.filter(build => build.id !== action.data.id);
+
+            return {
+                ...state,
+                builds: builds.map(e => e.id === action.data.id ? { ...e, ...action.data } : e )
+            };
+        }
         default:
             return state;
     }

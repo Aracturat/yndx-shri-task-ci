@@ -15,7 +15,7 @@ const cn = bemHelper('build-info-card');
  * Format duration.
  * @param duration in seconds
  */
-function formatDuration(duration: number): string {
+function formatDuration(duration?: number): string {
 	if (!duration) {
 		return '- h -- min';
 	}
@@ -36,7 +36,7 @@ function formatDuration(duration: number): string {
 	return `${seconds} sec`
 }
 
-function formatStart(start: string): string {
+function formatStart(start?: string): string {
 	if (!start) {
 		return '- ---, --:--';
 	}

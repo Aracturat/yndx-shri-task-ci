@@ -9,6 +9,8 @@ const promisifiedMkdir = util.promisify(fs.mkdir);
 
 
 export async function runCommandInDirectory(command: string, dir: string) {
+    console.log(`Run command ${command} in directory ${dir}`);
+
     try {
         const result = await promisifiedExec(command, { cwd: dir });
 

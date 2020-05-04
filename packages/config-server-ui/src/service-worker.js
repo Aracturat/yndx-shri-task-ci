@@ -28,9 +28,15 @@ self.addEventListener('fetch', (/** FetchEvent */ event) => {
 	if (
 		event.request.method !== 'GET'
 		||
-		event.request.url.indexOf('/api/') !== -1
+		!event.request.url.endsWith('.js')
+		||
+		!event.request.url.endsWith('.css')
+		||
+		!event.request.url.endsWith('.woff2')
 		||
 		!event.request.url.startsWith('http')
+		||
+		event.request.url.endsWith('service-worker.js')
 	) {
 		return;
 	}
@@ -65,3 +71,43 @@ function fromCache(request) {
 				.then((matching) => matching || Promise.reject('no-match'))
 		);
 }
+
+self.addEventListener('push', function (/** */ event) {
+	let notification = null;
+
+	try {
+		notification = event.data.json();
+	} catch (e) {
+		notification = {
+			title: 'CI Server',
+			body: 'Something was updated',
+			data: null
+		}
+	}
+
+	self.clients.matchAll().then(clientList => {
+		clientList.forEach(client => {
+			client.postMessage(notification.data);
+		});
+	});
+
+	event.waitUntil(
+		self.registration.showNotification(notification.title, {
+			body: notification.body,
+		})
+	);
+});
+
+self.addEventListener('notificationclick', function (event) {
+	event.notification.close();
+
+	event.waitUntil(
+		self.clients.matchAll().then(function (clientList) {
+			if (clientList.length > 0) {
+				return clientList[0].focus();
+			}
+
+			return self.clients.openWindow(`/build/${event.notification.data.id}`);
+		})
+	);
+});

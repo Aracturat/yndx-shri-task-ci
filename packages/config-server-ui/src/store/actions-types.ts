@@ -19,3 +19,5 @@ export const GET_BUILD_SUCCESS = 'GET_BUILD_SUCCESS' as const;
 
 export const GET_BUILD_LOGS = 'GET_BUILD_LOGS' as const;
 export const GET_BUILD_LOGS_SUCCESS = 'GET_BUILD_LOGS_SUCCESS' as const;
+
+export const UPDATE_BUILD = 'UPDATE_BUILD' as const;

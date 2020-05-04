@@ -11,7 +11,7 @@ export class GitCommands {
     }
 
     async cloneRemoteRepository(repositoryUrl: string) {
-        const command = `git clone ${ repositoryUrl } ${ this.repositoryTempDirectory }`;
+        const command = `git clone "${ repositoryUrl }" "${ this.repositoryTempDirectory }"`;
 
         return await runCommandInDirectory(command, path.join(__dirname, '..'));
     }

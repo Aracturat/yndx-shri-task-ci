@@ -1,5 +1,7 @@
 {
   "port": 8080,
   "apiBaseUrl": "https://hw.shri.yandex/api/",
-  "apiToken": "token"
+  "apiToken": "token",
+  "vapidPublicKey": "vapidPublicKey",
+  "vapidPrivateKey": "vapidPrivateKey"
 }

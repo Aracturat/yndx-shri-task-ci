@@ -14,6 +14,20 @@ import { ServerError } from "../models/error";
 
 const git = new Git();
 
+function mapBuild(build: Build): Build {
+    return {
+        id: build.id,
+        buildNumber: build.buildNumber,
+        commitMessage: build.commitMessage,
+        commitHash: build.commitHash,
+        branchName: build.branchName,
+        authorName: build.authorName,
+        status: build.status,
+        start: build.start ? build.start + "Z" : undefined,
+        duration: build.duration
+    }
+}
+
 
 export async function getBuilds(req: Request<{}, {}, {}, GetBuildsQuery>, res: Response<Build[] | ServerError>) {
     try {
@@ -22,17 +36,7 @@ export async function getBuilds(req: Request<{}, {}, {}, GetBuildsQuery>, res: R
             offset: req.query.offset
         });
 
-        res.send(buildList.data.map(build => ({
-            id: build.id,
-            buildNumber: build.buildNumber,
-            commitMessage: build.commitMessage,
-            commitHash: build.commitHash,
-            branchName: build.branchName,
-            authorName: build.authorName,
-            status: build.status,
-            start: build.start,
-            duration: build.duration
-        })));
+        res.send(buildList.data.map(build => mapBuild(build)));
     } catch (err) {
         res.status(500).send({ error: 'Something is going bad. Maybe build settings is missing.' });
     }
@@ -91,17 +95,7 @@ export async function requestBuild(req: Request<RequestBuildParams>, res: Respon
 
         const newBuild = await db.getBuildList({ limit: 1 }).then(res => res.data[0]);
 
-        res.send({
-            id: newBuild.id,
-            buildNumber: newBuild.buildNumber,
-            commitMessage: newBuild.commitMessage,
-            commitHash: newBuild.commitHash,
-            branchName: newBuild.branchName,
-            authorName: newBuild.authorName,
-            status: newBuild.status,
-            start: newBuild.start,
-            duration: newBuild.duration
-        });
+        res.send(mapBuild(newBuild));
     } catch (err) {
         res.status(500).send({ error: 'Something is going bad' });
     }
@@ -113,17 +107,7 @@ export async function getBuildDetails(req: Request<BuildIdParams>, res: Response
             buildId: req.params.buildId
         });
 
-        res.send({
-            id: build.data.id,
-            buildNumber: build.data.buildNumber,
-            commitMessage: build.data.commitMessage,
-            commitHash: build.data.commitHash,
-            branchName: build.data.branchName,
-            authorName: build.data.authorName,
-            status: build.data.status,
-            start: build.data.start,
-            duration: build.data.duration
-        });
+        res.send(mapBuild(build.data));
     } catch (err) {
         return res.status(404).send({ error: 'Build has not found' });
     }

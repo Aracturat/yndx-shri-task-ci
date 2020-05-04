@@ -6,6 +6,6 @@ export interface Build {
     branchName: string;
     authorName: string;
     status: string;
-    start: string;
-    duration: number;
+    start?: string;
+    duration?: number;
 }

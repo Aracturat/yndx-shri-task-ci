@@ -13,6 +13,7 @@ import {
     GET_SETTINGS_SUCCESS,
     REQUEST_BUILD,
     REQUEST_BUILD_SUCCESS,
+    UPDATE_BUILD,
     UPDATE_SETTINGS,
     UPDATE_SETTINGS_SUCCESS
 } from './actions-types';
@@ -72,10 +73,12 @@ export function clearBuilds() {
     };
 }
 
-export function getSettings(): AppThunk<Promise<Settings>> {
+export function getSettings(): AppThunk<Promise<Settings | null>> {
     return async dispatch => {
         return await callApi(
-            () => api.getSettings(),
+            () => api.getSettings()
+                .catch(() => api.getSettings())
+                .catch(() => null),
             dispatch,
             GET_SETTINGS,
             GET_SETTINGS_SUCCESS
@@ -141,5 +144,12 @@ export function requestBuild(commitHash: string): AppThunk<Promise<Build>> {
             REQUEST_BUILD,
             REQUEST_BUILD_SUCCESS
         );
+    };
+}
+
+export function updateBuild(data: Partial<Build> & { id: string }) {
+    return {
+        type: UPDATE_BUILD,
+        data
     };
 }

@@ -77,3 +77,19 @@ export function getBuildLogs({ buildId }: BuildIdParams) {
 		.get<BuildLog>(`/builds/${buildId}/logs`)
 		.then(result => result.data);
 }
+
+/**
+ * Subscribe on push notifications
+ */
+export function pushSubscribe(subscription: PushSubscription) {
+	return instance
+		.post('/push/subscribe', subscription);
+}
+
+/**
+ * Unsubscribe
+ */
+export function pushUnsubscribe(subscription: PushSubscription) {
+	return instance
+		.post('/push/unsubscribe', subscription);
+}

@@ -4,6 +4,7 @@ import { retryIfError } from '@ci-server/shared/src/utils';
 import { getNotFinishedBuilds } from '../utils';
 import { assignBuild, getAgentByBuildId } from '../agents';
 import { Build } from "@ci-server/shared/src/db-api-models/build";
+import { sendToAll } from "../notifications/send";
 
 const CHECK_BUILDS_TIMEOUT_MS = 30 * 1000;
 
@@ -121,6 +122,13 @@ async function findAgentAndSendBuildCommand({ buildId, status, repoName, buildCo
             id: buildId,
             commitHash: commitHash
         });
+
+        await sendToAll('Build status changed', 'Build started', {
+            id: buildId,
+            status: 'InProgress',
+            start: new Date().toISOString()
+        });
+
         console.log(`[checkBuilds] Build command has been successfully sent.`);
 
         // Send command to DB only if build has in waiting status
