@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ci-server/shared": "^0.1.0",
     "@ci-server/config-server": "^0.1.0",
+    "@ci-server/shared": "^0.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -33,7 +33,8 @@
     "react-text-mask": "^5.4.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "workbox-webpack-plugin": "^5.1.3"
   },
   "scripts": {
     "start": "react-app-rewired start",
