@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { bemHelper } from '../bem-helper';
 
 import "./Link.scss";
@@ -10,11 +10,12 @@ interface LinkProps {
 	href: string;
 	children: React.ReactNode;
 	className?: string;
+	onClick?: MouseEventHandler
 }
 
 
-export function Link({ href, children, className }: LinkProps) {
+export function Link({ href, children, className, onClick }: LinkProps) {
 	return (
-		<a className={cn(undefined, undefined, className)} href={href}>{children}</a>
+		<a className={cn(undefined, undefined, className)} href={href} onClick={onClick}>{children}</a>
 	)
 }
