@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "../intl";
+import { FormattedMessage } from "react-intl";
 
+import { useHistory } from "../intl";
 import { Button } from '../components/Button';
 import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
-import { AppDispatch, clearBuilds, getBuilds } from '../store/actions';
 
+import { AppDispatch, clearBuilds, getBuilds } from '../store/actions';
 import { ModalOpener } from '../components/ModalOpener';
 import { NewBuildModal } from '../components/NewBuildModal';
 import { Spinner } from '../components/Spinner';
+
 import { Text } from '../components/Text';
 
 import { BUILDS_PER_PAGE } from '../constants';
-
-import './BuildHistoryPage.scss';
 import { AppState } from "../store/reducers";
 import { Build } from "@ci-server/config-server/src/models/build";
 
+import './BuildHistoryPage.scss';
 
 const cn = bemHelper('build-history-page');
 
@@ -60,14 +61,15 @@ export function BuildHistoryPage() {
                             icon="start"
                             className={ cn('run-build-button') }
                             onClick={ openModal }
-                        >Run build</Button> }
+                        >
+                            <FormattedMessage id="BuildHistoryPage.HeaderButtons.RunBuild" />
+                        </Button> }
                     />
                     <Button small icon="gear" className={ cn('settings-button') } onClick={ goToSettingsPage } />
                 </>
             }
         >
-            { !isLoading && builds.length === 0 &&
-			<Text>We don't have builds yet. Press 'Run build' button for a new build.</Text> }
+            { !isLoading && builds.length === 0 && <Text><FormattedMessage id="BuildHistoryPage.NoBuilds" /></Text> }
             {
                 builds.length > 0
                 &&
@@ -90,7 +92,9 @@ export function BuildHistoryPage() {
             {
                 hasMoreBuilds
                 &&
-				<Button small className={ cn('show-more-button') } onClick={ loadMoreBuilds }>Show more</Button>
+				<Button small className={ cn('show-more-button') } onClick={ loadMoreBuilds }>
+					<FormattedMessage id="BuildHistoryPage.Buttons.ShowMore" />
+				</Button>
             }
         </Page>
     );

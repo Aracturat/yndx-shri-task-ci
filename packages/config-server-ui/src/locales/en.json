@@ -29,5 +29,55 @@
   },
   "Page": {
     "AppName": "School CI server"
+  },
+  "StartPage": {
+    "Description": "Configure repository connection and synchronization settings",
+    "HeaderButtons": {
+      "Settings": "Settings"
+    },
+    "Buttons": {
+      "OpenSettings": "Open settings"
+    }
+  },
+  "SettingsPage": {
+    "Header": "Settings",
+    "Description": "Configure repository connection and synchronization settings",
+    "Fields": {
+      "GithubRepository": {
+        "Label": "Github repository",
+        "Placeholder": "user-name/repo-name"
+      },
+      "BuildCommand": {
+        "Label": "Build command",
+        "Placeholder": "npm ci && npm run build"
+      },
+      "MainBranch": {
+        "Label": "Main branch",
+        "Placeholder": "master"
+      },
+      "Period": {
+        "Label": "Synchronize every # { period, plural, one {minute} other {minutes}}",
+        "Placeholder": "10"
+      }
+    },
+    "Buttons": {
+      "Save": "Save",
+      "Cancel": "Cancel"
+    }
+  },
+  "BuildHistoryPage": {
+    "NoBuilds": "We don't have builds yet. Press 'Run build' button for a new build.",
+    "HeaderButtons": {
+      "RunBuild": "Run build"
+    },
+    "Buttons": {
+      "ShowMore": "Show more"
+    }
+  },
+  "BuildDetailsPage": {
+    "NoLog": "Log is empty",
+    "HeaderButtons": {
+      "Rebuild": "Rebuild"
+    }
   }
 }
