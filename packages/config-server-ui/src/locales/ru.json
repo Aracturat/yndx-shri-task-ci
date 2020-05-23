@@ -2,8 +2,11 @@
   "Footer": {
     "Links": {
       "Support": "Поддержка",
-      "SwitchToEn": "English version"
-    }
+      "SwitchToEn": "English version",
+      "Learning": "Обучение",
+      "SwitchToRu": "Русская версия"
+    },
+    "Copyright": "© 2020 Николай Дозморов"
   },
   "ErrorModal": {
     "Header": "Ошибка",
@@ -17,6 +20,11 @@
         "Label": "Хэш коммита",
         "Placeholder": "Введите хеш коммита для которого вы хотите создать сборку."
       }
+    },
+    "Header": "Новая сборка",
+    "Buttons": {
+      "RunBuild": "Запустить сборку",
+      "Cancel": "Отмена"
     }
   },
   "Page": {
@@ -25,6 +33,10 @@
   "StartPage": {
     "HeaderButtons": {
       "Settings": "Настройки"
+    },
+    "Description": "Настроить соединение с репозиторием и параметры синхронизации",
+    "Buttons": {
+      "OpenSettings": "Открыть настройки"
     }
   },
   "SettingsPage": {
@@ -35,19 +47,32 @@
         "Placeholder": "user-name/repo-name"
       },
       "BuildCommand": {
-        "Label": "Команда сборки"
+        "Label": "Команда сборки",
+        "Placeholder": "npm ci &amp;&amp; npm run build"
       },
       "MainBranch": {
         "Label": "Главная ветка",
         "Placeholder": "master"
       },
       "Period": {
-        "Label": "Синхронизация раз в # {period, plural, one {минуту} few {минуты} many {минут}}"
+        "Label": "Синхронизация раз в # {period, plural, one {минуту} few {минуты} many {минут}}",
+        "Placeholder": "10"
       }
+    },
+    "Description": "Настроить соединение с репозиторием и параметры синхронизации",
+    "Buttons": {
+      "Save": "Сохранить",
+      "Cancel": "Отмена"
     }
   },
   "BuildHistoryPage": {
-    "NoBuilds": "У нас пока нет сборок. Нажмите кнопку 'Запустить сборку' для запуска новой сборки."
+    "NoBuilds": "У нас пока нет сборок. Нажмите кнопку 'Запустить сборку' для запуска новой сборки.",
+    "HeaderButtons": {
+      "RunBuild": "Запустить сборку"
+    },
+    "Buttons": {
+      "ShowMore": "Показать больше"
+    }
   },
   "BuildDetailsPage": {
     "NoLog": "Лог пуст",
