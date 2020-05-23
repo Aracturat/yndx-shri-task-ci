@@ -1,6 +1,33 @@
 {
-  "common": {
-    "switchToRu": "Русская версия",
-    "switchToEn": "English version"
+  "Footer": {
+    "Links": {
+      "Support": "Support",
+      "Learning": "Learning",
+      "SwitchToRu": "Русская версия",
+      "SwitchToEn": "English version"
+    },
+    "Copyright": "© 2020 Nikolay Dozmorov"
+  },
+  "ErrorModal": {
+    "Header": "Error",
+    "Buttons": {
+      "Ok": "Ok"
+    }
+  },
+  "NewBuildModal": {
+    "Header": "New build",
+    "Fields": {
+      "CommitHash": {
+        "Label": "Commit hash",
+        "Placeholder": "Enter the commit hash which you want to build."
+      }
+    },
+    "Buttons": {
+      "RunBuild": "Run build",
+      "Cancel": "Cancel"
+    }
+  },
+  "Page": {
+    "AppName": "School CI server"
   }
 }
