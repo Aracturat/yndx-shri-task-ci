@@ -1,2 +1,83 @@
 {
+  "Footer": {
+    "Links": {
+      "Support": "Поддержка",
+      "SwitchToEn": "English version",
+      "Learning": "Обучение",
+      "SwitchToRu": "Русская версия"
+    },
+    "Copyright": "© 2020 Николай Дозморов"
+  },
+  "ErrorModal": {
+    "Header": "Ошибка",
+    "Buttons": {
+      "Ok": "Ok"
+    }
+  },
+  "NewBuildModal": {
+    "Fields": {
+      "CommitHash": {
+        "Label": "Хэш коммита",
+        "Placeholder": "Введите хеш коммита для которого вы хотите создать сборку."
+      }
+    },
+    "Header": "Новая сборка",
+    "Buttons": {
+      "RunBuild": "Запустить сборку",
+      "Cancel": "Отмена"
+    }
+  },
+  "Page": {
+    "AppName": "School CI server"
+  },
+  "StartPage": {
+    "HeaderButtons": {
+      "Settings": "Настройки"
+    },
+    "Description": "Настроить соединение с репозиторием и параметры синхронизации",
+    "Buttons": {
+      "OpenSettings": "Открыть настройки"
+    }
+  },
+  "SettingsPage": {
+    "Header": "Настройки",
+    "Fields": {
+      "GithubRepository": {
+        "Label": "Github репозиторий",
+        "Placeholder": "user-name/repo-name"
+      },
+      "BuildCommand": {
+        "Label": "Команда сборки",
+        "Placeholder": "npm ci &amp;&amp; npm run build"
+      },
+      "MainBranch": {
+        "Label": "Главная ветка",
+        "Placeholder": "master"
+      },
+      "Period": {
+        "Label": "Синхронизация раз в # {period, plural, one {минуту} few {минуты} many {минут}}",
+        "Placeholder": "10"
+      }
+    },
+    "Description": "Настроить соединение с репозиторием и параметры синхронизации",
+    "Buttons": {
+      "Save": "Сохранить",
+      "Cancel": "Отмена"
+    }
+  },
+  "BuildHistoryPage": {
+    "NoBuilds": "У нас пока нет сборок. Нажмите кнопку 'Запустить сборку' для запуска новой сборки.",
+    "HeaderButtons": {
+      "RunBuild": "Запустить сборку"
+    },
+    "Buttons": {
+      "ShowMore": "Показать больше"
+    }
+  },
+  "BuildDetailsPage": {
+    "NoLog": "Лог пуст",
+    "HeaderButtons": {
+      "Rebuild": "Перезапустить сборку"
+    }
+  }
 }
