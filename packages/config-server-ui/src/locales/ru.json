@@ -2,8 +2,8 @@
   "Footer": {
     "Links": {
       "Support": "Поддержка",
-      "SwitchToEn": "English version",
       "Learning": "Обучение",
+      "SwitchToEn": "English version",
       "SwitchToRu": "Русская версия"
     },
     "Copyright": "© 2020 Николай Дозморов"
@@ -15,13 +15,13 @@
     }
   },
   "NewBuildModal": {
+    "Header": "Новая сборка",
     "Fields": {
       "CommitHash": {
         "Label": "Хэш коммита",
         "Placeholder": "Введите хеш коммита для которого вы хотите создать сборку."
       }
     },
-    "Header": "Новая сборка",
     "Buttons": {
       "RunBuild": "Запустить сборку",
       "Cancel": "Отмена"
@@ -31,16 +31,17 @@
     "AppName": "School CI server"
   },
   "StartPage": {
+    "Description": "Настройте соединение с репозиторием и параметры синхронизации",
     "HeaderButtons": {
       "Settings": "Настройки"
     },
-    "Description": "Настроить соединение с репозиторием и параметры синхронизации",
     "Buttons": {
       "OpenSettings": "Открыть настройки"
     }
   },
   "SettingsPage": {
     "Header": "Настройки",
+    "Description": "Настройте соединение с репозиторием и параметры синхронизации",
     "Fields": {
       "GithubRepository": {
         "Label": "Github репозиторий",
@@ -48,7 +49,7 @@
       },
       "BuildCommand": {
         "Label": "Команда сборки",
-        "Placeholder": "npm ci &amp;&amp; npm run build"
+        "Placeholder": "npm ci && npm run build"
       },
       "MainBranch": {
         "Label": "Главная ветка",
@@ -59,7 +60,6 @@
         "Placeholder": "10"
       }
     },
-    "Description": "Настроить соединение с репозиторием и параметры синхронизации",
     "Buttons": {
       "Save": "Сохранить",
       "Cancel": "Отмена"
