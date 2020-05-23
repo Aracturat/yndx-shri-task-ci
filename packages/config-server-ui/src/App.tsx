@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation, useRouteMatch } from 'react-router-dom';
 
 import { BuildDetailsPage } from './pages/BuildDetailsPage';
 import { StartPage } from './pages/StartPage';
@@ -9,27 +9,39 @@ import { BuildHistoryPage } from './pages/BuildHistoryPage';
 import { LoadingPage } from './pages/LoadingPage';
 import { AppState } from "./store/reducers";
 
+const currentLocale = 'ru';
+
 export function App() {
-    const isLoaded = useSelector<AppState>(state => state.isLoaded);
-    const isConfigured = useSelector<AppState>(state => !!state.settings?.repoName);
+    const isLoaded = useSelector<AppState, boolean>(state => state.isLoaded);
+    const isConfigured = useSelector<AppState, boolean>(state => !!state.settings?.repoName);
+    const location = useLocation();
 
     if (!isLoaded) {
-        return <Router><LoadingPage /></Router>;
+        return <LoadingPage />;
     }
 
     return (
-        <Router>
-            <Switch>
-                <Route path="/settings">
-                    <SettingsPage />
-                </Route>
-                <Route path="/build/:buildId">
-                    <BuildDetailsPage />
-                </Route>
-                <Route path="/">
-                    { isConfigured ? <BuildHistoryPage /> : <StartPage /> }
-                </Route>
-            </Switch>
-        </Router>
+        <Switch>
+            <Route path="/(en|ru)">
+                <Routes isConfigured={isConfigured}/>
+            </Route>
+            <Redirect to={`/${currentLocale}${location.pathname}`} />
+        </Switch>
     );
+}
+
+function Routes({ isConfigured }: { isConfigured: boolean}) {
+    let { path } = useRouteMatch();
+
+    return (<Switch>
+        <Route path={`${path}/settings`}>
+            <SettingsPage />
+        </Route>
+        <Route path={`${path}/build/:buildId`}>
+            <BuildDetailsPage />
+        </Route>
+        <Route path={path}>
+            { isConfigured ? <BuildHistoryPage /> : <StartPage /> }
+        </Route>
+    </Switch>)
 }

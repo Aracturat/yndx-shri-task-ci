@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "../intl";
 
 import { bemHelper } from '../bem-helper';
 import { Header } from './Header';

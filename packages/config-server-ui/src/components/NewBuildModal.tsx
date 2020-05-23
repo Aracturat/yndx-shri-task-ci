@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from '../intl';
 
 import { bemHelper } from '../bem-helper';
 import { Button } from './Button';

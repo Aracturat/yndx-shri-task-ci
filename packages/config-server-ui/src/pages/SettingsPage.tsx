@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "../intl";
 
 import { Button } from '../components/Button';
 import { FormField } from '../components/FormField';
