@@ -93,7 +93,7 @@ export function SettingsPage() {
         const [label, afterElement] = formatted.split('#').map(e => e.trim());
 
         setFormattedPeriod({ label, afterElement });
-    }, [period]);
+    }, [f, period]);
 
 
     return (

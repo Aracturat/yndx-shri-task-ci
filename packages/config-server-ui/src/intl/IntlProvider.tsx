@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import { flatten } from "./utils";
 import { IntlProvider as ReactIntlProvider } from "react-intl";
+
+import { flatten } from "./utils";
 import { defaultLocale } from "./locales";
 
 export interface IntlProviderProps {
