@@ -6,7 +6,7 @@ import './Spinner.scss';
 
 const cn = bemHelper('spinner');
 
-export function Spinner() {
+export const Spinner = React.memo(() => {
 	return (
 		<div className={cn()}>
 			<div className={cn('content')}>
@@ -16,4 +16,4 @@ export function Spinner() {
 			</div>
 		</div>
 	);
-}
+});

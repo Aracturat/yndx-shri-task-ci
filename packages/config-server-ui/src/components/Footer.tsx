@@ -12,7 +12,7 @@ interface FooterProps {
 	className?: string;
 }
 
-export function Footer({ className }: FooterProps) {
+export const Footer = React.memo(({ className }: FooterProps) => {
 	return (
 		<footer className={cn(undefined, undefined, className)}>
 			<div className={cn('content')}>
@@ -26,4 +26,4 @@ export function Footer({ className }: FooterProps) {
 			</div>
 		</footer>
 	)
-}
+});

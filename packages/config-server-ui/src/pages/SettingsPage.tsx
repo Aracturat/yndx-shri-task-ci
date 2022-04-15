@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -22,7 +22,6 @@ import './SettingsPage.scss';
 
 const cn = bemHelper('settings-page');
 
-
 export function SettingsPage() {
 	const settings = useSelector<AppState, Settings | null>(store => store.settings);
 	const dispatch = useDispatch<AppDispatch>();
@@ -45,7 +44,7 @@ export function SettingsPage() {
 		}
 	}, [repoName, buildCommand, mainBranch, period]);
 
-	const handleSave = (e: FormEvent) => {
+	const handleSave = useCallback((e: FormEvent) => {
 		e.preventDefault();
 
 		if (isSaving) {
@@ -71,18 +70,18 @@ export function SettingsPage() {
 			.finally(() => {
 				setIsSaving(false)
 			});
-	};
+	}, [isSaving, repoName, buildCommand, mainBranch, period, dispatch, history]);
 
-	const handleCancel = () => {
+	const handleCancel = useCallback(() => {
 		history.goBack();
-	};
+	}, [history]);
 
-	const numberMask = (input: string) => {
+	const numberMask = useCallback((input: string) => {
 		return input
 			.split('')
 			.filter(e => /\d/.test(e))
 			.map(_ => /\d/);
-	};
+	}, []);
 
 	return (
 		<Page className={cn()}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import MaskedInput from 'react-text-mask';
 
 import { bemHelper } from '../bem-helper';
@@ -20,7 +20,6 @@ interface FormFieldProps {
 	className?: string;
 }
 
-
 let id = 0;
 
 export function FormField(
@@ -38,23 +37,23 @@ export function FormField(
 ) {
 	const inputId = `form-field-${id++}`;
 
-	const [inputValue, setInputValue] = useState(value || '');
+	const [inputValue, setInputValue] = useState(value ?? "");
 
 	useEffect(() => {
 		onChange && onChange(inputValue);
 	}, [inputValue, onChange]);
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(event.target.value);
-	};
+	}, []);
 
-	const handleClearClick = () => {
+	const handleClearClick = useCallback(() => {
 		setInputValue("");
-	};
+	}, []);
 
-	const defaultMask = (input: string) => {
+	const defaultMask = useCallback((input: string) => {
 		return input.split("").map(() => /./);
-	};
+	}, []);
 
 	return (
 		<div className={cn(undefined, { required, inline }, className)}>

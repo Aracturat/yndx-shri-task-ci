@@ -14,7 +14,6 @@ interface ModalProps {
 	className?: string;
 }
 
-
 export function Modal({ children, header, className }: ModalProps) {
 	return (
 		<div className={cn(undefined, undefined, className)}>

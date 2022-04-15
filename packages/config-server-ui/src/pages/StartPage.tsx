@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from "react-router-dom";
 
 import { Button } from '../components/Button';
@@ -11,13 +11,12 @@ import "./StartPage.scss";
 
 const cn = bemHelper('start-page');
 
-
 export function StartPage() {
 	const history = useHistory();
 
-	const goToSettingsPage = () => {
+	const goToSettingsPage = useCallback(() => {
 		history.push("/settings");
-	};
+	}, [history]);
 
 	return (
 		<Page

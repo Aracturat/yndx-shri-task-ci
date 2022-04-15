@@ -4,6 +4,7 @@ import { Icon, IconName } from './Icon';
 
 import './Button.scss';
 
+
 const cn = bemHelper('button');
 
 interface ButtonProps {
@@ -17,8 +18,7 @@ interface ButtonProps {
     icon?: IconName;
 }
 
-
-export function Button(
+export const Button = React.memo((
     {
         children,
         onClick,
@@ -29,7 +29,7 @@ export function Button(
         className = '',
         icon
     }: ButtonProps
-) {
+) => {
     return (
         <button
             className={ cn(undefined, { small, action }, className) }
@@ -41,4 +41,4 @@ export function Button(
             { children && <span className={ cn('text') }>{ children }</span> }
         </button>
     );
-}
+});

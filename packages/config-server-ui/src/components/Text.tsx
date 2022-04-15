@@ -12,8 +12,8 @@ interface TextProps {
 	children: React.ReactNode;
 }
 
-export function Text({ size = 's', children, className }: TextProps) {
+export const Text = React.memo(({ size = 's', children, className }: TextProps) => {
 	return (
 		<div className={cn(undefined, { [`size-` + size]: !!size }, className)}>{children}</div>
 	)
-}
+});

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -44,11 +44,11 @@ export function BuildDetailsPage() {
 		}
 	});
 
-	const goToSettingsPage = () => {
+	const goToSettingsPage = useCallback(() => {
 		history.push('/settings');
-	};
+	}, [history]);
 
-	const handleRebuild = () => {
+	const handleRebuild = useCallback(() => {
 		if (isRebuild || !build) {
 			return;
 		}
@@ -59,7 +59,7 @@ export function BuildDetailsPage() {
 				setIsRebuild(false);
 				history.push(`/build/${newBuild.id}`);
 			});
-	};
+	}, [isRebuild, build, dispatch, history]);
 
 	if (!build) {
 		return <LoadingPage/>;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -7,21 +7,21 @@ import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Page } from '../components/Page';
 import { bemHelper } from '../bem-helper';
 import { AppDispatch, clearBuilds, getBuilds } from '../store/actions';
+import { AppState } from "../store/reducers";
 
 import { ModalOpener } from '../components/ModalOpener';
 import { NewBuildModal } from '../components/NewBuildModal';
 import { Spinner } from '../components/Spinner';
 import { Text } from '../components/Text';
 
+import { Build } from "@ci-server/config-server/src/models/build";
+
 import { BUILDS_PER_PAGE } from '../constants';
 
 import './BuildHistoryPage.scss';
-import { AppState } from "../store/reducers";
-import { Build } from "@ci-server/config-server/src/models/build";
 
 
 const cn = bemHelper('build-history-page');
-
 
 export function BuildHistoryPage() {
     const dispatch = useDispatch<AppDispatch>();
@@ -37,46 +37,48 @@ export function BuildHistoryPage() {
         setIsLoading(true);
     }, [dispatch]);
 
-    const goToSettingsPage = () => {
+    const goToSettingsPage = useCallback(() => {
         history.push('/settings');
-    };
+    }, [history]);
 
-    const goToBuildDetailsPage = (buildId: string) => {
-        history.push(`/build/${ buildId }`);
-    };
+    const goToBuildDetailsPage = useCallback((buildId: string) => {
+        history.push(`/build/${buildId}`);
+    }, [history]);
 
-    const loadMoreBuilds = () => {
+    const loadMoreBuilds = useCallback(() => {
         dispatch(getBuilds(BUILDS_PER_PAGE, builds.length));
-    };
+    }, [dispatch, builds.length]);
 
     return (
         <Page
-            className={ cn() }
+            className={cn()}
             headerButtons={
                 <>
                     <ModalOpener
-                        modal={ ({ closeModal }) => <NewBuildModal closeModal={ closeModal } /> }
-                        opener={ ({ openModal }) => <Button small
+                        modal={({ closeModal }) => <NewBuildModal closeModal={closeModal} />}
+                        opener={({ openModal }) => <Button small
                             icon="start"
-                            className={ cn('run-build-button') }
-                            onClick={ openModal }
+                            className={cn('run-build-button')}
+                            onClick={openModal}
                         >Run build</Button> }
                     />
-                    <Button small icon="gear" className={ cn('settings-button') } onClick={ goToSettingsPage } />
+                    <Button small icon="gear" className={cn('settings-button')} onClick={goToSettingsPage} />
                 </>
             }
         >
-            { !isLoading && builds.length === 0 &&
-			<Text>We don't have builds yet. Press 'Run build' button for a new build.</Text> }
+            { 
+                !isLoading && builds.length === 0 &&
+			    <Text>We don't have builds yet. Press 'Run build' button for a new build.</Text> 
+            }
             {
                 builds.length > 0
                 &&
-				<ol className={ cn('list') }>
+				<ol className={cn('list')}>
                     { builds.map(build =>
                         <BuildInfoCard
-                            key={ build.id }
-                            onClick={ () => goToBuildDetailsPage(build.id) }
-                            build={ build }
+                            key={build.id}
+                            onClick={() => goToBuildDetailsPage(build.id)}
+                            build={build}
                             tag="li"
                             withHover
                         />) }
@@ -90,7 +92,7 @@ export function BuildHistoryPage() {
             {
                 hasMoreBuilds
                 &&
-				<Button small className={ cn('show-more-button') } onClick={ loadMoreBuilds }>Show more</Button>
+				<Button small className={cn('show-more-button')} onClick={loadMoreBuilds}>Show more</Button>
             }
         </Page>
     );

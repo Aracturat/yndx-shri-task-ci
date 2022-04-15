@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -8,8 +8,9 @@ import { HeaderText } from './HeaderText';
 import { Footer } from './Footer';
 import { Main } from './Main';
 
-import "./Page.scss";
 import { AppState } from "../store/reducers";
+
+import "./Page.scss";
 
 interface PageProps {
 	children: React.ReactNode;
@@ -25,9 +26,9 @@ export function Page({ children, headerButtons, className }: PageProps) {
 	const repoName = useSelector<AppState, string | undefined>(state => state.settings?.repoName);
 	const history = useHistory();
 
-	const goToMainPage = () => {
+	const goToMainPage = useCallback(() => {
 		history.push(`/`);
-	};
+	}, [history]);
 
 	return (
 		<div className={cn(undefined, undefined, className)}>

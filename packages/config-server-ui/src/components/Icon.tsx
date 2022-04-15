@@ -25,8 +25,8 @@ interface IconProps {
     className?: string;
 }
 
-export function Icon({ name, size, className }: IconProps) {
+export const Icon = React.memo(({ name, size, className }: IconProps) => {
     return (
         <span className={ cn(undefined, { [name]: !!name, [`size-` + size]: !!size }, className) } />
     );
-}
+});

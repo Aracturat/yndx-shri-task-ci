@@ -21,8 +21,8 @@ function formatDuration(duration?: number): string {
 	}
 
 	let minutes = Math.floor(duration / 60);
-	let seconds = duration - 60 * minutes;
-	let hours = Math.floor(minutes / 60);
+	const seconds = duration - 60 * minutes;
+	const hours = Math.floor(minutes / 60);
 
 	minutes = minutes - 60 * hours;
 

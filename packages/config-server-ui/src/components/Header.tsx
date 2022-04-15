@@ -13,7 +13,7 @@ interface HeaderProps {
 	onLeftClick: () => void;
 }
 
-export function Header({ leftContent, rightContent, className, onLeftClick }: HeaderProps) {
+export const Header = React.memo(({ leftContent, rightContent, className, onLeftClick }: HeaderProps) => {
 	return (
 		<header className={cn(undefined, undefined, className)}>
 			<div className={cn("content")}>
@@ -26,4 +26,4 @@ export function Header({ leftContent, rightContent, className, onLeftClick }: He
 			</div>
 		</header>
 	)
-}
+});

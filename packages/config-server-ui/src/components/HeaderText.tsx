@@ -13,9 +13,8 @@ interface HeaderTextProps {
     className?: string;
 }
 
-
-export function HeaderText({ small = false, inactive = false, children, className }: HeaderTextProps) {
-    let WrapperTag = small ? 'h2' : 'h1' as any;
+export const HeaderText = React.memo(({ small = false, inactive = false, children, className }: HeaderTextProps) => {
+    const WrapperTag = small ? 'h2' : 'h1' as any;
 
     return (
         <WrapperTag className={
@@ -27,4 +26,4 @@ export function HeaderText({ small = false, inactive = false, children, classNam
             { children }
         </WrapperTag>
     );
-}
+});

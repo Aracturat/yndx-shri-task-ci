@@ -12,9 +12,8 @@ interface LinkProps {
 	className?: string;
 }
 
-
-export function Link({ href, children, className }: LinkProps) {
+export const Link = React.memo(({ href, children, className }: LinkProps) => {
 	return (
 		<a className={cn(undefined, undefined, className)} href={href}>{children}</a>
 	)
-}
+});

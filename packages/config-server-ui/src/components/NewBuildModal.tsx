@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ export function NewBuildModal({ closeModal }: NewBuildModalProps) {
 	const [isSaving, setIsSaving] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>();
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = useCallback((e: React.FormEvent) => {
 		e.preventDefault();
 
 		if (isSaving) {
@@ -46,7 +46,7 @@ export function NewBuildModal({ closeModal }: NewBuildModalProps) {
 					setError(err.error);
 				})
 		}
-	};
+	}, [dispatch, closeModal, history]);
 
 	if (error) {
 		return (
@@ -74,8 +74,3 @@ export function NewBuildModal({ closeModal }: NewBuildModalProps) {
 		</Modal>
 	)
 }
-
-
-
-
-
