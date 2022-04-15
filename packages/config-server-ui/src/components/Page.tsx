@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { FormattedMessage } from "react-intl";
 
+import { useHistory } from "../intl";
 import { bemHelper } from '../bem-helper';
 import { Header } from './Header';
 import { HeaderText } from './HeaderText';
@@ -37,7 +38,7 @@ export function Page({ children, headerButtons, className }: PageProps) {
 				leftContent={
 					repoName
 						? <HeaderText>{repoName}</HeaderText>
-						: <HeaderText inactive>School CI server</HeaderText>
+						: <HeaderText inactive><FormattedMessage id="Page.AppName"/></HeaderText>
 				}
 				rightContent={headerButtons}
 				onLeftClick={goToMainPage}

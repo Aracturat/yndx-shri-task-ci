@@ -1,0 +1,83 @@
+{
+  "Footer": {
+    "Links": {
+      "Support": "Поддержка",
+      "Learning": "Обучение",
+      "SwitchToEn": "English version",
+      "SwitchToRu": "Русская версия"
+    },
+    "Copyright": "© 2020 Николай Дозморов"
+  },
+  "ErrorModal": {
+    "Header": "Ошибка",
+    "Buttons": {
+      "Ok": "Ok"
+    }
+  },
+  "NewBuildModal": {
+    "Header": "Новая сборка",
+    "Fields": {
+      "CommitHash": {
+        "Label": "Хэш коммита",
+        "Placeholder": "Введите хеш коммита для которого вы хотите создать сборку."
+      }
+    },
+    "Buttons": {
+      "RunBuild": "Запустить сборку",
+      "Cancel": "Отмена"
+    }
+  },
+  "Page": {
+    "AppName": "School CI server"
+  },
+  "StartPage": {
+    "Description": "Настройте соединение с репозиторием и параметры синхронизации",
+    "HeaderButtons": {
+      "Settings": "Настройки"
+    },
+    "Buttons": {
+      "OpenSettings": "Открыть настройки"
+    }
+  },
+  "SettingsPage": {
+    "Header": "Настройки",
+    "Description": "Настройте соединение с репозиторием и параметры синхронизации",
+    "Fields": {
+      "GithubRepository": {
+        "Label": "Github репозиторий",
+        "Placeholder": "user-name/repo-name"
+      },
+      "BuildCommand": {
+        "Label": "Команда сборки",
+        "Placeholder": "npm ci && npm run build"
+      },
+      "MainBranch": {
+        "Label": "Главная ветка",
+        "Placeholder": "master"
+      },
+      "Period": {
+        "Label": "Синхронизация раз в # {period, plural, one {минуту} few {минуты} many {минут}}",
+        "Placeholder": "10"
+      }
+    },
+    "Buttons": {
+      "Save": "Сохранить",
+      "Cancel": "Отмена"
+    }
+  },
+  "BuildHistoryPage": {
+    "NoBuilds": "У нас пока нет сборок. Нажмите кнопку 'Запустить сборку' для запуска новой сборки.",
+    "HeaderButtons": {
+      "RunBuild": "Запустить сборку"
+    },
+    "Buttons": {
+      "ShowMore": "Показать больше"
+    }
+  },
+  "BuildDetailsPage": {
+    "NoLog": "Лог пуст",
+    "HeaderButtons": {
+      "Rebuild": "Перезапустить сборку"
+    }
+  }
+}

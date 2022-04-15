@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { FormattedMessage, useIntl } from "react-intl";
 
+import { useHistory } from "../intl";
 import { Button } from '../components/Button';
 import { BuildInfoCard } from '../components/BuildInfoCard';
 import { Log } from '../components/Log';
@@ -10,11 +12,11 @@ import { bemHelper } from '../bem-helper';
 import { Spinner } from '../components/Spinner';
 import { LoadingPage } from './LoadingPage';
 import { AppDispatch, getBuild, getBuildLogs, requestBuild } from '../store/actions';
+
 import { AppState } from "../store/reducers";
-
 import { Build } from "@ci-server/config-server/src/models/build";
-import { BuildLog } from "@ci-server/config-server/src/models/build-log";
 
+import { BuildLog } from "@ci-server/config-server/src/models/build-log";
 import './BuildDetailsPage.scss';
 
 
@@ -24,6 +26,7 @@ const cn = bemHelper('build-details-page');
 export function BuildDetailsPage() {
 	const { buildId } = useParams<{ buildId: string | undefined }>();
 	const history = useHistory();
+	const { formatMessage: f } = useIntl();
 
 	const dispatch = useDispatch<AppDispatch>();
 	const build = useSelector<AppState, Build | undefined>(state => state.builds.filter(e => e.id === buildId).shift());
@@ -77,7 +80,7 @@ export function BuildDetailsPage() {
 						onClick={handleRebuild}
 						disabled={isRebuild}
 					>
-						Rebuild
+						<FormattedMessage id="BuildDetailsPage.HeaderButtons.Rebuild"/>
 					</Button>
 					<Button
 						small
@@ -91,7 +94,7 @@ export function BuildDetailsPage() {
 			<BuildInfoCard build={build} buildInfoToBottom className={cn('build-info')} />
 			{
 				buildLog
-				? <Log text={buildLog.text || 'Log is empty.'} />
+				? <Log text={buildLog.text || f({id: 'BuildDetails.NoLog'})} />
 				: <div className={cn('spinner-area')}><Spinner/></div>}
 		</Page>
 	);
