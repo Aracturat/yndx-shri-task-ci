@@ -6,3 +6,4 @@ packages/build-agent/src/___TEMP___/repository/
 packages/config-server/src/___TEMP___/
 
 server-conf.json
+*.log
